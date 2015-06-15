@@ -36,7 +36,15 @@
             this.main_tabPage_reactiveTest = new System.Windows.Forms.TabPage();
             this.main_tabPage_steamThumbnailDeleter = new System.Windows.Forms.TabPage();
             this.main_tabPage_settings = new System.Windows.Forms.TabPage();
+            this.tb_aspectRatio_info = new System.Windows.Forms.TextBox();
+            this.tb_aspectRatio_width = new System.Windows.Forms.TextBox();
+            this.tb_aspectRatio_height = new System.Windows.Forms.TextBox();
+            this.tb_aspectRatio_ratio = new System.Windows.Forms.TextBox();
+            this.b_aspectRatio_calcWidth = new System.Windows.Forms.Button();
+            this.b_aspectRatio_calcHeight = new System.Windows.Forms.Button();
+            this.b_aspectRatio_calcRatio = new System.Windows.Forms.Button();
             this.tabControl_main.SuspendLayout();
+            this.main_tabPage_aspectRatio.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl_main
@@ -63,6 +71,13 @@
             // 
             // main_tabPage_aspectRatio
             // 
+            this.main_tabPage_aspectRatio.Controls.Add(this.b_aspectRatio_calcRatio);
+            this.main_tabPage_aspectRatio.Controls.Add(this.b_aspectRatio_calcHeight);
+            this.main_tabPage_aspectRatio.Controls.Add(this.b_aspectRatio_calcWidth);
+            this.main_tabPage_aspectRatio.Controls.Add(this.tb_aspectRatio_ratio);
+            this.main_tabPage_aspectRatio.Controls.Add(this.tb_aspectRatio_height);
+            this.main_tabPage_aspectRatio.Controls.Add(this.tb_aspectRatio_width);
+            this.main_tabPage_aspectRatio.Controls.Add(this.tb_aspectRatio_info);
             this.main_tabPage_aspectRatio.Location = new System.Drawing.Point(4, 22);
             this.main_tabPage_aspectRatio.Name = "main_tabPage_aspectRatio";
             this.main_tabPage_aspectRatio.Padding = new System.Windows.Forms.Padding(3);
@@ -171,6 +186,72 @@
             this.main_tabPage_settings.Text = "Settings";
             this.main_tabPage_settings.UseVisualStyleBackColor = true;
             // 
+            // tb_aspectRatio_info
+            // 
+            this.tb_aspectRatio_info.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tb_aspectRatio_info.Location = new System.Drawing.Point(8, 6);
+            this.tb_aspectRatio_info.Multiline = true;
+            this.tb_aspectRatio_info.Name = "tb_aspectRatio_info";
+            this.tb_aspectRatio_info.Size = new System.Drawing.Size(1060, 35);
+            this.tb_aspectRatio_info.TabIndex = 0;
+            this.tb_aspectRatio_info.Text = "Information:\r\nCalculates the ASPECT RATIO with the given width and height.";
+            this.tb_aspectRatio_info.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tb_aspectRatio_width
+            // 
+            this.tb_aspectRatio_width.Location = new System.Drawing.Point(8, 47);
+            this.tb_aspectRatio_width.MinimumSize = new System.Drawing.Size(50, 20);
+            this.tb_aspectRatio_width.Name = "tb_aspectRatio_width";
+            this.tb_aspectRatio_width.Size = new System.Drawing.Size(528, 20);
+            this.tb_aspectRatio_width.TabIndex = 1;
+            this.tb_aspectRatio_width.Text = "Width";
+            // 
+            // tb_aspectRatio_height
+            // 
+            this.tb_aspectRatio_height.Location = new System.Drawing.Point(8, 73);
+            this.tb_aspectRatio_height.MinimumSize = new System.Drawing.Size(50, 20);
+            this.tb_aspectRatio_height.Name = "tb_aspectRatio_height";
+            this.tb_aspectRatio_height.Size = new System.Drawing.Size(528, 20);
+            this.tb_aspectRatio_height.TabIndex = 2;
+            this.tb_aspectRatio_height.Text = "Height";
+            // 
+            // tb_aspectRatio_ratio
+            // 
+            this.tb_aspectRatio_ratio.Location = new System.Drawing.Point(8, 99);
+            this.tb_aspectRatio_ratio.MinimumSize = new System.Drawing.Size(50, 20);
+            this.tb_aspectRatio_ratio.Name = "tb_aspectRatio_ratio";
+            this.tb_aspectRatio_ratio.Size = new System.Drawing.Size(528, 20);
+            this.tb_aspectRatio_ratio.TabIndex = 3;
+            this.tb_aspectRatio_ratio.Text = "Ratio";
+            // 
+            // b_aspectRatio_calcWidth
+            // 
+            this.b_aspectRatio_calcWidth.Location = new System.Drawing.Point(542, 47);
+            this.b_aspectRatio_calcWidth.Name = "b_aspectRatio_calcWidth";
+            this.b_aspectRatio_calcWidth.Size = new System.Drawing.Size(165, 72);
+            this.b_aspectRatio_calcWidth.TabIndex = 4;
+            this.b_aspectRatio_calcWidth.Text = "Calculate Width";
+            this.b_aspectRatio_calcWidth.UseVisualStyleBackColor = true;
+            // 
+            // b_aspectRatio_calcHeight
+            // 
+            this.b_aspectRatio_calcHeight.Location = new System.Drawing.Point(713, 46);
+            this.b_aspectRatio_calcHeight.Name = "b_aspectRatio_calcHeight";
+            this.b_aspectRatio_calcHeight.Size = new System.Drawing.Size(165, 72);
+            this.b_aspectRatio_calcHeight.TabIndex = 5;
+            this.b_aspectRatio_calcHeight.Text = "Calculate Height";
+            this.b_aspectRatio_calcHeight.UseVisualStyleBackColor = true;
+            // 
+            // b_aspectRatio_calcRatio
+            // 
+            this.b_aspectRatio_calcRatio.Location = new System.Drawing.Point(884, 46);
+            this.b_aspectRatio_calcRatio.Name = "b_aspectRatio_calcRatio";
+            this.b_aspectRatio_calcRatio.Size = new System.Drawing.Size(165, 72);
+            this.b_aspectRatio_calcRatio.TabIndex = 6;
+            this.b_aspectRatio_calcRatio.Text = "Calculate Ratio";
+            this.b_aspectRatio_calcRatio.UseVisualStyleBackColor = true;
+            // 
             // GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -180,6 +261,8 @@
             this.Name = "GUI";
             this.Text = "GUI";
             this.tabControl_main.ResumeLayout(false);
+            this.main_tabPage_aspectRatio.ResumeLayout(false);
+            this.main_tabPage_aspectRatio.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -199,5 +282,12 @@
         private System.Windows.Forms.TabPage main_tabPage_reactiveTest;
         private System.Windows.Forms.TabPage main_tabPage_steamThumbnailDeleter;
         private System.Windows.Forms.TabPage main_tabPage_settings;
+        private System.Windows.Forms.TextBox tb_aspectRatio_height;
+        private System.Windows.Forms.TextBox tb_aspectRatio_width;
+        private System.Windows.Forms.TextBox tb_aspectRatio_info;
+        private System.Windows.Forms.Button b_aspectRatio_calcRatio;
+        private System.Windows.Forms.Button b_aspectRatio_calcHeight;
+        private System.Windows.Forms.Button b_aspectRatio_calcWidth;
+        private System.Windows.Forms.TextBox tb_aspectRatio_ratio;
     }
 }
