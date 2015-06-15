@@ -58,11 +58,37 @@
             this.b_clipboard_deleteAll = new System.Windows.Forms.Button();
             this.b_clipboard_copySelectedIntoClipboard = new System.Windows.Forms.Button();
             this.cbox_clipboard_autoscroll = new System.Windows.Forms.CheckBox();
+            this.listBox_copyFinder_list = new System.Windows.Forms.ListBox();
+            this.l_copyFinder_searchedFolder = new System.Windows.Forms.Label();
+            this.b_copyFinder_findCopiesEverywhere = new System.Windows.Forms.Button();
+            this.b_copyFinder_findCopiesInFolder = new System.Windows.Forms.Button();
+            this.cbox_copyFinder_deleteCopiesIfFound = new System.Windows.Forms.CheckBox();
+            this.tb_clipboard_info = new System.Windows.Forms.TextBox();
+            this.tb_copyFinder_info = new System.Windows.Forms.TextBox();
+            this.b_copyFinder_deleteAllFolder = new System.Windows.Forms.Button();
+            this.b_copyFinder_deleteSelectedFolder = new System.Windows.Forms.Button();
+            this.tb_deleteEmpty_info = new System.Windows.Forms.TextBox();
+            this.groupBox_deleteEmpty_options = new System.Windows.Forms.GroupBox();
+            this.radio_deleteEmpty_options_files = new System.Windows.Forms.RadioButton();
+            this.radio_deleteEmpty_options_folder = new System.Windows.Forms.RadioButton();
+            this.radio_deleteEmpty_options_FAF = new System.Windows.Forms.RadioButton();
+            this.cbox_deleteEmpty_options_countFirst = new System.Windows.Forms.CheckBox();
+            this.cbox_deleteEmpty_options_includeSubdirs = new System.Windows.Forms.CheckBox();
+            this.b_deleteEmpty_delete = new System.Windows.Forms.Button();
+            this.groupBox_deleteEmpty_result = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.listBox_deleteEmpty_result = new System.Windows.Forms.ListBox();
             this.tabControl_main.SuspendLayout();
             this.main_tabPage_aspectRatio.SuspendLayout();
             this.main_tabPage_bpm.SuspendLayout();
             this.main_tabPage_clickSpeed.SuspendLayout();
             this.main_tabPage_clipboard.SuspendLayout();
+            this.main_tabPage_copyFinder.SuspendLayout();
+            this.main_tabPage_deleteEmpty.SuspendLayout();
+            this.groupBox_deleteEmpty_options.SuspendLayout();
+            this.groupBox_deleteEmpty_result.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl_main
@@ -134,6 +160,7 @@
             // 
             // main_tabPage_clipboard
             // 
+            this.main_tabPage_clipboard.Controls.Add(this.tb_clipboard_info);
             this.main_tabPage_clipboard.Controls.Add(this.cbox_clipboard_autoscroll);
             this.main_tabPage_clipboard.Controls.Add(this.b_clipboard_copySelectedIntoClipboard);
             this.main_tabPage_clipboard.Controls.Add(this.b_clipboard_deleteAll);
@@ -149,18 +176,30 @@
             // 
             // main_tabPage_copyFinder
             // 
+            this.main_tabPage_copyFinder.Controls.Add(this.b_copyFinder_deleteSelectedFolder);
+            this.main_tabPage_copyFinder.Controls.Add(this.b_copyFinder_deleteAllFolder);
+            this.main_tabPage_copyFinder.Controls.Add(this.tb_copyFinder_info);
+            this.main_tabPage_copyFinder.Controls.Add(this.cbox_copyFinder_deleteCopiesIfFound);
+            this.main_tabPage_copyFinder.Controls.Add(this.b_copyFinder_findCopiesInFolder);
+            this.main_tabPage_copyFinder.Controls.Add(this.b_copyFinder_findCopiesEverywhere);
+            this.main_tabPage_copyFinder.Controls.Add(this.l_copyFinder_searchedFolder);
+            this.main_tabPage_copyFinder.Controls.Add(this.listBox_copyFinder_list);
             this.main_tabPage_copyFinder.Location = new System.Drawing.Point(4, 22);
             this.main_tabPage_copyFinder.Name = "main_tabPage_copyFinder";
-            this.main_tabPage_copyFinder.Size = new System.Drawing.Size(976, 536);
+            this.main_tabPage_copyFinder.Size = new System.Drawing.Size(1076, 536);
             this.main_tabPage_copyFinder.TabIndex = 4;
             this.main_tabPage_copyFinder.Text = "Copy Finder";
             this.main_tabPage_copyFinder.UseVisualStyleBackColor = true;
             // 
             // main_tabPage_deleteEmpty
             // 
+            this.main_tabPage_deleteEmpty.Controls.Add(this.groupBox_deleteEmpty_result);
+            this.main_tabPage_deleteEmpty.Controls.Add(this.b_deleteEmpty_delete);
+            this.main_tabPage_deleteEmpty.Controls.Add(this.groupBox_deleteEmpty_options);
+            this.main_tabPage_deleteEmpty.Controls.Add(this.tb_deleteEmpty_info);
             this.main_tabPage_deleteEmpty.Location = new System.Drawing.Point(4, 22);
             this.main_tabPage_deleteEmpty.Name = "main_tabPage_deleteEmpty";
-            this.main_tabPage_deleteEmpty.Size = new System.Drawing.Size(976, 536);
+            this.main_tabPage_deleteEmpty.Size = new System.Drawing.Size(1076, 536);
             this.main_tabPage_deleteEmpty.TabIndex = 5;
             this.main_tabPage_deleteEmpty.Text = "Delete Empty";
             this.main_tabPage_deleteEmpty.UseVisualStyleBackColor = true;
@@ -377,9 +416,9 @@
             // listBox_clipboard_list
             // 
             this.listBox_clipboard_list.FormattingEnabled = true;
-            this.listBox_clipboard_list.Location = new System.Drawing.Point(8, 3);
+            this.listBox_clipboard_list.Location = new System.Drawing.Point(8, 42);
             this.listBox_clipboard_list.Name = "listBox_clipboard_list";
-            this.listBox_clipboard_list.Size = new System.Drawing.Size(1060, 498);
+            this.listBox_clipboard_list.Size = new System.Drawing.Size(1060, 459);
             this.listBox_clipboard_list.TabIndex = 0;
             // 
             // b_clipboard_changeStatus
@@ -430,6 +469,231 @@
             this.cbox_clipboard_autoscroll.Text = "Auto-Scroll";
             this.cbox_clipboard_autoscroll.UseVisualStyleBackColor = true;
             // 
+            // listBox_copyFinder_list
+            // 
+            this.listBox_copyFinder_list.FormattingEnabled = true;
+            this.listBox_copyFinder_list.Location = new System.Drawing.Point(8, 42);
+            this.listBox_copyFinder_list.Name = "listBox_copyFinder_list";
+            this.listBox_copyFinder_list.Size = new System.Drawing.Size(1060, 420);
+            this.listBox_copyFinder_list.TabIndex = 0;
+            // 
+            // l_copyFinder_searchedFolder
+            // 
+            this.l_copyFinder_searchedFolder.AutoSize = true;
+            this.l_copyFinder_searchedFolder.Location = new System.Drawing.Point(8, 477);
+            this.l_copyFinder_searchedFolder.Name = "l_copyFinder_searchedFolder";
+            this.l_copyFinder_searchedFolder.Size = new System.Drawing.Size(94, 13);
+            this.l_copyFinder_searchedFolder.TabIndex = 1;
+            this.l_copyFinder_searchedFolder.Text = "Searched folder: 0";
+            // 
+            // b_copyFinder_findCopiesEverywhere
+            // 
+            this.b_copyFinder_findCopiesEverywhere.Location = new System.Drawing.Point(11, 505);
+            this.b_copyFinder_findCopiesEverywhere.Name = "b_copyFinder_findCopiesEverywhere";
+            this.b_copyFinder_findCopiesEverywhere.Size = new System.Drawing.Size(155, 23);
+            this.b_copyFinder_findCopiesEverywhere.TabIndex = 2;
+            this.b_copyFinder_findCopiesEverywhere.Text = "Find copies everywhere";
+            this.b_copyFinder_findCopiesEverywhere.UseVisualStyleBackColor = true;
+            // 
+            // b_copyFinder_findCopiesInFolder
+            // 
+            this.b_copyFinder_findCopiesInFolder.Location = new System.Drawing.Point(172, 505);
+            this.b_copyFinder_findCopiesInFolder.Name = "b_copyFinder_findCopiesInFolder";
+            this.b_copyFinder_findCopiesInFolder.Size = new System.Drawing.Size(155, 23);
+            this.b_copyFinder_findCopiesInFolder.TabIndex = 3;
+            this.b_copyFinder_findCopiesInFolder.Text = "Find copies in folder...";
+            this.b_copyFinder_findCopiesInFolder.UseVisualStyleBackColor = true;
+            // 
+            // cbox_copyFinder_deleteCopiesIfFound
+            // 
+            this.cbox_copyFinder_deleteCopiesIfFound.AutoSize = true;
+            this.cbox_copyFinder_deleteCopiesIfFound.Location = new System.Drawing.Point(333, 509);
+            this.cbox_copyFinder_deleteCopiesIfFound.Name = "cbox_copyFinder_deleteCopiesIfFound";
+            this.cbox_copyFinder_deleteCopiesIfFound.Size = new System.Drawing.Size(192, 17);
+            this.cbox_copyFinder_deleteCopiesIfFound.TabIndex = 4;
+            this.cbox_copyFinder_deleteCopiesIfFound.Text = "Automatically delete copies if found";
+            this.cbox_copyFinder_deleteCopiesIfFound.UseVisualStyleBackColor = true;
+            // 
+            // tb_clipboard_info
+            // 
+            this.tb_clipboard_info.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tb_clipboard_info.Location = new System.Drawing.Point(3, 3);
+            this.tb_clipboard_info.Multiline = true;
+            this.tb_clipboard_info.Name = "tb_clipboard_info";
+            this.tb_clipboard_info.Size = new System.Drawing.Size(1060, 36);
+            this.tb_clipboard_info.TabIndex = 6;
+            this.tb_clipboard_info.Text = "Information: \r\nSaves all your past clipboard texts.";
+            this.tb_clipboard_info.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tb_copyFinder_info
+            // 
+            this.tb_copyFinder_info.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tb_copyFinder_info.Location = new System.Drawing.Point(3, 3);
+            this.tb_copyFinder_info.Multiline = true;
+            this.tb_copyFinder_info.Name = "tb_copyFinder_info";
+            this.tb_copyFinder_info.Size = new System.Drawing.Size(1060, 36);
+            this.tb_copyFinder_info.TabIndex = 5;
+            this.tb_copyFinder_info.Text = "Information: \r\nFind all folder with \"(Kopie)\" or \"(Copy)\" in their name.";
+            this.tb_copyFinder_info.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // b_copyFinder_deleteAllFolder
+            // 
+            this.b_copyFinder_deleteAllFolder.Location = new System.Drawing.Point(531, 505);
+            this.b_copyFinder_deleteAllFolder.Name = "b_copyFinder_deleteAllFolder";
+            this.b_copyFinder_deleteAllFolder.Size = new System.Drawing.Size(155, 23);
+            this.b_copyFinder_deleteAllFolder.TabIndex = 6;
+            this.b_copyFinder_deleteAllFolder.Text = "Delete all folder";
+            this.b_copyFinder_deleteAllFolder.UseVisualStyleBackColor = true;
+            // 
+            // b_copyFinder_deleteSelectedFolder
+            // 
+            this.b_copyFinder_deleteSelectedFolder.Location = new System.Drawing.Point(692, 505);
+            this.b_copyFinder_deleteSelectedFolder.Name = "b_copyFinder_deleteSelectedFolder";
+            this.b_copyFinder_deleteSelectedFolder.Size = new System.Drawing.Size(155, 23);
+            this.b_copyFinder_deleteSelectedFolder.TabIndex = 7;
+            this.b_copyFinder_deleteSelectedFolder.Text = "Delete selected folder";
+            this.b_copyFinder_deleteSelectedFolder.UseVisualStyleBackColor = true;
+            // 
+            // tb_deleteEmpty_info
+            // 
+            this.tb_deleteEmpty_info.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tb_deleteEmpty_info.Location = new System.Drawing.Point(3, 3);
+            this.tb_deleteEmpty_info.Multiline = true;
+            this.tb_deleteEmpty_info.Name = "tb_deleteEmpty_info";
+            this.tb_deleteEmpty_info.Size = new System.Drawing.Size(1060, 36);
+            this.tb_deleteEmpty_info.TabIndex = 6;
+            this.tb_deleteEmpty_info.Text = "Information: \r\nDeletes all empty folder/files.";
+            this.tb_deleteEmpty_info.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // groupBox_deleteEmpty_options
+            // 
+            this.groupBox_deleteEmpty_options.Controls.Add(this.cbox_deleteEmpty_options_includeSubdirs);
+            this.groupBox_deleteEmpty_options.Controls.Add(this.cbox_deleteEmpty_options_countFirst);
+            this.groupBox_deleteEmpty_options.Controls.Add(this.radio_deleteEmpty_options_FAF);
+            this.groupBox_deleteEmpty_options.Controls.Add(this.radio_deleteEmpty_options_folder);
+            this.groupBox_deleteEmpty_options.Controls.Add(this.radio_deleteEmpty_options_files);
+            this.groupBox_deleteEmpty_options.Location = new System.Drawing.Point(8, 45);
+            this.groupBox_deleteEmpty_options.Name = "groupBox_deleteEmpty_options";
+            this.groupBox_deleteEmpty_options.Size = new System.Drawing.Size(1055, 68);
+            this.groupBox_deleteEmpty_options.TabIndex = 7;
+            this.groupBox_deleteEmpty_options.TabStop = false;
+            this.groupBox_deleteEmpty_options.Text = "Options";
+            // 
+            // radio_deleteEmpty_options_files
+            // 
+            this.radio_deleteEmpty_options_files.AutoSize = true;
+            this.radio_deleteEmpty_options_files.Location = new System.Drawing.Point(6, 19);
+            this.radio_deleteEmpty_options_files.Name = "radio_deleteEmpty_options_files";
+            this.radio_deleteEmpty_options_files.Size = new System.Drawing.Size(46, 17);
+            this.radio_deleteEmpty_options_files.TabIndex = 0;
+            this.radio_deleteEmpty_options_files.TabStop = true;
+            this.radio_deleteEmpty_options_files.Text = "Files";
+            this.radio_deleteEmpty_options_files.UseVisualStyleBackColor = true;
+            // 
+            // radio_deleteEmpty_options_folder
+            // 
+            this.radio_deleteEmpty_options_folder.AutoSize = true;
+            this.radio_deleteEmpty_options_folder.Location = new System.Drawing.Point(58, 19);
+            this.radio_deleteEmpty_options_folder.Name = "radio_deleteEmpty_options_folder";
+            this.radio_deleteEmpty_options_folder.Size = new System.Drawing.Size(54, 17);
+            this.radio_deleteEmpty_options_folder.TabIndex = 1;
+            this.radio_deleteEmpty_options_folder.TabStop = true;
+            this.radio_deleteEmpty_options_folder.Text = "Folder";
+            this.radio_deleteEmpty_options_folder.UseVisualStyleBackColor = true;
+            // 
+            // radio_deleteEmpty_options_FAF
+            // 
+            this.radio_deleteEmpty_options_FAF.AutoSize = true;
+            this.radio_deleteEmpty_options_FAF.Location = new System.Drawing.Point(118, 19);
+            this.radio_deleteEmpty_options_FAF.Name = "radio_deleteEmpty_options_FAF";
+            this.radio_deleteEmpty_options_FAF.Size = new System.Drawing.Size(99, 17);
+            this.radio_deleteEmpty_options_FAF.TabIndex = 2;
+            this.radio_deleteEmpty_options_FAF.TabStop = true;
+            this.radio_deleteEmpty_options_FAF.Text = "Files and Folder";
+            this.radio_deleteEmpty_options_FAF.UseVisualStyleBackColor = true;
+            // 
+            // cbox_deleteEmpty_options_countFirst
+            // 
+            this.cbox_deleteEmpty_options_countFirst.AutoSize = true;
+            this.cbox_deleteEmpty_options_countFirst.Location = new System.Drawing.Point(6, 42);
+            this.cbox_deleteEmpty_options_countFirst.Name = "cbox_deleteEmpty_options_countFirst";
+            this.cbox_deleteEmpty_options_countFirst.Size = new System.Drawing.Size(73, 17);
+            this.cbox_deleteEmpty_options_countFirst.TabIndex = 3;
+            this.cbox_deleteEmpty_options_countFirst.Text = "Count first";
+            this.cbox_deleteEmpty_options_countFirst.UseVisualStyleBackColor = true;
+            // 
+            // cbox_deleteEmpty_options_includeSubdirs
+            // 
+            this.cbox_deleteEmpty_options_includeSubdirs.AutoSize = true;
+            this.cbox_deleteEmpty_options_includeSubdirs.Checked = true;
+            this.cbox_deleteEmpty_options_includeSubdirs.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbox_deleteEmpty_options_includeSubdirs.Location = new System.Drawing.Point(118, 42);
+            this.cbox_deleteEmpty_options_includeSubdirs.Name = "cbox_deleteEmpty_options_includeSubdirs";
+            this.cbox_deleteEmpty_options_includeSubdirs.Size = new System.Drawing.Size(129, 17);
+            this.cbox_deleteEmpty_options_includeSubdirs.TabIndex = 4;
+            this.cbox_deleteEmpty_options_includeSubdirs.Text = "Include subdirectories";
+            this.cbox_deleteEmpty_options_includeSubdirs.UseVisualStyleBackColor = true;
+            // 
+            // b_deleteEmpty_delete
+            // 
+            this.b_deleteEmpty_delete.Location = new System.Drawing.Point(8, 119);
+            this.b_deleteEmpty_delete.Name = "b_deleteEmpty_delete";
+            this.b_deleteEmpty_delete.Size = new System.Drawing.Size(1055, 23);
+            this.b_deleteEmpty_delete.TabIndex = 8;
+            this.b_deleteEmpty_delete.Text = "Delete Empty Folder/Files";
+            this.b_deleteEmpty_delete.UseVisualStyleBackColor = true;
+            // 
+            // groupBox_deleteEmpty_result
+            // 
+            this.groupBox_deleteEmpty_result.Controls.Add(this.listBox_deleteEmpty_result);
+            this.groupBox_deleteEmpty_result.Controls.Add(this.label3);
+            this.groupBox_deleteEmpty_result.Controls.Add(this.label2);
+            this.groupBox_deleteEmpty_result.Controls.Add(this.label1);
+            this.groupBox_deleteEmpty_result.Location = new System.Drawing.Point(8, 148);
+            this.groupBox_deleteEmpty_result.Name = "groupBox_deleteEmpty_result";
+            this.groupBox_deleteEmpty_result.Size = new System.Drawing.Size(1060, 380);
+            this.groupBox_deleteEmpty_result.TabIndex = 9;
+            this.groupBox_deleteEmpty_result.TabStop = false;
+            this.groupBox_deleteEmpty_result.Text = "Result";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(65, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Searched: 0";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(255, 16);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(43, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Total: 0";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(485, 16);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(56, 13);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Deleted: 0";
+            // 
+            // listBox_deleteEmpty_result
+            // 
+            this.listBox_deleteEmpty_result.FormattingEnabled = true;
+            this.listBox_deleteEmpty_result.Location = new System.Drawing.Point(9, 46);
+            this.listBox_deleteEmpty_result.Name = "listBox_deleteEmpty_result";
+            this.listBox_deleteEmpty_result.Size = new System.Drawing.Size(1045, 329);
+            this.listBox_deleteEmpty_result.TabIndex = 3;
+            // 
             // GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -447,6 +711,14 @@
             this.main_tabPage_clickSpeed.PerformLayout();
             this.main_tabPage_clipboard.ResumeLayout(false);
             this.main_tabPage_clipboard.PerformLayout();
+            this.main_tabPage_copyFinder.ResumeLayout(false);
+            this.main_tabPage_copyFinder.PerformLayout();
+            this.main_tabPage_deleteEmpty.ResumeLayout(false);
+            this.main_tabPage_deleteEmpty.PerformLayout();
+            this.groupBox_deleteEmpty_options.ResumeLayout(false);
+            this.groupBox_deleteEmpty_options.PerformLayout();
+            this.groupBox_deleteEmpty_result.ResumeLayout(false);
+            this.groupBox_deleteEmpty_result.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -488,5 +760,27 @@
         private System.Windows.Forms.Button b_clipboard_deleteSelected;
         private System.Windows.Forms.Button b_clipboard_changeStatus;
         private System.Windows.Forms.ListBox listBox_clipboard_list;
+        private System.Windows.Forms.TextBox tb_clipboard_info;
+        private System.Windows.Forms.Button b_copyFinder_deleteSelectedFolder;
+        private System.Windows.Forms.Button b_copyFinder_deleteAllFolder;
+        private System.Windows.Forms.TextBox tb_copyFinder_info;
+        private System.Windows.Forms.CheckBox cbox_copyFinder_deleteCopiesIfFound;
+        private System.Windows.Forms.Button b_copyFinder_findCopiesInFolder;
+        private System.Windows.Forms.Button b_copyFinder_findCopiesEverywhere;
+        private System.Windows.Forms.Label l_copyFinder_searchedFolder;
+        private System.Windows.Forms.ListBox listBox_copyFinder_list;
+        private System.Windows.Forms.GroupBox groupBox_deleteEmpty_options;
+        private System.Windows.Forms.RadioButton radio_deleteEmpty_options_FAF;
+        private System.Windows.Forms.RadioButton radio_deleteEmpty_options_folder;
+        private System.Windows.Forms.RadioButton radio_deleteEmpty_options_files;
+        private System.Windows.Forms.TextBox tb_deleteEmpty_info;
+        private System.Windows.Forms.GroupBox groupBox_deleteEmpty_result;
+        private System.Windows.Forms.ListBox listBox_deleteEmpty_result;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button b_deleteEmpty_delete;
+        private System.Windows.Forms.CheckBox cbox_deleteEmpty_options_includeSubdirs;
+        private System.Windows.Forms.CheckBox cbox_deleteEmpty_options_countFirst;
     }
 }
