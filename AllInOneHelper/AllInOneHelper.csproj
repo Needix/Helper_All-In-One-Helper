@@ -52,6 +52,8 @@
     <Compile Include="src\GUI\GUI.Designer.cs">
       <DependentUpon>GUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\Modules\AspectRatio\AspectRatio.cs" />
+    <Compile Include="src\Modules\Module.cs" />
     <Compile Include="src\Settings\Settings.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -76,7 +78,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="src\Modules\AspectRatio\" />
     <Folder Include="src\Modules\BPM\" />
     <Folder Include="src\Modules\ClickSpeed\" />
     <Folder Include="src\Modules\ClipboardHistory\" />

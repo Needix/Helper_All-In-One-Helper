@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AllInOneHelper.src.Modules.AspectRatio;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -23,9 +24,17 @@ namespace AllInOneHelper.src.GUI {
 
         //Constructor
         private GUI() {
+            GUI.gui = this;
+
             InitializeComponent();
 
-            GUI.gui = this;
+            InitializeAllModules();
+        }
+
+        private void InitializeAllModules() {
+            AspectRatio.init(
+                new Button[3] { b_aspectRatio_calcWidth, b_aspectRatio_calcHeight, b_aspectRatio_calcRatio }
+            );
         }
 
         #region Events
