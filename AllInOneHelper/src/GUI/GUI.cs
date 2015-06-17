@@ -28,16 +28,43 @@ namespace AllInOneHelper.src.GUI {
 
             InitializeComponent();
 
-            InitializeAllModules();
+            InitializeModules();
+
+            registerEvents();
         }
 
-        private void InitializeAllModules() {
-            AspectRatio.init(
-                new Button[3] { b_aspectRatio_calcWidth, b_aspectRatio_calcHeight, b_aspectRatio_calcRatio }
-            );
+        private void InitializeModules() {
+            AspectRatio.init(new Control[] { tb_aspectRatio_info, tb_aspectRatio_width, tb_aspectRatio_height, tb_aspectRatio_ratio });
         }
 
-        #region Events
+        public void registerEvents() {
+            //AspectRatio
+            EventHandler handler = new EventHandler(AspectRatio.buttonEventListener);
+            b_aspectRatio_calcWidth.Click += handler;
+            b_aspectRatio_calcHeight.Click += handler;
+            b_aspectRatio_calcRatio.Click += handler;
+            //BPM
+
+            //ClickSpeed
+
+            //ClipboardHistory
+
+            //CopyFinder
+
+            //DeleteEmpty
+
+            //KeyboardRecord
+
+            //MassFileManipulation
+
+            //MouseRecord
+
+            //ReactiveTest
+
+            //SteamThumbnailDeleter
+        }
+
+        #region Non-Module-Events
         protected override void OnClosing(CancelEventArgs e) {
             base.OnClosing(e);
 
