@@ -53,6 +53,7 @@
       <DependentUpon>GUI.cs</DependentUpon>
     </Compile>
     <Compile Include="src\Modules\AspectRatio\AspectRatio.cs" />
+    <Compile Include="src\Modules\BPM\BPM.cs" />
     <Compile Include="src\Modules\ClickSpeed\ClickSpeedPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -19,14 +19,26 @@ namespace AllInOneHelper.src.Modules.BPM {
             registerEvents();
         }
 
+        //TODO Implement visual BPM
         private void registerEvents() {
             EventHandler handler = new EventHandler(buttonEventListener);
-            
+            b_bpm_tap.Click += handler;
+            b_bpm_reset.Click += handler;
         }
 
         private void buttonEventListener(object sender, System.EventArgs e) {
             Button button = (Button)sender;
-            
+
+            switch(button.Name) {
+                case "b_bpm_tap":
+                    BPM.click();
+                    break;
+                case "b_bpm_reset":
+                    BPM.reset();
+                    break;
+            }
+            l_bpm_averageBPM.Text = "Average BPM: " + (int)Math.Round(BPM.getAverage);
+            l_bpm_curBPM.Text = "Current BPM: " + BPM.getCurBPM;
         }
 
         private void InitializeComponent()
