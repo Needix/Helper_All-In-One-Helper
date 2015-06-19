@@ -7,3 +7,15 @@ R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHel
 R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHelper\obj\Debug\AllInOneHelper.exe
 R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHelper\obj\Debug\AllInOneHelper.pdb
 R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHelper\obj\Debug\AllInOneHelper.src.Modules.AspectRatioPanel.resources
+R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHelper\obj\Debug\AllInOneHelper.src.Modules.BPM.CustomPanel.resources
+R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHelper\obj\Debug\AllInOneHelper.src.Modules.BPM.BPMPanel.resources
+R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHelper\obj\Debug\AllInOneHelper.src.Modules.BPM.ClickSpeedPanel.resources
+R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHelper\obj\Debug\AllInOneHelper.src.Modules.BPM.ClipboardPanel.resources
+R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHelper\obj\Debug\AllInOneHelper.src.Modules.BPM.CopyFinderPanel.resources
+R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHelper\obj\Debug\AllInOneHelper.src.Modules.BPM.DeleteEmptyPanel.resources
+R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHelper\obj\Debug\AllInOneHelper.src.Modules.BPM.KeyboardRecordPanel.resources
+R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHelper\obj\Debug\AllInOneHelper.src.Modules.BPM.MassFileManipulationPanel.resources
+R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHelper\obj\Debug\AllInOneHelper.src.Modules.BPM.MouseRecordPanel.resources
+R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHelper\obj\Debug\AllInOneHelper.src.Modules.BPM.ReactiveTestPanel.resources
+R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHelper\obj\Debug\AllInOneHelper.src.Modules.BPM.SteamThumbnailPanel.resources
+R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHelper\obj\Debug\AllInOneHelper.src.Modules.BPM.SettingsPanel.resources

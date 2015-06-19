@@ -53,8 +53,43 @@
       <DependentUpon>GUI.cs</DependentUpon>
     </Compile>
     <Compile Include="src\Modules\AspectRatio\AspectRatio.cs" />
-    <Compile Include="src\Modules\Module.cs" />
+    <Compile Include="src\Modules\ClickSpeed\ClickSpeedPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\Modules\ClipboardHistory\ClipboardPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\Modules\CopyFinder\CopyFinderPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\Modules\CustomPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\Modules\BPM\BPMPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="src\Modules\AspectRatio\AspectRatioPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\Modules\DeleteEmpty\DeleteEmptyPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\Modules\KeyboardRecord\KeyboardRecordPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\Modules\MassFileManipulation\MassFileManipulationPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\Modules\MouseRecord\MouseRecordPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\Modules\ReactiveTest\ReactiveTestPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\Modules\SteamThumbnailDeleter\SteamThumbnailPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\Settings\SettingsPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="src\Settings\Settings.cs" />
@@ -73,6 +108,42 @@
     <EmbeddedResource Include="src\Modules\AspectRatio\AspectRatioPanel.resx">
       <DependentUpon>AspectRatioPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="src\Modules\ClickSpeed\ClickSpeedPanel.resx">
+      <DependentUpon>ClickSpeedPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Modules\ClipboardHistory\ClipboardPanel.resx">
+      <DependentUpon>ClipboardPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Modules\CopyFinder\CopyFinderPanel.resx">
+      <DependentUpon>CopyFinderPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Modules\CustomPanel.resx">
+      <DependentUpon>CustomPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Modules\BPM\BPMPanel.resx">
+      <DependentUpon>BPMPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Modules\DeleteEmpty\DeleteEmptyPanel.resx">
+      <DependentUpon>DeleteEmptyPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Modules\KeyboardRecord\KeyboardRecordPanel.resx">
+      <DependentUpon>KeyboardRecordPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Modules\MassFileManipulation\MassFileManipulationPanel.resx">
+      <DependentUpon>MassFileManipulationPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Modules\MouseRecord\MouseRecordPanel.resx">
+      <DependentUpon>MouseRecordPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Modules\ReactiveTest\ReactiveTestPanel.resx">
+      <DependentUpon>ReactiveTestPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Modules\SteamThumbnailDeleter\SteamThumbnailPanel.resx">
+      <DependentUpon>SteamThumbnailPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Settings\SettingsPanel.resx">
+      <DependentUpon>SettingsPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -83,18 +154,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="src\Modules\BPM\" />
-    <Folder Include="src\Modules\ClickSpeed\" />
-    <Folder Include="src\Modules\ClipboardHistory\" />
-    <Folder Include="src\Modules\CopyFinder\" />
-    <Folder Include="src\Modules\DeleteEmpty\" />
-    <Folder Include="src\Modules\KeyboardRecord\" />
-    <Folder Include="src\Modules\MassFileManipulation\" />
-    <Folder Include="src\Modules\MouseRecord\" />
-    <Folder Include="src\Modules\ReactiveTest\" />
-    <Folder Include="src\Modules\SteamThumbnailDeleter\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

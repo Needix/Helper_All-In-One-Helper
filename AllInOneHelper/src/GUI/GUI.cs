@@ -1,5 +1,6 @@
 ﻿using AllInOneHelper.src.Modules;
 using AllInOneHelper.src.Modules.AspectRatio;
+using AllInOneHelper.src.Modules.BPM;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,42 +31,27 @@ namespace AllInOneHelper.src.GUI {
             InitializeComponent();
 
             InitializeModules();
-
-            registerEvents();
         }
 
         private void InitializeModules() {
-            AspectRatioPanel arPanel = new AspectRatioPanel();
-            arPanel.Dock = DockStyle.Fill;
-            tabPage_main_aspectRatio.Controls.Add(arPanel);
-            //AspectRatio.init(new Control[] { tb_aspectRatio_info, tb_aspectRatio_width, tb_aspectRatio_height, tb_aspectRatio_ratio });
+            //AspectRatio
+            initSingleModule(new AspectRatioPanel(), tabPage_main_aspectRatio);
+            initSingleModule(new BPMPanel(), tabPage_main_bpm);
+            initSingleModule(new ClickSpeedPanel(), tabPage_main_clickSpeed);
+            initSingleModule(new ClipboardPanel(), tabPage_main_clipboard);
+            initSingleModule(new CopyFinderPanel(), tabPage_main_copyFinder);
+            initSingleModule(new DeleteEmptyPanel(), tabPage_main_deleteEmpty);
+            //initSingleModule(new KeyboardRecordPanel(), tabPage_main_keyboardRecord);
+            initSingleModule(new MassFileManipulationPanel(), tabPage_main_fileManipulation);
+            initSingleModule(new MouseRecordPanel(), tabPage_main_mouseRecord);
+            initSingleModule(new ReactiveTestPanel(), tabPage_main_reactiveTest);
+            initSingleModule(new SteamThumbnailPanel(), tabPage_main_steamThumbnailDeleter);
+            initSingleModule(new SettingsPanel(), tabPage_main_settings);
         }
 
-        public void registerEvents() {
-            //AspectRatio
-            //EventHandler handler = new EventHandler(AspectRatio.buttonEventListener);
-            //b_aspectRatio_calcWidth.Click += handler;
-            //b_aspectRatio_calcHeight.Click += handler;
-            //b_aspectRatio_calcRatio.Click += handler;
-            //BPM
-
-            //ClickSpeed
-
-            //ClipboardHistory
-
-            //CopyFinder
-
-            //DeleteEmpty
-
-            //KeyboardRecord
-
-            //MassFileManipulation
-
-            //MouseRecord
-
-            //ReactiveTest
-
-            //SteamThumbnailDeleter
+        private void initSingleModule(UserControl control, TabPage page) {
+            control.Dock = DockStyle.Fill;
+            page.Controls.Add(control);
         }
 
         #region Non-Module-Events
