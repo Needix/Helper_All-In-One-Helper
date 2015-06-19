@@ -48,7 +48,7 @@ namespace AllInOneHelper.src.Modules {
                     tb_aspectRatio_ratio.Text = AspectRatio.AspectRatio.calcRatio(width, height);
                 else
                     Console.WriteLine("Error");
-            } catch(System.FormatException ex) {
+            } catch(System.FormatException) {
                 if(width == 0) {
                     Console.WriteLine(s_width + " is not a number!");
                 } else {

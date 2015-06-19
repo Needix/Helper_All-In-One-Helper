@@ -34,10 +34,10 @@ namespace AllInOneHelper.src.Modules.AspectRatio {
                 int ratio2Value = Convert.ToInt32(ratio2);
                 result[0] = ratio1Value;
                 result[1] = ratio2Value;
-            } catch(System.FormatException ex) {
+            } catch(System.FormatException) {
                 Console.WriteLine("Ratio had invalid characters. Ratio was: \"" + ratio + "\"");
                 return null;
-            } catch(IndexOutOfRangeException ex) {
+            } catch(IndexOutOfRangeException) {
                 Console.WriteLine("Ratio had not \":\" to seperate ratio values! Ratio was: \"" + ratio + "\"");
                 return null;
             }
