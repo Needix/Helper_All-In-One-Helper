@@ -5,33 +5,43 @@ using System.Text;
 using System.Windows.Forms;
 
 namespace AllInOneHelper.src.Modules.AspectRatio {
-    class AspectRatio : Module {
-        public static void buttonEventListener(object sender, System.EventArgs e) {
-            Button button = (Button)sender;
-            if(button.Name == "b_aspectRatio_calcWidth")
-                calcWidth();
-            else if(button.Name == "b_aspectRatio_calcheight")
-                calcHeight();
-            else
-                calcRatio();
-            Console.WriteLine(sender.ToString() + " / " + e.ToString());
+    class AspectRatio {
+        public static int calcWidth(int height, String aspectRatio) {
+            int[] values = getValuesFromRatio(aspectRatio);
+            return height/values[1]*values[0];
         }
 
-        private static String calcWidth(int height, String aspectRatio) {
-
-            return "";
+        public static int calcHeight(int width, String aspectRatio) {
+            int[] values = getValuesFromRatio(aspectRatio);
+            return width / values[0] * values[1];
         }
 
-        private static String calcHeight(int width, String aspectRatio) {
-
-            return "";
-        }
-
-        private static String calcAspectRatio(int width, int height) {
+        public static String calcRatio(int width, int height) {
             int gcd = calcGCD(width, height);
             double hD = (double)height;
             double wD = (double)width;
-            return (width / gcd) + ":" + (height / gcd) + " (1:" + (Math.Round((hD / wD) * 1000.00) / 1000.00) + ")";
+            //return (width / gcd) + ":" + (height / gcd) + " (1:" + (Math.Round((hD / wD) * 1000.00) / 1000.00) + ")";
+            return (width / gcd) + ":" + (height / gcd);
+        }
+
+        private static int[] getValuesFromRatio(String ratio) {
+            int[] result = new int[2];
+            try {
+                String[] ratioSplit = ratio.Split(':');
+                String ratio1 = ratioSplit[0].Trim();
+                String ratio2 = ratioSplit[1].Trim();
+                int ratio1Value = Convert.ToInt32(ratio1);
+                int ratio2Value = Convert.ToInt32(ratio2);
+                result[0] = ratio1Value;
+                result[1] = ratio2Value;
+            } catch(System.FormatException ex) {
+                Console.WriteLine("Ratio had invalid characters. Ratio was: \"" + ratio + "\"");
+                return null;
+            } catch(IndexOutOfRangeException ex) {
+                Console.WriteLine("Ratio had not \":\" to seperate ratio values! Ratio was: \"" + ratio + "\"");
+                return null;
+            }
+            return result;
         }
 
         private static int calcGCD(int a, int b) {

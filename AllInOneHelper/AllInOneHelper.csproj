@@ -54,6 +54,9 @@
     </Compile>
     <Compile Include="src\Modules\AspectRatio\AspectRatio.cs" />
     <Compile Include="src\Modules\Module.cs" />
+    <Compile Include="src\Modules\AspectRatio\AspectRatioPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="src\Settings\Settings.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -66,6 +69,9 @@
     </Compile>
     <EmbeddedResource Include="src\GUI\GUI.resx">
       <DependentUpon>GUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Modules\AspectRatio\AspectRatioPanel.resx">
+      <DependentUpon>AspectRatioPanel.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -1,4 +1,5 @@
-﻿using AllInOneHelper.src.Modules.AspectRatio;
+﻿using AllInOneHelper.src.Modules;
+using AllInOneHelper.src.Modules.AspectRatio;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -34,15 +35,18 @@ namespace AllInOneHelper.src.GUI {
         }
 
         private void InitializeModules() {
-            AspectRatio.init(new Control[] { tb_aspectRatio_info, tb_aspectRatio_width, tb_aspectRatio_height, tb_aspectRatio_ratio });
+            AspectRatioPanel arPanel = new AspectRatioPanel();
+            arPanel.Dock = DockStyle.Fill;
+            tabPage_main_aspectRatio.Controls.Add(arPanel);
+            //AspectRatio.init(new Control[] { tb_aspectRatio_info, tb_aspectRatio_width, tb_aspectRatio_height, tb_aspectRatio_ratio });
         }
 
         public void registerEvents() {
             //AspectRatio
-            EventHandler handler = new EventHandler(AspectRatio.buttonEventListener);
-            b_aspectRatio_calcWidth.Click += handler;
-            b_aspectRatio_calcHeight.Click += handler;
-            b_aspectRatio_calcRatio.Click += handler;
+            //EventHandler handler = new EventHandler(AspectRatio.buttonEventListener);
+            //b_aspectRatio_calcWidth.Click += handler;
+            //b_aspectRatio_calcHeight.Click += handler;
+            //b_aspectRatio_calcRatio.Click += handler;
             //BPM
 
             //ClickSpeed
