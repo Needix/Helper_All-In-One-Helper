@@ -24,6 +24,20 @@ namespace AllInOneHelper.src.GUI {
             }
         }
 
+        //Panels
+        AspectRatioPanel ARPanel;
+        BPMPanel BPMPanel;
+        ClickSpeedPanel CSPanel;
+        ClipboardPanel CBPanel;
+        CopyFinderPanel CFPanel;
+        DeleteEmptyPanel DEPanel;
+        KeyboardRecordPanel KRPanel;
+        MassFileManipulationPanel MFMPanel;
+        MouseRecordPanel MRPanel;
+        ReactiveTestPanel RTPanel;
+        SteamThumbnailPanel STPanel;
+        SettingsPanel SPanel;
+
         //Constructor
         private GUI() {
             GUI.gui = this;
@@ -35,18 +49,18 @@ namespace AllInOneHelper.src.GUI {
 
         private void InitializeModules() {
             //AspectRatio
-            initSingleModule(new AspectRatioPanel(), tabPage_main_aspectRatio);
-            initSingleModule(new BPMPanel(), tabPage_main_bpm);
-            initSingleModule(new ClickSpeedPanel(), tabPage_main_clickSpeed);
-            initSingleModule(new ClipboardPanel(), tabPage_main_clipboard);
-            initSingleModule(new CopyFinderPanel(), tabPage_main_copyFinder);
-            initSingleModule(new DeleteEmptyPanel(), tabPage_main_deleteEmpty);
-            //initSingleModule(new KeyboardRecordPanel(), tabPage_main_keyboardRecord);
-            initSingleModule(new MassFileManipulationPanel(), tabPage_main_fileManipulation);
-            initSingleModule(new MouseRecordPanel(), tabPage_main_mouseRecord);
-            initSingleModule(new ReactiveTestPanel(), tabPage_main_reactiveTest);
-            initSingleModule(new SteamThumbnailPanel(), tabPage_main_steamThumbnailDeleter);
-            initSingleModule(new SettingsPanel(), tabPage_main_settings);
+            initSingleModule(ARPanel = new AspectRatioPanel(), tabPage_main_aspectRatio);
+            initSingleModule(BPMPanel = new BPMPanel(), tabPage_main_bpm);
+            initSingleModule(CSPanel = new ClickSpeedPanel(), tabPage_main_clickSpeed);
+            initSingleModule(CBPanel = new ClipboardPanel(), tabPage_main_clipboard);
+            initSingleModule(CFPanel = new CopyFinderPanel(), tabPage_main_copyFinder);
+            initSingleModule(DEPanel = new DeleteEmptyPanel(), tabPage_main_deleteEmpty);
+            //initSingleModule(KRPanel = new KeyboardRecordPanel(), tabPage_main_keyboardRecord);
+            initSingleModule(MFMPanel = new MassFileManipulationPanel(), tabPage_main_fileManipulation);
+            initSingleModule(MRPanel = new MouseRecordPanel(), tabPage_main_mouseRecord);
+            initSingleModule(RTPanel = new ReactiveTestPanel(), tabPage_main_reactiveTest);
+            initSingleModule(STPanel = new SteamThumbnailPanel(), tabPage_main_steamThumbnailDeleter);
+            initSingleModule(SPanel = new SettingsPanel(), tabPage_main_settings);
         }
 
         private void initSingleModule(UserControl control, TabPage page) {
@@ -58,6 +72,17 @@ namespace AllInOneHelper.src.GUI {
         protected override void OnClosing(CancelEventArgs e) {
             base.OnClosing(e);
 
+            ARPanel.close();
+            BPMPanel.close();
+            CSPanel.close();
+            CBPanel.close();
+            CFPanel.close();
+            DEPanel.close();
+            //KRPanel.close();
+            MFMPanel.close();
+            RTPanel.close();
+            STPanel.close();
+            SPanel.close();
         }
         #endregion
     }

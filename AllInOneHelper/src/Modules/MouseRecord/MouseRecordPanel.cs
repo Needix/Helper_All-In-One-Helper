@@ -172,5 +172,9 @@ namespace AllInOneHelper.src.Modules.BPM {
             this.ResumeLayout(false);
 
         }
+
+        public void close() {
+
+        }
     }
 }

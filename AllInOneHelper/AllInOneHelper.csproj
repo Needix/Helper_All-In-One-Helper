@@ -62,6 +62,7 @@
     </Compile>
     <Compile Include="src\Modules\ClickSpeed\CustomPoint.cs" />
     <Compile Include="src\Modules\ClickSpeed\RedrawThread.cs" />
+    <Compile Include="src\Modules\ClipboardHistory\ClipboardElement.cs" />
     <Compile Include="src\Modules\ClipboardHistory\ClipboardPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>

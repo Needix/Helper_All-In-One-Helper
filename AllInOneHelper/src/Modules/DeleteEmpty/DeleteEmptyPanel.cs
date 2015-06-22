@@ -206,5 +206,9 @@ namespace AllInOneHelper.src.Modules.BPM {
             this.PerformLayout();
 
         }
+
+        public void close() {
+
+        }
     }
 }

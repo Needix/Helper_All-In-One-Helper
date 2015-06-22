@@ -148,5 +148,9 @@ namespace AllInOneHelper.src.Modules {
             this.PerformLayout();
 
         }
+
+        public void close() {
+
+        }
     }
 }
