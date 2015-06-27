@@ -1,6 +1,16 @@
 ﻿using AllInOneHelper.src.Modules;
 using AllInOneHelper.src.Modules.AspectRatio;
 using AllInOneHelper.src.Modules.BPM;
+using AllInOneHelper.src.Modules.ClickSpeed;
+using AllInOneHelper.src.Modules.ClipboardHistory;
+using AllInOneHelper.src.Modules.CopyFinder;
+using AllInOneHelper.src.Modules.DeleteEmpty;
+using AllInOneHelper.src.Modules.KeyboardRecord;
+using AllInOneHelper.src.Modules.MassFileManipulation;
+using AllInOneHelper.src.Modules.MouseRecord;
+using AllInOneHelper.src.Modules.ReactiveTest;
+using AllInOneHelper.src.Modules.SteamThumbnailDeleter;
+using AllInOneHelper.src.Settings;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -79,10 +89,13 @@ namespace AllInOneHelper.src.GUI {
             CFPanel.close();
             DEPanel.close();
             //KRPanel.close();
+            MRPanel.close();
             MFMPanel.close();
             RTPanel.close();
             STPanel.close();
             SPanel.close();
+
+            RedrawThread.closeAll();
         }
         #endregion
     }

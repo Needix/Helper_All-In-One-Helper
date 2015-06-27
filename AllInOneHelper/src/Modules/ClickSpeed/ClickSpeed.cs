@@ -31,8 +31,7 @@ namespace AllInOneHelper.src.Modules.ClickSpeed {
         private CustomPoint[] points = new CustomPoint[1000];
 
         public ClickSpeed() {
-            EventHandler handler = new EventHandler(eventListener);
-            this.Click += handler;
+            this.Click += new EventHandler(eventListener);
 
             for(int i = 0; i < points.Length; i++) {
                 points[i] = new CustomPoint(i, 0, acc*i);

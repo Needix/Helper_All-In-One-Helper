@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace AllInOneHelper.src.Modules.BPM {
+namespace AllInOneHelper.src.Settings {
     class SettingsPanel : UserControl {
         private GroupBox groupBox_settings_window;
         private CheckBox checkBox2;

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace AllInOneHelper.src.Modules.BPM {
+namespace AllInOneHelper.src.Modules.ClickSpeed {
     class ClickSpeedPanel : UserControl {
         private TextBox tb_clickSpeed_acc;
         private TextBox tb_clickSpeed_info;
-        private ClickSpeed.ClickSpeed panel_clickSpeed_clickSpeed;
+        private ClickSpeed panel_clickSpeed_clickSpeed;
         private Button b_clickSpeed_reset;
         private Label l_clickSpeed_acc;
 

@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using System.Threading;
 using AllInOneHelper.src.Modules.ClipboardHistory;
 
-namespace AllInOneHelper.src.Modules.BPM {
+namespace AllInOneHelper.src.Modules.ClipboardHistory {
     class ClipboardPanel : UserControl {
         private TextBox tb_clipboard_info;
         private CheckBox cbox_clipboard_autoscroll;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace AllInOneHelper.src.Modules.BPM {
+namespace AllInOneHelper.src.Modules.DeleteEmpty {
     class DeleteEmptyPanel : UserControl {
         private GroupBox groupBox_deleteEmpty_result;
         private ListBox listBox_deleteEmpty_result;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace AllInOneHelper.src.Modules.BPM {
+namespace AllInOneHelper.src.Modules.MassFileManipulation {
     class MassFileManipulationPanel : UserControl {
         public MassFileManipulationPanel() {
             InitializeComponent();

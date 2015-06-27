@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace AllInOneHelper.src.Modules.BPM {
+namespace AllInOneHelper.src.Modules.KeyboardRecord {
     class KeyboardRecordPanel : UserControl {
         public KeyboardRecordPanel() {
             InitializeComponent();

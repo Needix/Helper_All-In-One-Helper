@@ -61,7 +61,6 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="src\Modules\ClickSpeed\CustomPoint.cs" />
-    <Compile Include="src\Modules\ClickSpeed\RedrawThread.cs" />
     <Compile Include="src\Modules\ClipboardHistory\ClipboardElement.cs" />
     <Compile Include="src\Modules\ClipboardHistory\ClipboardPanel.cs">
       <SubType>UserControl</SubType>
@@ -78,6 +77,7 @@
     <Compile Include="src\Modules\AspectRatio\AspectRatioPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="src\Modules\CustomPoint.cs" />
     <Compile Include="src\Modules\DeleteEmpty\DeleteEmptyPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -87,12 +87,17 @@
     <Compile Include="src\Modules\MassFileManipulation\MassFileManipulationPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="src\Modules\MouseRecord\MousePlayback.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\Modules\MouseRecord\MouseRecord.cs" />
     <Compile Include="src\Modules\MouseRecord\MouseRecordPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="src\Modules\ReactiveTest\ReactiveTestPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="src\Modules\RedrawThread.cs" />
     <Compile Include="src\Modules\SteamThumbnailDeleter\SteamThumbnailPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -139,6 +144,12 @@
     <EmbeddedResource Include="src\Modules\MassFileManipulation\MassFileManipulationPanel.resx">
       <DependentUpon>MassFileManipulationPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="src\Modules\MouseRecord\MousePlayback.resx">
+      <DependentUpon>MousePlayback.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Modules\MouseRecord\MouseRecord.resx">
+      <DependentUpon>MouseRecord.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="src\Modules\MouseRecord\MouseRecordPanel.resx">
       <DependentUpon>MouseRecordPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -151,6 +162,7 @@
     <EmbeddedResource Include="src\Settings\SettingsPanel.resx">
       <DependentUpon>SettingsPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

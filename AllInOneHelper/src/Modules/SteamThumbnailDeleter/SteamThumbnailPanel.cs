@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace AllInOneHelper.src.Modules.BPM {
+namespace AllInOneHelper.src.Modules.SteamThumbnailDeleter {
     class SteamThumbnailPanel : UserControl {
         private Label l_steamTD_deletedFolder;
         private Button b_steamTD_deleteAll;

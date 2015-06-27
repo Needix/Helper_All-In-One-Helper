@@ -5,16 +5,20 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace AllInOneHelper.src.Modules.ClickSpeed {
+namespace AllInOneHelper.src.Modules {
     class RedrawThread {
+        private static List<RedrawThread> redrawThreadList = new List<RedrawThread>();
+
         private const int THREAD_SLEEP = 100;
 
         private Thread thread;
         private volatile Boolean abort = false;
-        private ClickSpeed panel;
+        private UserControl panel;
 
-        public RedrawThread(ClickSpeed panel) {
+        public RedrawThread(UserControl panel) {
             this.panel = panel;
+
+            RedrawThread.redrawThreadList.Add(this);
         }
 
         private void run() {
@@ -30,9 +34,21 @@ namespace AllInOneHelper.src.Modules.ClickSpeed {
         }
 
         public void start() {
+            System.Diagnostics.Debug.WriteLine("Starting \""+panel+"\" Redraw Thread.");
             thread = new Thread(run);
-            thread.Name = "ClickSpeed_RedrawThread";
+            thread.Name = panel+"_RedrawThread";
             thread.Start();
+        }
+
+        public void close() {
+            this.abort = true;
+            thread.Interrupt();
+        }
+
+        public static void closeAll() {
+            for(int i = 0; i < redrawThreadList.Count; i++) {
+                redrawThreadList[i].close();
+            }
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace AllInOneHelper.src.Modules.BPM {
+namespace AllInOneHelper.src.Modules.CopyFinder {
     class CopyFinderPanel : UserControl {
         private Button b_copyFinder_deleteSelectedFolder;
         private Button b_copyFinder_deleteAllFolder;

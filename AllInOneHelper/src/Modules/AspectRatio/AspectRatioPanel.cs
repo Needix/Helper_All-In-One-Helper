@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace AllInOneHelper.src.Modules {
+namespace AllInOneHelper.src.Modules.AspectRatio {
     class AspectRatioPanel : UserControl {
         private Button b_aspectRatio_calcRatio;
         private Button b_aspectRatio_calcHeight;
@@ -41,11 +41,11 @@ namespace AllInOneHelper.src.Modules {
                 height = Convert.ToInt32(tb_aspectRatio_height.Text);
                 System.Diagnostics.Debug.WriteLine("");
                 if(button.Name == "b_aspectRatio_calcWidth")
-                    tb_aspectRatio_width.Text = AspectRatio.AspectRatio.calcWidth(height, ratio) + "";
+                    tb_aspectRatio_width.Text = AspectRatio.calcWidth(height, ratio) + "";
                 else if(button.Name == "b_aspectRatio_calcHeight")
-                    tb_aspectRatio_height.Text = AspectRatio.AspectRatio.calcHeight(width, ratio) + "";
+                    tb_aspectRatio_height.Text = AspectRatio.calcHeight(width, ratio) + "";
                 else if(button.Name == "b_aspectRatio_calcRatio")
-                    tb_aspectRatio_ratio.Text = AspectRatio.AspectRatio.calcRatio(width, height);
+                    tb_aspectRatio_ratio.Text = AspectRatio.calcRatio(width, height);
                 else
                     Console.WriteLine("Error");
             } catch(System.FormatException) {

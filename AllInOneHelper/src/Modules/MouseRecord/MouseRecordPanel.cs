@@ -4,34 +4,50 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace AllInOneHelper.src.Modules.BPM {
+namespace AllInOneHelper.src.Modules.MouseRecord {
     class MouseRecordPanel : UserControl {
         private GroupBox groupBox_mouseRec_playback;
-        private CheckBox cbox_mouseRec_playback_showAllFrames;
-        private TrackBar slider_mouseRec_playback_progress;
-        private Button b_mouseRec_playback_stop;
-        private Button b_mouseRec_playback_start;
+        public CheckBox cbox_mouseRec_playback_showAllFrames;
+        public TrackBar slider_mouseRec_playback_progress;
+        public Button b_mouseRec_playback_stop;
+        public Button b_mouseRec_playback_start;
+
         private GroupBox groupBox_mouseRec_record;
-        private Label l_mouseRec_rec_recFrames;
-        private Button b_mouseRec_rec_reset;
-        private Button b_mouseRec_rec_stop;
-        private Button b_mouseRec_rec_pause;
-        private Button b_mouseRec_rec_start;
+        public Label l_mouseRec_rec_recFrames;
+        public Button b_mouseRec_rec_start;
+        public CheckBox cbox_mouseRec_pause;
+        public Button b_mouseRec_rec_stop;
+        public Button b_mouseRec_rec_reset;
+
+        public ListBox listBox_mouseRecord_keyRecord;
+        private MousePlayback panel_mouseRec_playbackPanel;
+
+        private MouseRecord mouse_record = new MouseRecord();
 
         public MouseRecordPanel() {
             InitializeComponent();
+
+            this.panel_mouseRec_playbackPanel.MouseRecord = mouse_record;
+            this.panel_mouseRec_playbackPanel.MouseRecordPanel = this;
+
+            this.mouse_record.SetRecordPanel = this;
+            cbox_mouseRec_pause.Enabled = false;
+            b_mouseRec_rec_stop.Enabled = false;
+            b_mouseRec_rec_reset.Enabled = false;
+            b_mouseRec_playback_stop.Enabled = false;
 
             registerEvents();
         }
 
         private void registerEvents() {
-            EventHandler handler = new EventHandler(buttonEventListener);
-            
-        }
-
-        private void buttonEventListener(object sender, System.EventArgs e) {
-            Button button = (Button)sender;
-            
+            b_mouseRec_rec_start.Click += new EventHandler(mouse_record.startRec);
+            cbox_mouseRec_pause.CheckedChanged += new EventHandler(mouse_record.pauseRec);
+            b_mouseRec_rec_stop.Click += new EventHandler(mouse_record.stopRec);
+            b_mouseRec_rec_reset.Click += new EventHandler(mouse_record.resetRec);
+            b_mouseRec_playback_start.Click += new EventHandler(panel_mouseRec_playbackPanel.startPlayback);
+            b_mouseRec_playback_stop.Click += new EventHandler(panel_mouseRec_playbackPanel.stopPlayback);
+            slider_mouseRec_playback_progress.ValueChanged += new EventHandler(panel_mouseRec_playbackPanel.change_PlaybackTime);
+            cbox_mouseRec_playback_showAllFrames.CheckedChanged += new EventHandler(panel_mouseRec_playbackPanel.change_ShowAllFrames);
         }
 
         private void InitializeComponent() {
@@ -41,11 +57,13 @@ namespace AllInOneHelper.src.Modules.BPM {
             this.b_mouseRec_playback_stop = new System.Windows.Forms.Button();
             this.b_mouseRec_playback_start = new System.Windows.Forms.Button();
             this.groupBox_mouseRec_record = new System.Windows.Forms.GroupBox();
+            this.cbox_mouseRec_pause = new System.Windows.Forms.CheckBox();
             this.l_mouseRec_rec_recFrames = new System.Windows.Forms.Label();
             this.b_mouseRec_rec_reset = new System.Windows.Forms.Button();
             this.b_mouseRec_rec_stop = new System.Windows.Forms.Button();
-            this.b_mouseRec_rec_pause = new System.Windows.Forms.Button();
             this.b_mouseRec_rec_start = new System.Windows.Forms.Button();
+            this.listBox_mouseRecord_keyRecord = new System.Windows.Forms.ListBox();
+            this.panel_mouseRec_playbackPanel = new AllInOneHelper.src.Modules.MouseRecord.MousePlayback();
             this.groupBox_mouseRec_playback.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.slider_mouseRec_playback_progress)).BeginInit();
             this.groupBox_mouseRec_record.SuspendLayout();
@@ -57,7 +75,7 @@ namespace AllInOneHelper.src.Modules.BPM {
             this.groupBox_mouseRec_playback.Controls.Add(this.slider_mouseRec_playback_progress);
             this.groupBox_mouseRec_playback.Controls.Add(this.b_mouseRec_playback_stop);
             this.groupBox_mouseRec_playback.Controls.Add(this.b_mouseRec_playback_start);
-            this.groupBox_mouseRec_playback.Location = new System.Drawing.Point(533, 340);
+            this.groupBox_mouseRec_playback.Location = new System.Drawing.Point(350, 340);
             this.groupBox_mouseRec_playback.Name = "groupBox_mouseRec_playback";
             this.groupBox_mouseRec_playback.Size = new System.Drawing.Size(530, 113);
             this.groupBox_mouseRec_playback.TabIndex = 3;
@@ -67,6 +85,8 @@ namespace AllInOneHelper.src.Modules.BPM {
             // cbox_mouseRec_playback_showAllFrames
             // 
             this.cbox_mouseRec_playback_showAllFrames.AutoSize = true;
+            this.cbox_mouseRec_playback_showAllFrames.Checked = true;
+            this.cbox_mouseRec_playback_showAllFrames.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbox_mouseRec_playback_showAllFrames.Location = new System.Drawing.Point(7, 87);
             this.cbox_mouseRec_playback_showAllFrames.Name = "cbox_mouseRec_playback_showAllFrames";
             this.cbox_mouseRec_playback_showAllFrames.Size = new System.Drawing.Size(100, 17);
@@ -101,17 +121,28 @@ namespace AllInOneHelper.src.Modules.BPM {
             // 
             // groupBox_mouseRec_record
             // 
+            this.groupBox_mouseRec_record.Controls.Add(this.cbox_mouseRec_pause);
             this.groupBox_mouseRec_record.Controls.Add(this.l_mouseRec_rec_recFrames);
             this.groupBox_mouseRec_record.Controls.Add(this.b_mouseRec_rec_reset);
             this.groupBox_mouseRec_record.Controls.Add(this.b_mouseRec_rec_stop);
-            this.groupBox_mouseRec_record.Controls.Add(this.b_mouseRec_rec_pause);
             this.groupBox_mouseRec_record.Controls.Add(this.b_mouseRec_rec_start);
             this.groupBox_mouseRec_record.Location = new System.Drawing.Point(3, 340);
             this.groupBox_mouseRec_record.Name = "groupBox_mouseRec_record";
-            this.groupBox_mouseRec_record.Size = new System.Drawing.Size(524, 113);
+            this.groupBox_mouseRec_record.Size = new System.Drawing.Size(341, 113);
             this.groupBox_mouseRec_record.TabIndex = 2;
             this.groupBox_mouseRec_record.TabStop = false;
             this.groupBox_mouseRec_record.Text = "Recording";
+            // 
+            // cbox_mouseRec_pause
+            // 
+            this.cbox_mouseRec_pause.Appearance = System.Windows.Forms.Appearance.Button;
+            this.cbox_mouseRec_pause.Location = new System.Drawing.Point(87, 19);
+            this.cbox_mouseRec_pause.Name = "cbox_mouseRec_pause";
+            this.cbox_mouseRec_pause.Size = new System.Drawing.Size(75, 24);
+            this.cbox_mouseRec_pause.TabIndex = 5;
+            this.cbox_mouseRec_pause.Text = "Pause";
+            this.cbox_mouseRec_pause.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cbox_mouseRec_pause.UseVisualStyleBackColor = true;
             // 
             // l_mouseRec_rec_recFrames
             // 
@@ -140,15 +171,6 @@ namespace AllInOneHelper.src.Modules.BPM {
             this.b_mouseRec_rec_stop.Text = "Stop";
             this.b_mouseRec_rec_stop.UseVisualStyleBackColor = true;
             // 
-            // b_mouseRec_rec_pause
-            // 
-            this.b_mouseRec_rec_pause.Location = new System.Drawing.Point(87, 19);
-            this.b_mouseRec_rec_pause.Name = "b_mouseRec_rec_pause";
-            this.b_mouseRec_rec_pause.Size = new System.Drawing.Size(75, 23);
-            this.b_mouseRec_rec_pause.TabIndex = 1;
-            this.b_mouseRec_rec_pause.Text = "Pause";
-            this.b_mouseRec_rec_pause.UseVisualStyleBackColor = true;
-            // 
             // b_mouseRec_rec_start
             // 
             this.b_mouseRec_rec_start.Location = new System.Drawing.Point(6, 19);
@@ -158,12 +180,29 @@ namespace AllInOneHelper.src.Modules.BPM {
             this.b_mouseRec_rec_start.Text = "Start";
             this.b_mouseRec_rec_start.UseVisualStyleBackColor = true;
             // 
+            // listBox_mouseRecord_keyRecord
+            // 
+            this.listBox_mouseRecord_keyRecord.FormattingEnabled = true;
+            this.listBox_mouseRecord_keyRecord.Location = new System.Drawing.Point(886, 340);
+            this.listBox_mouseRecord_keyRecord.Name = "listBox_mouseRecord_keyRecord";
+            this.listBox_mouseRecord_keyRecord.Size = new System.Drawing.Size(185, 121);
+            this.listBox_mouseRecord_keyRecord.TabIndex = 4;
+            // 
+            // panel_mouseRec_playbackPanel
+            // 
+            this.panel_mouseRec_playbackPanel.Location = new System.Drawing.Point(9, 3);
+            this.panel_mouseRec_playbackPanel.Name = "panel_mouseRec_playbackPanel";
+            this.panel_mouseRec_playbackPanel.Size = new System.Drawing.Size(1062, 331);
+            this.panel_mouseRec_playbackPanel.TabIndex = 5;
+            // 
             // MouseRecordPanel
             // 
+            this.Controls.Add(this.panel_mouseRec_playbackPanel);
+            this.Controls.Add(this.listBox_mouseRecord_keyRecord);
             this.Controls.Add(this.groupBox_mouseRec_playback);
             this.Controls.Add(this.groupBox_mouseRec_record);
             this.Name = "MouseRecordPanel";
-            this.Size = new System.Drawing.Size(1074, 464);
+            this.Size = new System.Drawing.Size(1074, 469);
             this.groupBox_mouseRec_playback.ResumeLayout(false);
             this.groupBox_mouseRec_playback.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.slider_mouseRec_playback_progress)).EndInit();
@@ -174,7 +213,8 @@ namespace AllInOneHelper.src.Modules.BPM {
         }
 
         public void close() {
-
+            panel_mouseRec_playbackPanel.close();
+            mouse_record.close();
         }
     }
 }
