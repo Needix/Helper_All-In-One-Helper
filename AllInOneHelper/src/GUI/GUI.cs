@@ -43,7 +43,7 @@ namespace AllInOneHelper.src.GUI {
         DeleteEmptyPanel DEPanel;
         KeyboardRecordPanel KRPanel;
         MassFileManipulationPanel MFMPanel;
-        MouseRecordPanel MRPanel;
+        MouseRecord_Panel MRPanel;
         ReactiveTestPanel RTPanel;
         SteamThumbnailPanel STPanel;
         SettingsPanel SPanel;
@@ -67,7 +67,7 @@ namespace AllInOneHelper.src.GUI {
             initSingleModule(DEPanel = new DeleteEmptyPanel(), tabPage_main_deleteEmpty);
             //initSingleModule(KRPanel = new KeyboardRecordPanel(), tabPage_main_keyboardRecord);
             initSingleModule(MFMPanel = new MassFileManipulationPanel(), tabPage_main_fileManipulation);
-            initSingleModule(MRPanel = new MouseRecordPanel(), tabPage_main_mouseRecord);
+            initSingleModule(MRPanel = new MouseRecord_Panel(), tabPage_main_mouseRecord);
             initSingleModule(RTPanel = new ReactiveTestPanel(), tabPage_main_reactiveTest);
             initSingleModule(STPanel = new SteamThumbnailPanel(), tabPage_main_steamThumbnailDeleter);
             initSingleModule(SPanel = new SettingsPanel(), tabPage_main_settings);

@@ -11,9 +11,6 @@ R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHel
 R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHelper\obj\Debug\AllInOneHelper.src.Modules.DeleteEmpty.DeleteEmptyPanel.resources
 R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHelper\obj\Debug\AllInOneHelper.src.Modules.KeyboardRecord.KeyboardRecordPanel.resources
 R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHelper\obj\Debug\AllInOneHelper.src.Modules.MassFileManipulation.MassFileManipulationPanel.resources
-R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHelper\obj\Debug\AllInOneHelper.src.Modules.MouseRecord.MousePlayback.resources
-R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHelper\obj\Debug\AllInOneHelper.src.Modules.MouseRecord.MouseRecord.resources
-R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHelper\obj\Debug\AllInOneHelper.src.Modules.MouseRecord.MouseRecordPanel.resources
 R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHelper\obj\Debug\AllInOneHelper.src.Modules.ReactiveTest.ReactiveTestPanel.resources
 R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHelper\obj\Debug\AllInOneHelper.src.Modules.SteamThumbnailDeleter.SteamThumbnailPanel.resources
 R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHelper\obj\Debug\AllInOneHelper.src.Settings.SettingsPanel.resources
@@ -21,3 +18,6 @@ R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHel
 R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHelper\obj\Debug\AllInOneHelper.exe
 R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHelper\obj\Debug\AllInOneHelper.pdb
 R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHelper\obj\Debug\AllInOneHelper.csprojResolveAssemblyReference.cache
+R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHelper\obj\Debug\AllInOneHelper.src.Modules.MouseRecord.MouseKey_Playback_Panel.resources
+R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHelper\obj\Debug\AllInOneHelper.src.Modules.MouseRecord.MouseKey_Recorder.resources
+R:\Eigene Dokumente\Visual Studio 2013\Projects\1_Big\AllInOneHelper\AllInOneHelper\obj\Debug\AllInOneHelper.src.Modules.MouseRecord.MouseRecord_Panel.resources

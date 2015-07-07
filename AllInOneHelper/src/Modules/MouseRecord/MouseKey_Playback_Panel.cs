@@ -7,20 +7,22 @@ using System.Threading;
 using System.Windows.Forms;
 
 namespace AllInOneHelper.src.Modules.MouseRecord {
-    class MousePlayback : UserControl {
+    class MouseKey_Playback_Panel : UserControl {
         private RedrawThread redrawThread;
 
-        private MouseRecordPanel mouseRecordPanel; public MouseRecordPanel MouseRecordPanel { set { mouseRecordPanel = value; } }
-        private MouseRecord mouseRecord; public MouseRecord MouseRecord { set { this.mouseRecord = value; } }
+        private MouseRecord_Panel mouseRecord_Panel; public MouseRecord_Panel MouseRecordPanel { set { mouseKey_Recorder.SetRecordPanel = value;  mouseRecord_Panel = value; } }
+        private MouseKey_Recorder mouseKey_Recorder; public MouseKey_Recorder MouseKeyRecorder { get { return mouseKey_Recorder; } }
 
         private Thread playbackThread;
         private Boolean playbackThread_abort = false;
         private Boolean playbackThread_active = false;
         private Boolean showAllFrames = true;
-        private int curPlaybackIndex = 0;
+        private int curPlaybackIndex = 0; public int CurPlaybackIndex { get { return curPlaybackIndex; } }
 
-        public MousePlayback() {
+        public MouseKey_Playback_Panel() {
             SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer, true);
+
+            mouseKey_Recorder = new MouseKey_Recorder(this);
 
             redrawThread = new RedrawThread(this);
             redrawThread.start();
@@ -32,38 +34,46 @@ namespace AllInOneHelper.src.Modules.MouseRecord {
 
         private void run() {
             while(!playbackThread_abort) {
-                try { Thread.Sleep(MouseRecord.SMOOTHNESS); } catch(ThreadInterruptedException) { return; }
+                try { Thread.Sleep(MouseKey_Recorder.SMOOTHNESS); } catch(ThreadInterruptedException) { return; }
 
                 if(playbackThread_active) {
-                    List<CustomPoint> pointList = mouseRecord.PointList;
-                    
-                    //Update progress/slider
-                    mouseRecordPanel.Invoke((MethodInvoker)delegate {
-                        mouseRecordPanel.slider_mouseRec_playback_progress.Maximum = pointList.Count;
-                        mouseRecordPanel.slider_mouseRec_playback_progress.Value = curPlaybackIndex;
+                    //Update Key display (list)
+                    object[] objects = mouseKey_Recorder.getPressedKeys(curPlaybackIndex);
+                    mouseRecord_Panel.Invoke((MethodInvoker)delegate {
+                        mouseRecord_Panel.listBox_mouseRecord_keyRecord.Items.Clear();
+                        mouseRecord_Panel.listBox_mouseRecord_keyRecord.Items.AddRange((object[])objects);
                     });
 
+                    //Update Mouse display (progress/slider)
+                    List<CustomPoint> pointList = mouseKey_Recorder.PointList;
+                    mouseRecord_Panel.Invoke((MethodInvoker)delegate {
+                        mouseRecord_Panel.slider_mouseRec_playback_progress.Maximum = pointList.Count;
+                        mouseRecord_Panel.slider_mouseRec_playback_progress.Value = curPlaybackIndex;
+                    });
+
+                    //Increase playbacktime / stop if playback reaches end
                     curPlaybackIndex++;
                     if(curPlaybackIndex >= pointList.Count) { //Stop if playback reaches the end
-                        mouseRecordPanel.Invoke((MethodInvoker)delegate { 
-                            mouseRecordPanel.b_mouseRec_playback_stop.PerformClick(); 
+                        mouseRecord_Panel.Invoke((MethodInvoker)delegate { 
+                            mouseRecord_Panel.b_mouseRec_playback_stop.PerformClick(); 
                         }); 
                     }
                 }
             }
         }
 
+        #region Drawing
         protected override void OnPaint(PaintEventArgs e) {
             base.OnPaint(e);
 
             Graphics g = e.Graphics;
             g.Clear(Color.White);
 
-            if(mouseRecord == null) return;
+            if(mouseKey_Recorder == null) return;
 
-            CustomPoint maxPoint = mouseRecord.MaxPoint;
-            CustomPoint minPoint = mouseRecord.MinPoint;
-            List<CustomPoint> pointList = mouseRecord.PointList;
+            CustomPoint maxPoint = mouseKey_Recorder.MaxPoint;
+            CustomPoint minPoint = mouseKey_Recorder.MinPoint;
+            List<CustomPoint> pointList = mouseKey_Recorder.PointList;
 
             if(minPoint == null || maxPoint == null) return;
 
@@ -140,18 +150,21 @@ namespace AllInOneHelper.src.Modules.MouseRecord {
 
             return new CustomPoint(relativeX, relativeY);
         }
+        #endregion
 
         #region GUI-Playback
         public void startPlayback(object sender, System.EventArgs e) {
+            if(mouseKey_Recorder.RecordSize <= CurPlaybackIndex) { System.Diagnostics.Debug.WriteLine("Disallowed"); return; }
+
             playbackThread_active = true;
-            mouseRecordPanel.b_mouseRec_playback_start.Enabled = false;
-            mouseRecordPanel.b_mouseRec_playback_stop.Enabled = true;
+            mouseRecord_Panel.b_mouseRec_playback_start.Enabled = false;
+            mouseRecord_Panel.b_mouseRec_playback_stop.Enabled = true;
         }
 
         public void stopPlayback(object sender, System.EventArgs e) {
             playbackThread_active = false;
-            mouseRecordPanel.b_mouseRec_playback_start.Enabled = true;
-            mouseRecordPanel.b_mouseRec_playback_stop.Enabled = false;
+            mouseRecord_Panel.b_mouseRec_playback_start.Enabled = true;
+            mouseRecord_Panel.b_mouseRec_playback_stop.Enabled = false;
         }
 
         public void change_PlaybackTime(object sender, System.EventArgs e) {
@@ -180,7 +193,7 @@ namespace AllInOneHelper.src.Modules.MouseRecord {
         }
 
         private Color calculateNextColor(int index) {
-            int total = mouseRecord.PointList.Count;
+            int total = mouseKey_Recorder.PointList.Count;
             double perc = index / (double)total;
             double colorChangePerPoint = 255 * 6 / (double)total;
             int value = (int)(index * colorChangePerPoint);

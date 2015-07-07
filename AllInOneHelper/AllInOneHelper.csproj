@@ -87,11 +87,12 @@
     <Compile Include="src\Modules\MassFileManipulation\MassFileManipulationPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="src\Modules\MouseRecord\MousePlayback.cs">
+    <Compile Include="src\Modules\MouseRecord\Keyboard_Status.cs" />
+    <Compile Include="src\Modules\MouseRecord\MouseKey_Playback_Panel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="src\Modules\MouseRecord\MouseRecord.cs" />
-    <Compile Include="src\Modules\MouseRecord\MouseRecordPanel.cs">
+    <Compile Include="src\Modules\MouseRecord\MouseKey_Recorder.cs" />
+    <Compile Include="src\Modules\MouseRecord\MouseRecord_Panel.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="src\Modules\ReactiveTest\ReactiveTestPanel.cs">
@@ -144,14 +145,14 @@
     <EmbeddedResource Include="src\Modules\MassFileManipulation\MassFileManipulationPanel.resx">
       <DependentUpon>MassFileManipulationPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="src\Modules\MouseRecord\MousePlayback.resx">
-      <DependentUpon>MousePlayback.cs</DependentUpon>
+    <EmbeddedResource Include="src\Modules\MouseRecord\MouseKey_Playback_Panel.resx">
+      <DependentUpon>MouseKey_Playback_Panel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="src\Modules\MouseRecord\MouseRecord.resx">
-      <DependentUpon>MouseRecord.cs</DependentUpon>
+    <EmbeddedResource Include="src\Modules\MouseRecord\MouseKey_Recorder.resx">
+      <DependentUpon>MouseKey_Recorder.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="src\Modules\MouseRecord\MouseRecordPanel.resx">
-      <DependentUpon>MouseRecordPanel.cs</DependentUpon>
+    <EmbeddedResource Include="src\Modules\MouseRecord\MouseRecord_Panel.resx">
+      <DependentUpon>MouseRecord_Panel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\Modules\ReactiveTest\ReactiveTestPanel.resx">
       <DependentUpon>ReactiveTestPanel.cs</DependentUpon>
