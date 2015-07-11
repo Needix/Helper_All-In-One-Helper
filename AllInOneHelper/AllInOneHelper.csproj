@@ -103,6 +103,7 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="src\Modules\Base\RedrawThread.cs" />
+    <Compile Include="src\Modules\SteamThumbnailDeleter\SteamThumbnailController.cs" />
     <Compile Include="src\Modules\SteamThumbnailDeleter\SteamThumbnailPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>

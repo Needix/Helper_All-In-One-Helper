@@ -1,31 +1,24 @@
-﻿using System;
+﻿using AllInOneHelper.src.Modules.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
 namespace AllInOneHelper.src.Modules.SteamThumbnailDeleter {
-    class SteamThumbnailPanel : UserControl {
+    class SteamThumbnailPanel : BasePanel {
         private Label l_steamTD_deletedFolder;
         private Button b_steamTD_deleteAll;
-    
-        public SteamThumbnailPanel() {
-            InitializeComponent();
 
-            registerEvents();
-        }
+        private SteamThumbnailController controller;
 
-        private void registerEvents() {
-            EventHandler handler = new EventHandler(buttonEventListener);
+        protected override void RegisterEvents() {
+            controller = new SteamThumbnailController(this);
+            //EventHandler handler = new EventHandler(controller.);
             
         }
 
-        private void buttonEventListener(object sender, System.EventArgs e) {
-            Button button = (Button)sender;
-            
-        }
-
-        private void InitializeComponent() {
+        protected override void InitializeComponent() {
             this.l_steamTD_deletedFolder = new System.Windows.Forms.Label();
             this.b_steamTD_deleteAll = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -59,7 +52,7 @@ namespace AllInOneHelper.src.Modules.SteamThumbnailDeleter {
 
         }
 
-        public void Close() {
+        public override void Close() {
 
         }
     }
