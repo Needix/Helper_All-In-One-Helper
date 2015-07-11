@@ -29,22 +29,16 @@ namespace AllInOneHelper.src.Modules.ClipboardHistory {
 
         private void Run() {
             while(!abort) {
-                System.Diagnostics.Debug.WriteLine("Trying to...");
                 try { Thread.Sleep(100); } catch(ThreadInterruptedException) { return; } //Thread interrupted
                 if(!this.active || !Clipboard.ContainsData(DataFormats.Text)) continue; //Histroy is not active or contains no text
-                System.Diagnostics.Debug.WriteLine("IsActive & ContainsData");
 
                 String data = (String)Clipboard.GetData(DataFormats.Text);
                 if(elementList.Count != 0 && data == elementList[elementList.Count - 1].Data) continue; //Current data is already last element
-                System.Diagnostics.Debug.WriteLine("Is not last one");
 
                 ClipboardElement element = new ClipboardElement(data, DateTime.Now);
                 elementList.Add(element);
-                System.Diagnostics.Debug.WriteLine("Trying to delegate");
                 clipboardPanel.listBox_clipboard_list.Invoke(
                     (MethodInvoker)delegate {
-                        System.Diagnostics.Debug.WriteLine("Delegated");
-                        System.Diagnostics.Debug.WriteLine("");
                         clipboardPanel.listBox_clipboard_list.Items.Add(element.DateTime + ": " + element.Data);
                         if(autoScroll) clipboardPanel.listBox_clipboard_list.SelectedIndex = clipboardPanel.listBox_clipboard_list.Items.Count - 1;
                     }
