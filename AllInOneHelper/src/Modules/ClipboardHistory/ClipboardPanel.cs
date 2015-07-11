@@ -1,98 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
-using AllInOneHelper.src.Modules.ClipboardHistory;
+using AllInOneHelper.src.Modules.Base;
 
 namespace AllInOneHelper.src.Modules.ClipboardHistory {
-    class ClipboardPanel : UserControl {
+    class ClipboardPanel : BasePanel {
         private TextBox tb_clipboard_info;
         private CheckBox cbox_clipboard_autoscroll;
         private Button b_clipboard_copySelectedIntoClipboard;
         private Button b_clipboard_deleteAll;
         private Button b_clipboard_deleteSelected;
-        private ListBox listBox_clipboard_list;
+        public ListBox listBox_clipboard_list;
         private CheckBox cbox_clipboard_status;
 
-        private Thread clipboardThread;
-        private volatile Boolean abort = false;
-        private Boolean active = true;
-        private Boolean autoScroll = true;
+        private ClipboardController controller;
 
-        private List<ClipboardElement> elementList = new List<ClipboardElement>();
+        protected override void RegisterEvents() {
+            controller = new ClipboardController(this);
 
-        public ClipboardPanel() {
-            InitializeComponent();
-
-            registerEvents();
-
-            clipboardThread = new Thread(run);
-            clipboardThread.Name = "ClipboardThread";
-            clipboardThread.SetApartmentState(ApartmentState.STA);
-            clipboardThread.Start();
+            cbox_clipboard_status.Click += new EventHandler(controller.ChangeStatus);
+            b_clipboard_copySelectedIntoClipboard.Click += new EventHandler(controller.CopySelectedIntoClipboard);
+            b_clipboard_deleteAll.Click += new EventHandler(controller.DeleteAll);
+            b_clipboard_deleteSelected.Click += new EventHandler(controller.DeleteSelected);
+            cbox_clipboard_autoscroll.Click += new EventHandler(controller.AutoScrollChange);
         }
 
-        private void registerEvents() {
-            cbox_clipboard_status.Click += new EventHandler(changeStatus);
-            b_clipboard_copySelectedIntoClipboard.Click += new EventHandler(copySelectedIntoClipboard);
-            b_clipboard_deleteAll.Click += new EventHandler(deleteAll);
-            b_clipboard_deleteSelected.Click += new EventHandler(deleteSelected);
-            cbox_clipboard_autoscroll.Click += new EventHandler(autoScrollChange);
-        }
-
-        private void run() {
-            while(!abort) {
-                try { Thread.Sleep(100); } catch(ThreadInterruptedException) { return; }
-                if(!this.active || !Clipboard.ContainsData(DataFormats.Text)) continue;
-
-                String data = (String)Clipboard.GetData(DataFormats.Text);
-                if(elementList.Count==0 || data != elementList[elementList.Count - 1].Data ) {
-                    ClipboardElement element = new ClipboardElement(data, DateTime.Now);
-                    elementList.Add(element);
-                    listBox_clipboard_list.Invoke(
-                        (MethodInvoker)delegate { 
-                            listBox_clipboard_list.Items.Add(element.DateTime+": "+element.Data);
-                            if(autoScroll) listBox_clipboard_list.SelectedIndex = listBox_clipboard_list.Items.Count - 1;
-                        }
-                    );
-                }
-            }
-        }
-
-        private void changeStatus(object sender, System.EventArgs e) {
-            active = !active;
-        }
-
-        private void copySelectedIntoClipboard(object sender, System.EventArgs e) {
-            int index = listBox_clipboard_list.SelectedIndex;
-            if(index == -1) return;
-
-            ClipboardElement element = elementList[index];
-            Clipboard.SetText(element.Data);
-        }
-
-        private void deleteAll(object sender, System.EventArgs e) {
-            listBox_clipboard_list.Items.Clear();
-            elementList.Clear();
-        }
-
-        private void deleteSelected(object sender, System.EventArgs e) {
-            int index = listBox_clipboard_list.SelectedIndex;
-            if(index == -1) return;
-
-            listBox_clipboard_list.Items.RemoveAt(index);
-            elementList.RemoveAt(index);
-        }
-
-        private void autoScrollChange(object sender, System.EventArgs e) {
-            autoScroll = ((CheckBox)sender).Checked;
-            if(autoScroll) listBox_clipboard_list.SelectedIndex = listBox_clipboard_list.Items.Count - 1;
-        }
-
-        private void InitializeComponent() {
+        protected override void InitializeComponent() {
             this.tb_clipboard_info = new System.Windows.Forms.TextBox();
             this.cbox_clipboard_autoscroll = new System.Windows.Forms.CheckBox();
             this.b_clipboard_copySelectedIntoClipboard = new System.Windows.Forms.Button();
@@ -192,10 +128,8 @@ namespace AllInOneHelper.src.Modules.ClipboardHistory {
 
         }
 
-        public void close() {
-            this.abort = true;
-            clipboardThread.Interrupt();
-
+        public override void Close() {
+            controller.Close();
         }
     }
 }

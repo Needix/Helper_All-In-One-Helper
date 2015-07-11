@@ -6,17 +6,15 @@ using System.Text;
 using System.Windows.Forms;
 
 namespace AllInOneHelper.src.Modules.ClickSpeed {
-    class ClickSpeed : UserControl {
+    class ClickSpeedController : UserControl {
+        //TODO Rewrite ClickSpeed from scratch
         private const int MAX_Y_DRAW = 50;
 
         private int acc = 5;
-        public int Acc {
-            set {
-                reset();
-                acc = value;
-                //Do other logic
-            }
-        }
+        public int Acc { set { 
+            Reset(null, null);
+            acc = value; 
+        }}
 
         private int lastClick = 0;
 
@@ -28,16 +26,17 @@ namespace AllInOneHelper.src.Modules.ClickSpeed {
         private int bestSpeed = int.MaxValue;
         private int worstSpeed = 0;
 
-        private CustomPoint[] points = new CustomPoint[1000];
+        private ClickSpeedPoint[] points = new ClickSpeedPoint[1000];
 
-        public ClickSpeed() {
-            this.Click += new EventHandler(eventListener);
+        public ClickSpeedController() {
+            this.Click += new EventHandler(PanelClick);
 
             for(int i = 0; i < points.Length; i++) {
-                points[i] = new CustomPoint(i, 0, acc*i);
+                points[i] = new ClickSpeedPoint(i, 0, acc*i);
             }
         }
 
+        #region Paint
         protected override void OnPaint(PaintEventArgs e) {
             base.OnPaint(e);
             Graphics g = e.Graphics;
@@ -46,14 +45,14 @@ namespace AllInOneHelper.src.Modules.ClickSpeed {
             g.Clear(Color.White);
 
             //Calc Minimum && Maximum
-            calculateMaximumAndMinimum();
+            CalculateMaximumAndMinimum();
 
             //Axis
-            drawAxis(g);
+            DrawAxis(g);
 
             //Linien
             double proPixelEinheit = ((double)maxY) / (this.Height - 25);
-            drawLines(g, proPixelEinheit);
+            DrawLines(g, proPixelEinheit);
 
             //Text
             SolidBrush brush = new SolidBrush(Color.Black);
@@ -64,8 +63,7 @@ namespace AllInOneHelper.src.Modules.ClickSpeed {
             g.DrawString((maxY * 0.25) + "", font, brush, 5, (int)(this.Height * 0.75));
         }
 
-
-        private void drawLines(Graphics g, double proPixelEinheit) {
+        private void DrawLines(Graphics g, double proPixelEinheit) {
             Brush brush = new SolidBrush(Color.FromArgb(0, 204, 0));
             Pen pen = new Pen(brush);
             Font font = new Font("Arial", 10);
@@ -74,7 +72,7 @@ namespace AllInOneHelper.src.Modules.ClickSpeed {
             int xDiff = 50;
             for(int i = 0; i < points.Length; i++) {
                 if(i >= minX) {
-                    CustomPoint curAP = points[i];
+                    ClickSpeedPoint curAP = points[i];
                     if(curAP != null && curAP.Y>0) {
                         int y = (int)((maxY - curAP.Y) / proPixelEinheit);
 
@@ -99,7 +97,7 @@ namespace AllInOneHelper.src.Modules.ClickSpeed {
             }
         }
 
-        private void drawAxis(Graphics g) {
+        private void DrawAxis(Graphics g) {
             Brush brush = new SolidBrush(Color.Black);
             Pen pen = new Pen(brush);
             Font font = new Font("Arial", 10);
@@ -108,11 +106,11 @@ namespace AllInOneHelper.src.Modules.ClickSpeed {
             g.DrawLine(pen, 2, this.Height - MAX_Y_DRAW, this.Width - 2, this.Height - MAX_Y_DRAW); //X
         }
 
-        private void calculateMaximumAndMinimum() {
+        private void CalculateMaximumAndMinimum() {
             int curMax = -1;
             int curMinIndex = -1;
             for(int i = 0; i < points.Length; i++) {
-                CustomPoint curAP = points[i];
+                ClickSpeedPoint curAP = points[i];
                 int cur = curAP.Y;
                 curMax = cur > curMax ? cur : curMax;
                 if(cur > 0 && curMinIndex == -1) { curMinIndex = i; } //Set minX to index of first element!=0
@@ -120,18 +118,10 @@ namespace AllInOneHelper.src.Modules.ClickSpeed {
             maxY = curMax;
             minX = curMinIndex;
         }
+        #endregion
 
         /////////////////////////////////////////////////Panel Events
-        private void eventListener(object sender, System.EventArgs e) {
-            ClickSpeed panel = (ClickSpeed)sender;
-            switch(panel.Name) {
-                case "panel_clickSpeed_clickSpeed":
-                    panelClick();
-                    break;
-            }
-        }
-
-        private void panelClick() {
+        private void PanelClick(object sender, System.EventArgs e) {
             int curDiff = Environment.TickCount - lastClick;
 
             if(lastClick == 0) {
@@ -155,14 +145,14 @@ namespace AllInOneHelper.src.Modules.ClickSpeed {
         }
 
         /////////////////////////////////////////////////General
-        public void reset() {
+        public void Reset(object sender, System.EventArgs e) {
             acc = 5;
             indexLastUp = 0;
             lastClick = 0;
             worstSpeed = 0;
             maxY = 0;
             bestSpeed = int.MaxValue;
-            points = new CustomPoint[100];
+            points = new ClickSpeedPoint[100];
         }
     }
 }

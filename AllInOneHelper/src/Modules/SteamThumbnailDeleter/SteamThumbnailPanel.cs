@@ -59,7 +59,7 @@ namespace AllInOneHelper.src.Modules.SteamThumbnailDeleter {
 
         }
 
-        public void close() {
+        public void Close() {
 
         }
     }

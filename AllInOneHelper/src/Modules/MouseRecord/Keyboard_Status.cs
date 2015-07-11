@@ -6,11 +6,11 @@ using System.Text;
 using System.Windows.Forms;
 
 namespace AllInOneHelper.src.Modules.MouseRecord {
-    class Keyboard_Status {
+    static class Keyboard_Status {
         [DllImport("user32.dll")]
         static extern short GetAsyncKeyState(int vKey);
 
-        public byte[] getStatus() {
+        public static byte[] GetStatus() {
             byte[] array = new byte[256];
             for(int i = 0; i < array.Length; i++) {
                 char character = (char)i;

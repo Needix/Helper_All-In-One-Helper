@@ -1,63 +1,31 @@
-﻿using System;
+﻿using AllInOneHelper.src.Modules.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
 namespace AllInOneHelper.src.Modules.AspectRatio {
-    class AspectRatioPanel : UserControl {
+    class AspectRatioPanel : BasePanel {
         private Button b_aspectRatio_calcRatio;
         private Button b_aspectRatio_calcHeight;
         private Button b_aspectRatio_calcWidth;
-        private TextBox tb_aspectRatio_ratio;
-        private TextBox tb_aspectRatio_height;
-        private TextBox tb_aspectRatio_width;
+        public TextBox tb_aspectRatio_ratio;
+        public TextBox tb_aspectRatio_height;
+        public TextBox tb_aspectRatio_width;
         private TextBox tb_aspectRatio_info;
 
-        public AspectRatioPanel() {
-            InitializeComponent();
+        private AspectRatioController controller;
 
-            registerEvents();
+        protected override void RegisterEvents() {
+            controller = new AspectRatioController(this);
+
+            b_aspectRatio_calcWidth.Click += new EventHandler(controller.CalcWidth);
+            b_aspectRatio_calcHeight.Click += new EventHandler(controller.CalcHeight);
+            b_aspectRatio_calcRatio.Click += new EventHandler(controller.CalcRatio);
         }
 
-        private void registerEvents() {
-            EventHandler handler = new EventHandler(buttonEventListener);
-            b_aspectRatio_calcWidth.Click += handler;
-            b_aspectRatio_calcHeight.Click += handler;
-            b_aspectRatio_calcRatio.Click += handler;
-        }
-
-        private void buttonEventListener(object sender, System.EventArgs e) {
-            Button button = (Button)sender;
-            String s_width = tb_aspectRatio_width.Text;
-            String s_height = tb_aspectRatio_height.Text;
-            String ratio = tb_aspectRatio_ratio.Text;
-
-            int width = 0;
-            int height = 0;
-
-            try {
-                width = Convert.ToInt32(tb_aspectRatio_width.Text);
-                height = Convert.ToInt32(tb_aspectRatio_height.Text);
-                System.Diagnostics.Debug.WriteLine("");
-                if(button.Name == "b_aspectRatio_calcWidth")
-                    tb_aspectRatio_width.Text = AspectRatio.calcWidth(height, ratio) + "";
-                else if(button.Name == "b_aspectRatio_calcHeight")
-                    tb_aspectRatio_height.Text = AspectRatio.calcHeight(width, ratio) + "";
-                else if(button.Name == "b_aspectRatio_calcRatio")
-                    tb_aspectRatio_ratio.Text = AspectRatio.calcRatio(width, height);
-                else
-                    Console.WriteLine("Error");
-            } catch(System.FormatException) {
-                if(width == 0) {
-                    Console.WriteLine(s_width + " is not a number!");
-                } else {
-                    Console.WriteLine(s_height + " is not a number!");
-                }
-            }
-        }
-
-        private void InitializeComponent() {
+        protected override void InitializeComponent() {
             this.b_aspectRatio_calcRatio = new System.Windows.Forms.Button();
             this.b_aspectRatio_calcHeight = new System.Windows.Forms.Button();
             this.b_aspectRatio_calcWidth = new System.Windows.Forms.Button();
@@ -149,7 +117,7 @@ namespace AllInOneHelper.src.Modules.AspectRatio {
 
         }
 
-        public void close() {
+        public override void Close() {
 
         }
     }

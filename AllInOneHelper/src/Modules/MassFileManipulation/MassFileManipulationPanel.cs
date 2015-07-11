@@ -1,28 +1,20 @@
-﻿using System;
+﻿using AllInOneHelper.src.Modules.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
 namespace AllInOneHelper.src.Modules.MassFileManipulation {
-    class MassFileManipulationPanel : UserControl {
-        public MassFileManipulationPanel() {
-            InitializeComponent();
+    class MassFileManipulationPanel : BasePanel {
+        private MassFileManipulationController controller;
 
-            registerEvents();
+        protected override void RegisterEvents() {
+            controller = new MassFileManipulationController(this);
+            //EventHandler handler = new EventHandler(controller.);
         }
 
-        private void registerEvents() {
-            EventHandler handler = new EventHandler(buttonEventListener);
-            
-        }
-
-        private void buttonEventListener(object sender, System.EventArgs e) {
-            Button button = (Button)sender;
-            
-        }
-
-        private void InitializeComponent() {
+        protected override void InitializeComponent() {
             this.SuspendLayout();
             // 
             // CustomPanel
@@ -33,7 +25,7 @@ namespace AllInOneHelper.src.Modules.MassFileManipulation {
 
         }
 
-        public void close() {
+        public override void Close() {
 
         }
     }

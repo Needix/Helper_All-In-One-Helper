@@ -5,7 +5,6 @@ using AllInOneHelper.src.Modules.ClickSpeed;
 using AllInOneHelper.src.Modules.ClipboardHistory;
 using AllInOneHelper.src.Modules.CopyFinder;
 using AllInOneHelper.src.Modules.DeleteEmpty;
-using AllInOneHelper.src.Modules.KeyboardRecord;
 using AllInOneHelper.src.Modules.MassFileManipulation;
 using AllInOneHelper.src.Modules.MouseRecord;
 using AllInOneHelper.src.Modules.ReactiveTest;
@@ -41,9 +40,8 @@ namespace AllInOneHelper.src.GUI {
         ClipboardPanel CBPanel;
         CopyFinderPanel CFPanel;
         DeleteEmptyPanel DEPanel;
-        KeyboardRecordPanel KRPanel;
         MassFileManipulationPanel MFMPanel;
-        MouseRecord_Panel MRPanel;
+        MouseKeyRecord_Panel MRPanel;
         ReactiveTestPanel RTPanel;
         SteamThumbnailPanel STPanel;
         SettingsPanel SPanel;
@@ -65,9 +63,8 @@ namespace AllInOneHelper.src.GUI {
             initSingleModule(CBPanel = new ClipboardPanel(), tabPage_main_clipboard);
             initSingleModule(CFPanel = new CopyFinderPanel(), tabPage_main_copyFinder);
             initSingleModule(DEPanel = new DeleteEmptyPanel(), tabPage_main_deleteEmpty);
-            //initSingleModule(KRPanel = new KeyboardRecordPanel(), tabPage_main_keyboardRecord);
             initSingleModule(MFMPanel = new MassFileManipulationPanel(), tabPage_main_fileManipulation);
-            initSingleModule(MRPanel = new MouseRecord_Panel(), tabPage_main_mouseRecord);
+            initSingleModule(MRPanel = new MouseKeyRecord_Panel(), tabPage_main_mouseRecord);
             initSingleModule(RTPanel = new ReactiveTestPanel(), tabPage_main_reactiveTest);
             initSingleModule(STPanel = new SteamThumbnailPanel(), tabPage_main_steamThumbnailDeleter);
             initSingleModule(SPanel = new SettingsPanel(), tabPage_main_settings);
@@ -82,20 +79,19 @@ namespace AllInOneHelper.src.GUI {
         protected override void OnClosing(CancelEventArgs e) {
             base.OnClosing(e);
 
-            ARPanel.close();
-            BPMPanel.close();
-            CSPanel.close();
-            CBPanel.close();
-            CFPanel.close();
-            DEPanel.close();
-            //KRPanel.close();
-            MRPanel.close();
-            MFMPanel.close();
-            RTPanel.close();
-            STPanel.close();
-            SPanel.close();
+            ARPanel.Close();
+            BPMPanel.Close();
+            CSPanel.Close();
+            CBPanel.Close();
+            CFPanel.Close();
+            DEPanel.Close();
+            MRPanel.Close();
+            MFMPanel.Close();
+            RTPanel.Close();
+            STPanel.Close();
+            SPanel.Close();
 
-            RedrawThread.closeAll();
+            RedrawThread.CloseAll();
         }
         #endregion
     }

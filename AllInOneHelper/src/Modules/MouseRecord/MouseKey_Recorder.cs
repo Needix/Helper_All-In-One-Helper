@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AllInOneHelper.src.Modules.Base;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -8,35 +9,40 @@ using System.Threading;
 using System.Windows.Forms;
 
 namespace AllInOneHelper.src.Modules.MouseRecord {
-    class MouseKey_Recorder {
+    class MouseKey_Recorder : BaseController {
+        //Const
         public const int SMOOTHNESS = 50; //Less = smoother, more RAM; More = rough, less RAM
 
-        private MouseRecord_Panel recordPanel; public MouseRecord_Panel SetRecordPanel { set { recordPanel = value; } }
+        //Vars
+        //Panels
+        private MouseKeyRecord_Panel mainPanel; public MouseKeyRecord_Panel SetRecordPanel { set { mainPanel = value; } }
         private MouseKey_Playback_Panel playbackPanel;
 
+        //MousePoints
         private CustomPoint mouse_minPoint = null; public CustomPoint MinPoint { get { return this.mouse_minPoint; } }
         private CustomPoint mouse_maxPoint = null; public CustomPoint MaxPoint { get { return this.mouse_maxPoint; } }
         private List<CustomPoint> mouse_pointList = new List<CustomPoint>(); public List<CustomPoint> PointList { get { return this.mouse_pointList; } }
 
+        //MouseRecordThread
         private Thread mousePositionThread;
         private Boolean active_positionThread = false; public Boolean ActivePositionThread { set { active_positionThread = value; } get { return active_positionThread; } }
         private volatile Boolean abort_positionThread = false; public Boolean AbortPositionThread { set { abort_positionThread = value; } }
 
         private int recordSize = 0; public int RecordSize { get { return recordSize; } }
 
+        //KeyboardStatus
         private List<byte[]> keyboard_keyStatus = new List<byte[]>();
-
-        private Keyboard_Status keyRecord = new Keyboard_Status();
 
         public MouseKey_Recorder(MouseKey_Playback_Panel playbackPanel) {
             this.playbackPanel = playbackPanel;
 
-            mousePositionThread = new Thread(run);
+            mousePositionThread = new Thread(Run);
             mousePositionThread.Name = "GetMousePositionThread";
             mousePositionThread.Start();
         }
 
-        public void addPoint(CustomPoint point) {
+        #region PointLogic
+        public void AddPoint(CustomPoint point) {
             if(mouse_minPoint == null)
                 mouse_minPoint = point;
             if(mouse_maxPoint == null)
@@ -60,18 +66,20 @@ namespace AllInOneHelper.src.Modules.MouseRecord {
 
             // HACK Find out why ObjectDispoed/ThreadInterrupted is thrown
             try {
-                recordPanel.l_mouseRec_rec_recFrames.Invoke((MethodInvoker)delegate {
-                    recordPanel.l_mouseRec_rec_recFrames.Text = "Recorded Frames: " + mouse_pointList.Count;
+                mainPanel.l_mouseRec_rec_recFrames.Invoke((MethodInvoker)delegate {
+                    mainPanel.l_mouseRec_rec_recFrames.Text = "Recorded Frames: " + mouse_pointList.Count;
                 });
             } catch(ThreadInterruptedException) { }
-            
-        }
 
-        private void addKeys(byte[] pressedKeys) {
+        }
+        #endregion
+
+        #region KeyLogic
+        private void AddKeys(byte[] pressedKeys) {
             keyboard_keyStatus.Add(pressedKeys);
         }
 
-        public object[] getPressedKeys(int time) {
+        public object[] GetPressedKeys(int time) {
             List<object> result = new List<object>();
             byte[] timeArray = keyboard_keyStatus[time];
 
@@ -80,54 +88,55 @@ namespace AllInOneHelper.src.Modules.MouseRecord {
             }
             return result.ToArray();
         }
+        #endregion
 
-        private void run() {
+        private void Run() {
             while(!abort_positionThread) {
                 try { Thread.Sleep(SMOOTHNESS); } catch(ThreadInterruptedException) { return; }
                 if(!this.active_positionThread) continue;
 
                 //Record Keys/Keyboard
-                byte[] pressedKeys = keyRecord.getStatus();
-                this.addKeys(pressedKeys);
+                byte[] pressedKeys = Keyboard_Status.GetStatus();
+                this.AddKeys(pressedKeys);
 
                 //Record Mouse
                 Point curPoint = Cursor.Position;
-                this.addPoint(new CustomPoint(curPoint.X, curPoint.Y));
+                this.AddPoint(new CustomPoint(curPoint.X, curPoint.Y));
             }
         }
 
         #region GUI-Recording
-        public void startRec(object sender, System.EventArgs e) {
+        public void StartRec(object sender, System.EventArgs e) {
             active_positionThread = true;
 
-            recordPanel.b_mouseRec_rec_start.Enabled = false;
-            recordPanel.cbox_mouseRec_pause.Enabled = true;
-            recordPanel.b_mouseRec_rec_stop.Enabled = true;
-            recordPanel.b_mouseRec_rec_reset.Enabled = false;
+            mainPanel.b_mouseRec_rec_start.Enabled = false;
+            mainPanel.cbox_mouseRec_pause.Enabled = true;
+            mainPanel.b_mouseRec_rec_stop.Enabled = true;
+            mainPanel.b_mouseRec_rec_reset.Enabled = false;
         }
 
-        public void pauseRec(object sender, System.EventArgs e) {
+        public void PauseRec(object sender, System.EventArgs e) {
             CheckBox cbox = (CheckBox)sender;
-            if(!recordPanel.b_mouseRec_rec_stop.Enabled) return; // Check if stop is enabled to ensure that stopRec didnt trigger this function
+            if(!mainPanel.b_mouseRec_rec_stop.Enabled) return; // Check if stop is enabled to ensure that stopRec didnt trigger this function
             active_positionThread = !cbox.Checked;
 
-            recordPanel.b_mouseRec_rec_start.Enabled = false;
-            recordPanel.cbox_mouseRec_pause.Enabled = true;
-            recordPanel.b_mouseRec_rec_stop.Enabled = true;
-            recordPanel.b_mouseRec_rec_reset.Enabled = false;
+            mainPanel.b_mouseRec_rec_start.Enabled = false;
+            mainPanel.cbox_mouseRec_pause.Enabled = true;
+            mainPanel.b_mouseRec_rec_stop.Enabled = true;
+            mainPanel.b_mouseRec_rec_reset.Enabled = false;
         }
 
-        public void stopRec(object sender, System.EventArgs e) {
+        public void StopRec(object sender, System.EventArgs e) {
             active_positionThread = false;
 
-            recordPanel.b_mouseRec_rec_start.Enabled = false;
-            recordPanel.b_mouseRec_rec_stop.Enabled = false;
-            recordPanel.cbox_mouseRec_pause.Enabled = false;
-            recordPanel.cbox_mouseRec_pause.Checked = false;
-            recordPanel.b_mouseRec_rec_reset.Enabled = true;
+            mainPanel.b_mouseRec_rec_start.Enabled = false;
+            mainPanel.b_mouseRec_rec_stop.Enabled = false;
+            mainPanel.cbox_mouseRec_pause.Enabled = false;
+            mainPanel.cbox_mouseRec_pause.Checked = false;
+            mainPanel.b_mouseRec_rec_reset.Enabled = true;
         }
 
-        public void resetRec(object sender, System.EventArgs e) {
+        public void ResetRec(object sender, System.EventArgs e) {
             mouse_pointList.Clear();
             keyboard_keyStatus.Clear();
 
@@ -136,16 +145,16 @@ namespace AllInOneHelper.src.Modules.MouseRecord {
             mouse_minPoint = null;
             mouse_maxPoint = null;
 
-            recordPanel.l_mouseRec_rec_recFrames.Text = "Recorded Frames: 0";
-            recordPanel.b_mouseRec_rec_start.Enabled = true;
-            recordPanel.cbox_mouseRec_pause.Enabled = false;
-            recordPanel.cbox_mouseRec_pause.Checked = false;
-            recordPanel.b_mouseRec_rec_stop.Enabled = false;
-            recordPanel.b_mouseRec_rec_reset.Enabled = false;
+            mainPanel.l_mouseRec_rec_recFrames.Text = "Recorded Frames: 0";
+            mainPanel.b_mouseRec_rec_start.Enabled = true;
+            mainPanel.cbox_mouseRec_pause.Enabled = false;
+            mainPanel.cbox_mouseRec_pause.Checked = false;
+            mainPanel.b_mouseRec_rec_stop.Enabled = false;
+            mainPanel.b_mouseRec_rec_reset.Enabled = false;
         }
         #endregion
 
-        public void close() {
+        public override void Close() {
             this.abort_positionThread = true;
             mousePositionThread.Interrupt();
         }

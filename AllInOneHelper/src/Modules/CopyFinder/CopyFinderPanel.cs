@@ -1,11 +1,12 @@
-﻿using System;
+﻿using AllInOneHelper.src.Modules.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
 namespace AllInOneHelper.src.Modules.CopyFinder {
-    class CopyFinderPanel : UserControl {
+    class CopyFinderPanel : BasePanel {
         private Button b_copyFinder_deleteSelectedFolder;
         private Button b_copyFinder_deleteAllFolder;
         private TextBox tb_copyFinder_info;
@@ -15,23 +16,14 @@ namespace AllInOneHelper.src.Modules.CopyFinder {
         private Label l_copyFinder_searchedFolder;
         private ListBox listBox_copyFinder_list;
 
-        public CopyFinderPanel() {
-            InitializeComponent();
+        private CopyFinderController controller;
 
-            registerEvents();
+        protected override void RegisterEvents() {
+            controller = new CopyFinderController(this);
+            //EventHandler handler = new EventHandler(controller.);
         }
 
-        private void registerEvents() {
-            EventHandler handler = new EventHandler(buttonEventListener);
-            
-        }
-
-        private void buttonEventListener(object sender, System.EventArgs e) {
-            Button button = (Button)sender;
-            
-        }
-
-        private void InitializeComponent() {
+        protected override void InitializeComponent() {
             this.b_copyFinder_deleteSelectedFolder = new System.Windows.Forms.Button();
             this.b_copyFinder_deleteAllFolder = new System.Windows.Forms.Button();
             this.tb_copyFinder_info = new System.Windows.Forms.TextBox();
@@ -132,7 +124,7 @@ namespace AllInOneHelper.src.Modules.CopyFinder {
 
         }
 
-        public void close() {
+        public override void Close() {
 
         }
     }

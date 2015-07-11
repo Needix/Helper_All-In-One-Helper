@@ -1,47 +1,30 @@
-﻿using System;
+﻿using AllInOneHelper.src.Modules.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
 namespace AllInOneHelper.src.Modules.BPM {
-    class BPMPanel : UserControl {
+    class BPMPanel : BasePanel {
         private RadioButton radio_bpm_visualBPM;
-        private Label l_bpm_averageBPM;
-        private Label l_bpm_curBPM;
+        public Label l_bpm_averageBPM;
+        public Label l_bpm_curBPM;
         private Button b_bpm_reset;
         private Button b_bpm_tap;
         private TextBox tb_bpm_info;
-    
-        public BPMPanel() {
-            InitializeComponent();
 
-            registerEvents();
-        }
+        private BPMController controller;
 
         //TODO Implement visual BPM
-        private void registerEvents() {
-            EventHandler handler = new EventHandler(buttonEventListener);
-            b_bpm_tap.Click += handler;
-            b_bpm_reset.Click += handler;
+        protected override void RegisterEvents() {
+            controller = new BPMController(this);
+
+            b_bpm_tap.Click += new EventHandler(controller.Click);
+            b_bpm_reset.Click += new EventHandler(controller.Reset);
         }
 
-        private void buttonEventListener(object sender, System.EventArgs e) {
-            Button button = (Button)sender;
-
-            switch(button.Name) {
-                case "b_bpm_tap":
-                    BPM.click();
-                    break;
-                case "b_bpm_reset":
-                    BPM.reset();
-                    break;
-            }
-            l_bpm_averageBPM.Text = "Average BPM: " + (int)Math.Round(BPM.getAverage);
-            l_bpm_curBPM.Text = "Current BPM: " + BPM.getCurBPM;
-        }
-
-        private void InitializeComponent()
+        protected override void InitializeComponent()
         {
             this.radio_bpm_visualBPM = new System.Windows.Forms.RadioButton();
             this.l_bpm_averageBPM = new System.Windows.Forms.Label();
@@ -126,7 +109,7 @@ namespace AllInOneHelper.src.Modules.BPM {
 
         }
 
-        public void close() {
+        public override void Close() {
 
         }
     }

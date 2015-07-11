@@ -52,23 +52,27 @@
     <Compile Include="src\GUI\GUI.Designer.cs">
       <DependentUpon>GUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="src\Modules\AspectRatio\AspectRatio.cs" />
-    <Compile Include="src\Modules\ClickSpeed\ClickSpeed.cs">
+    <Compile Include="src\Modules\AspectRatio\AspectRatioController.cs" />
+    <Compile Include="src\Modules\Base\AbstractControlDescriptionProvider.cs" />
+    <Compile Include="src\Modules\Base\BaseController.cs" />
+    <Compile Include="src\Modules\Base\BasePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="src\Modules\BPM\BPM.cs" />
+    <Compile Include="src\Modules\ClickSpeed\ClickSpeedController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\Modules\BPM\BPMController.cs" />
     <Compile Include="src\Modules\ClickSpeed\ClickSpeedPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="src\Modules\ClickSpeed\CustomPoint.cs" />
+    <Compile Include="src\Modules\ClickSpeed\ClickSpeedPoint.cs" />
+    <Compile Include="src\Modules\ClipboardHistory\ClipboardController.cs" />
     <Compile Include="src\Modules\ClipboardHistory\ClipboardElement.cs" />
     <Compile Include="src\Modules\ClipboardHistory\ClipboardPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="src\Modules\CopyFinder\CopyFinderController.cs" />
     <Compile Include="src\Modules\CopyFinder\CopyFinderPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="src\Modules\CustomPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="src\Modules\BPM\BPMPanel.cs">
@@ -77,13 +81,12 @@
     <Compile Include="src\Modules\AspectRatio\AspectRatioPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="src\Modules\CustomPoint.cs" />
+    <Compile Include="src\Modules\Base\CustomPoint.cs" />
+    <Compile Include="src\Modules\DeleteEmpty\DeleteEmptyController.cs" />
     <Compile Include="src\Modules\DeleteEmpty\DeleteEmptyPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="src\Modules\KeyboardRecord\KeyboardRecordPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="src\Modules\MassFileManipulation\MassFileManipulationController.cs" />
     <Compile Include="src\Modules\MassFileManipulation\MassFileManipulationPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -92,20 +95,21 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="src\Modules\MouseRecord\MouseKey_Recorder.cs" />
-    <Compile Include="src\Modules\MouseRecord\MouseRecord_Panel.cs">
+    <Compile Include="src\Modules\MouseRecord\MouseKeyRecord_Panel.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="src\Modules\ReactiveTest\ReactiveTestController.cs" />
     <Compile Include="src\Modules\ReactiveTest\ReactiveTestPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="src\Modules\RedrawThread.cs" />
+    <Compile Include="src\Modules\Base\RedrawThread.cs" />
     <Compile Include="src\Modules\SteamThumbnailDeleter\SteamThumbnailPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="src\Settings\SettingsPanel.cs">
+    <Compile Include="src\Modules\Settings\SettingsPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="src\Settings\Settings.cs" />
+    <Compile Include="src\Modules\Settings\SettingsController.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -130,17 +134,11 @@
     <EmbeddedResource Include="src\Modules\CopyFinder\CopyFinderPanel.resx">
       <DependentUpon>CopyFinderPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="src\Modules\CustomPanel.resx">
-      <DependentUpon>CustomPanel.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="src\Modules\BPM\BPMPanel.resx">
       <DependentUpon>BPMPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\Modules\DeleteEmpty\DeleteEmptyPanel.resx">
       <DependentUpon>DeleteEmptyPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="src\Modules\KeyboardRecord\KeyboardRecordPanel.resx">
-      <DependentUpon>KeyboardRecordPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\Modules\MassFileManipulation\MassFileManipulationPanel.resx">
       <DependentUpon>MassFileManipulationPanel.cs</DependentUpon>
@@ -151,8 +149,8 @@
     <EmbeddedResource Include="src\Modules\MouseRecord\MouseKey_Recorder.resx">
       <DependentUpon>MouseKey_Recorder.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="src\Modules\MouseRecord\MouseRecord_Panel.resx">
-      <DependentUpon>MouseRecord_Panel.cs</DependentUpon>
+    <EmbeddedResource Include="src\Modules\MouseRecord\MouseKeyRecord_Panel.resx">
+      <DependentUpon>MouseKeyRecord_Panel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\Modules\ReactiveTest\ReactiveTestPanel.resx">
       <DependentUpon>ReactiveTestPanel.cs</DependentUpon>
@@ -160,7 +158,7 @@
     <EmbeddedResource Include="src\Modules\SteamThumbnailDeleter\SteamThumbnailPanel.resx">
       <DependentUpon>SteamThumbnailPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="src\Settings\SettingsPanel.resx">
+    <EmbeddedResource Include="src\Modules\Settings\SettingsPanel.resx">
       <DependentUpon>SettingsPanel.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="ClassDiagram1.cd" />

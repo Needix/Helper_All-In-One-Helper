@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AllInOneHelper.src.Modules.Base;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -7,10 +8,10 @@ using System.Threading;
 using System.Windows.Forms;
 
 namespace AllInOneHelper.src.Modules.MouseRecord {
-    class MouseKey_Playback_Panel : UserControl {
+    class MouseKey_Playback_Panel : BasePanel {
         private RedrawThread redrawThread;
 
-        private MouseRecord_Panel mouseRecord_Panel; public MouseRecord_Panel MouseRecordPanel { set { mouseKey_Recorder.SetRecordPanel = value;  mouseRecord_Panel = value; } }
+        private MouseKeyRecord_Panel mouseRecord_Panel; public MouseKeyRecord_Panel MouseRecordPanel { set { mouseKey_Recorder.SetRecordPanel = value;  mouseRecord_Panel = value; } }
         private MouseKey_Recorder mouseKey_Recorder; public MouseKey_Recorder MouseKeyRecorder { get { return mouseKey_Recorder; } }
 
         private Thread playbackThread;
@@ -25,26 +26,26 @@ namespace AllInOneHelper.src.Modules.MouseRecord {
             mouseKey_Recorder = new MouseKey_Recorder(this);
 
             redrawThread = new RedrawThread(this);
-            redrawThread.start();
+            redrawThread.Start();
 
-            playbackThread = new Thread(run);
+            playbackThread = new Thread(Run);
             playbackThread.Name = "MouseRec_Playback_Thread";
             playbackThread.Start();
         }
 
-        private void run() {
+        private void Run() {
             while(!playbackThread_abort) {
                 try { Thread.Sleep(MouseKey_Recorder.SMOOTHNESS); } catch(ThreadInterruptedException) { return; }
 
                 if(playbackThread_active) {
-                    //Update Key display (list)
-                    object[] objects = mouseKey_Recorder.getPressedKeys(curPlaybackIndex);
+                    //Update Key display
+                    object[] objects = mouseKey_Recorder.GetPressedKeys(curPlaybackIndex);
                     mouseRecord_Panel.Invoke((MethodInvoker)delegate {
                         mouseRecord_Panel.listBox_mouseRecord_keyRecord.Items.Clear();
                         mouseRecord_Panel.listBox_mouseRecord_keyRecord.Items.AddRange((object[])objects);
                     });
 
-                    //Update Mouse display (progress/slider)
+                    //Update Mouse display
                     List<CustomPoint> pointList = mouseKey_Recorder.PointList;
                     mouseRecord_Panel.Invoke((MethodInvoker)delegate {
                         mouseRecord_Panel.slider_mouseRec_playback_progress.Maximum = pointList.Count;
@@ -62,6 +63,10 @@ namespace AllInOneHelper.src.Modules.MouseRecord {
             }
         }
 
+        protected override void RegisterEvents() {
+            
+        }
+
         #region Drawing
         protected override void OnPaint(PaintEventArgs e) {
             base.OnPaint(e);
@@ -74,7 +79,6 @@ namespace AllInOneHelper.src.Modules.MouseRecord {
             CustomPoint maxPoint = mouseKey_Recorder.MaxPoint;
             CustomPoint minPoint = mouseKey_Recorder.MinPoint;
             List<CustomPoint> pointList = mouseKey_Recorder.PointList;
-
             if(minPoint == null || maxPoint == null) return;
 
             int minX = minPoint.X;
@@ -95,16 +99,15 @@ namespace AllInOneHelper.src.Modules.MouseRecord {
 
             if(showAllFrames) {
                 for(int i = 0; i < pointList.Count; i++) {
-                    Brush defaultBrush = new SolidBrush(calculateNextColor(i));
+                    Brush defaultBrush = new SolidBrush(CalculateNextColor(i));
                     Pen defaultPen = new Pen(defaultBrush);
 
-                    CustomPoint newPoint = translateCoordinates(pointList[i], minX, minY, ratioX, ratioY);
+                    CustomPoint newPoint = TranslateCoordinates(pointList[i], minX, minY, ratioX, ratioY);
 
                     //First iteration has no "last" point
                     if(lastX == -1) lastX = newPoint.X;
                     if(lastY == -1) lastY = newPoint.Y;
 
-                    //g.DrawLine(defaultPen, new Point(newPoint.X, newPoint.Y), new Point(lastX, lastY));
                     Draw(g, defaultPen, newPoint, new CustomPoint(lastX, lastY));
 
                     //Save this point for next iteration
@@ -121,11 +124,10 @@ namespace AllInOneHelper.src.Modules.MouseRecord {
                 CustomPoint lastPoint = curPoint;
                 if(curPlaybackIndex != 0) lastPoint = pointList[curPlaybackIndex - 1];
 
-                CustomPoint newCurPoint = translateCoordinates(curPoint, minX, minY, ratioX, ratioY);
-                CustomPoint newLastPoint = translateCoordinates(lastPoint, minX, minY, ratioX, ratioY);
+                CustomPoint newCurPoint = TranslateCoordinates(curPoint, minX, minY, ratioX, ratioY);
+                CustomPoint newLastPoint = TranslateCoordinates(lastPoint, minX, minY, ratioX, ratioY);
 
                 Draw(g, defaultPen, newCurPoint, newLastPoint);
-                //g.DrawLine(defaultPen, new Point(newCurPoint.X, newCurPoint.Y), new Point(newLastPoint.X, newLastPoint.Y));
             }
         }
 
@@ -139,7 +141,7 @@ namespace AllInOneHelper.src.Modules.MouseRecord {
             }
         }
 
-        private CustomPoint translateCoordinates(CustomPoint point, int minX, int minY, double ratioX, double ratioY) {
+        private CustomPoint TranslateCoordinates(CustomPoint point, int minX, int minY, double ratioX, double ratioY) {
             //Transform Point to 0/0 system
             int transformedX = point.X - minX;
             int transformedY = point.Y - minY;
@@ -153,7 +155,7 @@ namespace AllInOneHelper.src.Modules.MouseRecord {
         #endregion
 
         #region GUI-Playback
-        public void startPlayback(object sender, System.EventArgs e) {
+        public void StartPlayback(object sender, System.EventArgs e) {
             if(mouseKey_Recorder.RecordSize <= CurPlaybackIndex) { System.Diagnostics.Debug.WriteLine("Disallowed"); return; }
 
             playbackThread_active = true;
@@ -161,22 +163,22 @@ namespace AllInOneHelper.src.Modules.MouseRecord {
             mouseRecord_Panel.b_mouseRec_playback_stop.Enabled = true;
         }
 
-        public void stopPlayback(object sender, System.EventArgs e) {
+        public void StopPlayback(object sender, System.EventArgs e) {
             playbackThread_active = false;
             mouseRecord_Panel.b_mouseRec_playback_start.Enabled = true;
             mouseRecord_Panel.b_mouseRec_playback_stop.Enabled = false;
         }
 
-        public void change_PlaybackTime(object sender, System.EventArgs e) {
+        public void ChangePlaybackTime(object sender, System.EventArgs e) {
             curPlaybackIndex = ((TrackBar)sender).Value;
         }
 
-        public void change_ShowAllFrames(object sender, System.EventArgs e) {
+        public void ChangeShowAllFrames(object sender, System.EventArgs e) {
             showAllFrames = ((CheckBox)sender).Checked;
         }
         #endregion
 
-        private void InitializeComponent() {
+        protected override void InitializeComponent() {
             this.SuspendLayout();
             // 
             // MousePlayback
@@ -187,12 +189,12 @@ namespace AllInOneHelper.src.Modules.MouseRecord {
 
         }
 
-        public void close() {
+        public override void Close() {
             playbackThread_abort = true;
             playbackThread.Interrupt();
         }
 
-        private Color calculateNextColor(int index) {
+        private Color CalculateNextColor(int index) {
             int total = mouseKey_Recorder.PointList.Count;
             double perc = index / (double)total;
             double colorChangePerPoint = 255 * 6 / (double)total;

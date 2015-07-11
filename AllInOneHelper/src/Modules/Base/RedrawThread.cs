@@ -21,7 +21,7 @@ namespace AllInOneHelper.src.Modules {
             RedrawThread.redrawThreadList.Add(this);
         }
 
-        private void run() {
+        private void Run() {
             while(!abort) {
                 panel.Invalidate();
 
@@ -33,21 +33,21 @@ namespace AllInOneHelper.src.Modules {
             }
         }
 
-        public void start() {
+        public void Start() {
             System.Diagnostics.Debug.WriteLine("Starting \""+panel+"\" Redraw Thread.");
-            thread = new Thread(run);
+            thread = new Thread(Run);
             thread.Name = panel+"_RedrawThread";
             thread.Start();
         }
 
-        public void close() {
+        public void Close() {
             this.abort = true;
             thread.Interrupt();
         }
 
-        public static void closeAll() {
+        public static void CloseAll() {
             for(int i = 0; i < redrawThreadList.Count; i++) {
-                redrawThreadList[i].close();
+                redrawThreadList[i].Close();
             }
         }
     }

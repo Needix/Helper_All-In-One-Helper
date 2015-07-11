@@ -1,54 +1,34 @@
-﻿using System;
+﻿using AllInOneHelper.src.Modules.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
 namespace AllInOneHelper.src.Modules.ClickSpeed {
-    class ClickSpeedPanel : UserControl {
+    class ClickSpeedPanel : BasePanel {
         private TextBox tb_clickSpeed_acc;
         private TextBox tb_clickSpeed_info;
-        private ClickSpeed panel_clickSpeed_clickSpeed;
+        private ClickSpeedController controller;
         private Button b_clickSpeed_reset;
         private Label l_clickSpeed_acc;
 
-        public ClickSpeedPanel() {
-            InitializeComponent();
-
-            registerEvents();
+        protected override void RegisterEvents() {
+            b_clickSpeed_reset.Click += new EventHandler(controller.Reset);
+            tb_clickSpeed_acc.TextChanged += new EventHandler(ResetClickSpeed);
         }
 
-        private void registerEvents() {
-            EventHandler handler = new EventHandler(buttonEventListener);
-            b_clickSpeed_reset.Click += handler;
-            tb_clickSpeed_acc.TextChanged += new EventHandler(tbEventListener);
-        }
-
-        private void tbEventListener(object sender, System.EventArgs e) {
-            TextBox tb = (TextBox)sender;
+        private void ResetClickSpeed(object sender, System.EventArgs e) {
             try {
-                switch(tb.Name) {
-                    case "tb_clickSpeed_acc":
-                        panel_clickSpeed_clickSpeed.Acc = Convert.ToInt32(tb_clickSpeed_acc.Text);
-                        break;
-                }
+                controller.Acc = Convert.ToInt32(tb_clickSpeed_acc.Text);
             } catch(FormatException) { }
         }
 
-        private void buttonEventListener(object sender, System.EventArgs e) {
-            Button button = (Button)sender;
-            switch(button.Name) {
-                case "b_clickSpeed_reset":
-                    panel_clickSpeed_clickSpeed.reset();
-                    break;
-            }
-        }
-
-        private void InitializeComponent() {
+        protected override void InitializeComponent() {
             this.tb_clickSpeed_acc = new System.Windows.Forms.TextBox();
             this.tb_clickSpeed_info = new System.Windows.Forms.TextBox();
             this.l_clickSpeed_acc = new System.Windows.Forms.Label();
-            this.panel_clickSpeed_clickSpeed = new AllInOneHelper.src.Modules.ClickSpeed.ClickSpeed();
+            this.controller = new AllInOneHelper.src.Modules.ClickSpeed.ClickSpeedController();
             this.b_clickSpeed_reset = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -83,13 +63,13 @@ namespace AllInOneHelper.src.Modules.ClickSpeed {
             // 
             // panel_clickSpeed_clickSpeed
             // 
-            this.panel_clickSpeed_clickSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.controller.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel_clickSpeed_clickSpeed.Location = new System.Drawing.Point(11, 70);
-            this.panel_clickSpeed_clickSpeed.Name = "panel_clickSpeed_clickSpeed";
-            this.panel_clickSpeed_clickSpeed.Size = new System.Drawing.Size(922, 477);
-            this.panel_clickSpeed_clickSpeed.TabIndex = 8;
+            this.controller.Location = new System.Drawing.Point(11, 70);
+            this.controller.Name = "controller";
+            this.controller.Size = new System.Drawing.Size(922, 477);
+            this.controller.TabIndex = 8;
             // 
             // b_clickSpeed_reset
             // 
@@ -103,7 +83,7 @@ namespace AllInOneHelper.src.Modules.ClickSpeed {
             // ClickSpeedPanel
             // 
             this.Controls.Add(this.b_clickSpeed_reset);
-            this.Controls.Add(this.panel_clickSpeed_clickSpeed);
+            this.Controls.Add(this.controller);
             this.Controls.Add(this.tb_clickSpeed_acc);
             this.Controls.Add(this.tb_clickSpeed_info);
             this.Controls.Add(this.l_clickSpeed_acc);
@@ -114,7 +94,7 @@ namespace AllInOneHelper.src.Modules.ClickSpeed {
 
         }
 
-        public void close() {
+        public override void Close() {
 
         }
     }
