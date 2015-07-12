@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.src.Modules.BPM {
     class BPMPanel : BasePanel {
@@ -15,6 +16,8 @@ namespace AllInOneHelper.src.Modules.BPM {
         private TextBox tb_bpm_info;
 
         private BPMController controller;
+
+        public BPMPanel(TabPage tabPage) : base(tabPage){}
 
         //TODO Implement visual BPM
         protected override void RegisterEvents() {

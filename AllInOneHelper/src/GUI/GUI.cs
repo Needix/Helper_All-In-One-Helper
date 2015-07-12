@@ -1,5 +1,6 @@
 ﻿using AllInOneHelper.src.Modules;
 using AllInOneHelper.src.Modules.AspectRatio;
+using AllInOneHelper.src.Modules.Base;
 using AllInOneHelper.src.Modules.BPM;
 using AllInOneHelper.src.Modules.ClickSpeed;
 using AllInOneHelper.src.Modules.ClipboardHistory;
@@ -15,9 +16,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.src.GUI {
     public partial class GUI : Form {
@@ -25,7 +28,7 @@ namespace AllInOneHelper.src.GUI {
 
         //Variables
         private static GUI gui;
-        public static GUI getInstance {
+        public static GUI getInstance { //Singleton
             get {
                 if(GUI.gui == null)
                     GUI.gui = new GUI();
@@ -33,18 +36,7 @@ namespace AllInOneHelper.src.GUI {
             }
         }
 
-        //Panels
-        AspectRatioPanel ARPanel;
-        BPMPanel BPMPanel;
-        ClickSpeedPanel CSPanel;
-        ClipboardPanel CBPanel;
-        CopyFinderPanel CFPanel;
-        DeleteEmptyPanel DEPanel;
-        MassFileManipulationPanel MFMPanel;
-        MouseKeyRecord_Panel MRPanel;
-        ReactiveTestPanel RTPanel;
-        SteamThumbnailPanel STPanel;
-        SettingsPanel SPanel;
+        private readonly List<BasePanel> _modules = new List<BasePanel>();
 
         //Constructor
         private GUI() {
@@ -55,19 +47,52 @@ namespace AllInOneHelper.src.GUI {
             InitializeModules();
         }
 
+        /*
+        //TODO Implement Registe/Deregister behaviour
+        public void RegisterModule(BasePanel module, TabPage page) {
+            modules.Add(module);
+
+            module.Dock = DockStyle.Fill;
+            page.Controls.Add(module);
+
+            this.tabControl_main.Controls.Add(page);
+        }
+
+        public void DeregisterModule(BasePanel module) {
+            modules.Remove(module);
+            
+            //this.tabControl_main.Controls.Remove();
+        }
+        */
+
         private void InitializeModules() {
-            //AspectRatio
-            initSingleModule(ARPanel = new AspectRatioPanel(), tabPage_main_aspectRatio);
-            initSingleModule(BPMPanel = new BPMPanel(), tabPage_main_bpm);
-            initSingleModule(CSPanel = new ClickSpeedPanel(), tabPage_main_clickSpeed);
-            initSingleModule(CBPanel = new ClipboardPanel(), tabPage_main_clipboard);
-            initSingleModule(CFPanel = new CopyFinderPanel(), tabPage_main_copyFinder);
-            initSingleModule(DEPanel = new DeleteEmptyPanel(), tabPage_main_deleteEmpty);
-            initSingleModule(MFMPanel = new MassFileManipulationPanel(), tabPage_main_fileManipulation);
-            initSingleModule(MRPanel = new MouseKeyRecord_Panel(), tabPage_main_mouseRecord);
-            initSingleModule(RTPanel = new ReactiveTestPanel(), tabPage_main_reactiveTest);
-            initSingleModule(STPanel = new SteamThumbnailPanel(), tabPage_main_steamThumbnailDeleter);
-            initSingleModule(SPanel = new SettingsPanel(), tabPage_main_settings);
+            if(File.Exists(SettingsController.SAVE_PATH))
+                LoadModulesFromFile();
+            else
+                LoadDefaultModules();
+
+            for(int i = 0; i < _modules.Count; i++) {
+                BasePanel curElement = _modules[i];
+                initSingleModule(curElement, curElement.Page);
+            }
+        }
+
+        private void LoadModulesFromFile() {
+            SettingsController controller = new SettingsController(null);
+            List<BasePanel> panels = controller.LoadData();
+        }
+
+        private void LoadDefaultModules() {
+            _modules.Add(new AspectRatioPanel(tabPage_main_aspectRatio));
+            _modules.Add(new BPMPanel(tabPage_main_bpm));
+            _modules.Add(new ClickSpeedPanel(tabPage_main_clickSpeed));
+            _modules.Add(new ClipboardPanel(tabPage_main_clipboard));
+            _modules.Add(new CopyFinderPanel(tabPage_main_copyFinder));
+            _modules.Add(new DeleteEmptyPanel(tabPage_main_deleteEmpty));
+            _modules.Add(new MassFileManipulationPanel(tabPage_main_fileManipulation));
+            _modules.Add(new MouseKeyRecord_Panel(tabPage_main_mouseRecord));
+            _modules.Add(new SteamThumbnailPanel(tabPage_main_steamThumbnailDeleter));
+            _modules.Add(new SettingsPanel(tabPage_main_settings));
         }
 
         private void initSingleModule(UserControl control, TabPage page) {
@@ -79,17 +104,10 @@ namespace AllInOneHelper.src.GUI {
         protected override void OnClosing(CancelEventArgs e) {
             base.OnClosing(e);
 
-            ARPanel.Close();
-            BPMPanel.Close();
-            CSPanel.Close();
-            CBPanel.Close();
-            CFPanel.Close();
-            DEPanel.Close();
-            MRPanel.Close();
-            MFMPanel.Close();
-            RTPanel.Close();
-            STPanel.Close();
-            SPanel.Close();
+            foreach (BasePanel panel in _modules)
+            {
+                panel.Close();
+            }
 
             RedrawThread.CloseAll();
         }

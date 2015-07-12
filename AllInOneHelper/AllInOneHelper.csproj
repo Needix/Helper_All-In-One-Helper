@@ -52,6 +52,7 @@
     <Compile Include="src\GUI\GUI.Designer.cs">
       <DependentUpon>GUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\GUI\ModuleElement.cs" />
     <Compile Include="src\Modules\AspectRatio\AspectRatioController.cs" />
     <Compile Include="src\Modules\Base\AbstractControlDescriptionProvider.cs" />
     <Compile Include="src\Modules\Base\BaseController.cs" />
@@ -107,10 +108,10 @@
     <Compile Include="src\Modules\SteamThumbnailDeleter\SteamThumbnailPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="src\Modules\Settings\SettingsPanel.cs">
+    <Compile Include="src\Settings\SettingsPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="src\Modules\Settings\SettingsController.cs" />
+    <Compile Include="src\Settings\SettingsController.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -159,7 +160,7 @@
     <EmbeddedResource Include="src\Modules\SteamThumbnailDeleter\SteamThumbnailPanel.resx">
       <DependentUpon>SteamThumbnailPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="src\Modules\Settings\SettingsPanel.resx">
+    <EmbeddedResource Include="src\Settings\SettingsPanel.resx">
       <DependentUpon>SettingsPanel.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="ClassDiagram1.cd" />

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.src.Modules.ClickSpeed {
     class ClickSpeedPanel : BasePanel {
@@ -12,6 +13,8 @@ namespace AllInOneHelper.src.Modules.ClickSpeed {
         private ClickSpeedController controller;
         private Button b_clickSpeed_reset;
         private Label l_clickSpeed_acc;
+
+        public ClickSpeedPanel(TabPage tabPage) : base(tabPage){}
 
         protected override void RegisterEvents() {
             b_clickSpeed_reset.Click += new EventHandler(controller.Reset);

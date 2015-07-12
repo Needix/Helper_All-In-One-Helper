@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AllInOneHelper.src.Modules.Base {
     abstract class BaseController {
-        public BaseController() {
+        protected BaseController() {
             
         }
 

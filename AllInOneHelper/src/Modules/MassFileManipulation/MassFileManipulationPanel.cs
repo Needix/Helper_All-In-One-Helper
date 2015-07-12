@@ -4,10 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.src.Modules.MassFileManipulation {
     class MassFileManipulationPanel : BasePanel {
         private MassFileManipulationController controller;
+
+        public MassFileManipulationPanel(TabPage tabPage) : base(tabPage){}
 
         protected override void RegisterEvents() {
             controller = new MassFileManipulationController(this);

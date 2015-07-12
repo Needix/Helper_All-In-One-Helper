@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.src.Modules.SteamThumbnailDeleter {
     class SteamThumbnailPanel : BasePanel {
@@ -12,10 +13,10 @@ namespace AllInOneHelper.src.Modules.SteamThumbnailDeleter {
 
         private SteamThumbnailController controller;
 
+        public SteamThumbnailPanel(TabPage tabPage) : base(tabPage){}
+
         protected override void RegisterEvents() {
             controller = new SteamThumbnailController(this);
-            //EventHandler handler = new EventHandler(controller.);
-            
         }
 
         protected override void InitializeComponent() {

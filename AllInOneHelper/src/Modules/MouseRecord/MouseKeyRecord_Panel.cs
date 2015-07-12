@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using AllInOneHelper.Modules.Base;
 using AllInOneHelper.src.Modules.Base;
 
 namespace AllInOneHelper.src.Modules.MouseRecord {
@@ -23,7 +24,7 @@ namespace AllInOneHelper.src.Modules.MouseRecord {
         public ListBox listBox_mouseRecord_keyRecord;
         private MouseKey_Playback_Panel panel_mouseRec_playbackPanel;
 
-        public MouseKeyRecord_Panel() {
+        public MouseKeyRecord_Panel(TabPage tabPage) : base(tabPage) {
             this.panel_mouseRec_playbackPanel.MouseRecordPanel = this;
 
             cbox_mouseRec_pause.Enabled = false;

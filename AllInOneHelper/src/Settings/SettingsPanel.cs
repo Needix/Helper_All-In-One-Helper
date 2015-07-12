@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.src.Settings {
     class SettingsPanel : BasePanel {
@@ -18,10 +19,14 @@ namespace AllInOneHelper.src.Settings {
 
         private SettingsController controller;
 
+        public SettingsPanel(TabPage tabPage) : base(tabPage){}
+
         protected override void RegisterEvents() {
             controller = new SettingsController(this);
-            //EventHandler handler = new EventHandler(controller.);
-            
+
+            b_settings_saveLoad_save.Click += new EventHandler(controller.SaveData);
+            b_settings_saveLoad_load.Click += new EventHandler(controller.LoadData);
+            b_settings_saveLoad_reset.Click += new EventHandler(controller.RevertToDefault);
         }
 
         protected override void InitializeComponent() {

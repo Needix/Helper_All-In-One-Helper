@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.src.Modules.DeleteEmpty {
     class DeleteEmptyPanel : BasePanel {
@@ -22,6 +23,8 @@ namespace AllInOneHelper.src.Modules.DeleteEmpty {
         private TextBox tb_deleteEmpty_info;
 
         private DeleteEmptyController controller;
+
+        public DeleteEmptyPanel(TabPage tabPage) : base(tabPage) { }
 
         protected override void RegisterEvents() {
             controller = new DeleteEmptyController(this);

@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.src.Modules.AspectRatio {
+    [Serializable]
     class AspectRatioPanel : BasePanel {
         private Button b_aspectRatio_calcRatio;
         private Button b_aspectRatio_calcHeight;
@@ -16,6 +18,8 @@ namespace AllInOneHelper.src.Modules.AspectRatio {
         private TextBox tb_aspectRatio_info;
 
         private AspectRatioController controller;
+
+        public AspectRatioPanel(TabPage tabPageMainAspectRatio) : base(tabPageMainAspectRatio) { }
 
         protected override void RegisterEvents() {
             controller = new AspectRatioController(this);

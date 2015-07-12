@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
+using AllInOneHelper.Modules.Base;
 using AllInOneHelper.src.Modules.Base;
 
 namespace AllInOneHelper.src.Modules.ClipboardHistory {
@@ -17,6 +18,8 @@ namespace AllInOneHelper.src.Modules.ClipboardHistory {
         private CheckBox cbox_clipboard_status;
 
         private ClipboardController controller;
+
+        public ClipboardPanel(TabPage tabPage) : base(tabPage){}
 
         protected override void RegisterEvents() {
             controller = new ClipboardController(this);

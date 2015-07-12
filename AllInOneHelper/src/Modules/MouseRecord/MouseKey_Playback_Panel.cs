@@ -6,9 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.src.Modules.MouseRecord {
-    class MouseKey_Playback_Panel : BasePanel {
+    class MouseKey_Playback_Panel : UserControl {
         private RedrawThread redrawThread;
 
         private MouseKeyRecord_Panel mouseRecord_Panel; public MouseKeyRecord_Panel MouseRecordPanel { set { mouseKey_Recorder.SetRecordPanel = value;  mouseRecord_Panel = value; } }
@@ -61,10 +62,6 @@ namespace AllInOneHelper.src.Modules.MouseRecord {
                     }
                 }
             }
-        }
-
-        protected override void RegisterEvents() {
-            
         }
 
         #region Drawing
@@ -178,7 +175,7 @@ namespace AllInOneHelper.src.Modules.MouseRecord {
         }
         #endregion
 
-        protected override void InitializeComponent() {
+        protected void InitializeComponent() {
             this.SuspendLayout();
             // 
             // MousePlayback
@@ -189,7 +186,7 @@ namespace AllInOneHelper.src.Modules.MouseRecord {
 
         }
 
-        public override void Close() {
+        public void Close() {
             playbackThread_abort = true;
             playbackThread.Interrupt();
         }
