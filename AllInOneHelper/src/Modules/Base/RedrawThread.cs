@@ -1,53 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace AllInOneHelper.src.Modules {
+namespace AllInOneHelper.Modules.Base {
     class RedrawThread {
-        private static List<RedrawThread> redrawThreadList = new List<RedrawThread>();
+        private static readonly List<RedrawThread> redrawThreadList = new List<RedrawThread>();
 
         private const int THREAD_SLEEP = 100;
 
-        private Thread thread;
-        private volatile Boolean abort = false;
-        private UserControl panel;
+        private Thread _thread;
+        private volatile Boolean _abort = false;
+        private readonly UserControl _panel;
 
         public RedrawThread(UserControl panel) {
-            this.panel = panel;
+            this._panel = panel;
 
             RedrawThread.redrawThreadList.Add(this);
         }
 
         private void Run() {
-            while(!abort) {
-                panel.Invalidate();
+            while(!_abort) {
+                _panel.Invalidate();
 
                 try {
                     Thread.Sleep(THREAD_SLEEP);
                 } catch(ThreadInterruptedException) {
-                    abort = true;
+                    _abort = true;
                 }
             }
         }
 
         public void Start() {
-            System.Diagnostics.Debug.WriteLine("Starting \""+panel+"\" Redraw Thread.");
-            thread = new Thread(Run);
-            thread.Name = panel+"_RedrawThread";
-            thread.Start();
+            System.Diagnostics.Debug.WriteLine("Starting \""+_panel+"\" Redraw Thread.");
+            _thread = new Thread(Run);
+            _thread.Name = _panel+"_RedrawThread";
+            _thread.Start();
         }
 
         public void Close() {
-            this.abort = true;
-            thread.Interrupt();
+            this._abort = true;
+            _thread.Interrupt();
         }
 
         public static void CloseAll() {
-            for(int i = 0; i < redrawThreadList.Count; i++) {
-                redrawThreadList[i].Close();
+            foreach (RedrawThread thread in redrawThreadList) {
+                thread.Close();
             }
         }
     }

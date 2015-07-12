@@ -1,12 +1,8 @@
-﻿using AllInOneHelper.src.Modules.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 using System.Windows.Forms;
 using AllInOneHelper.Modules.Base;
 
-namespace AllInOneHelper.src.Modules.BPM {
+namespace AllInOneHelper.Modules.BPM {
     class BPMPanel : BasePanel {
         private RadioButton radio_bpm_visualBPM;
         public Label l_bpm_averageBPM;
@@ -15,20 +11,19 @@ namespace AllInOneHelper.src.Modules.BPM {
         private Button b_bpm_tap;
         private TextBox tb_bpm_info;
 
-        private BPMController controller;
+        private BPMController _controller;
 
         public BPMPanel(TabPage tabPage) : base(tabPage){}
 
         //TODO Implement visual BPM
         protected override void RegisterEvents() {
-            controller = new BPMController(this);
+            _controller = new BPMController(this);
 
-            b_bpm_tap.Click += new EventHandler(controller.Click);
-            b_bpm_reset.Click += new EventHandler(controller.Reset);
+            b_bpm_tap.Click += new EventHandler(_controller.Click);
+            b_bpm_reset.Click += new EventHandler(_controller.Reset);
         }
 
-        protected override void InitializeComponent()
-        {
+        protected override void InitializeComponent() {
             this.radio_bpm_visualBPM = new System.Windows.Forms.RadioButton();
             this.l_bpm_averageBPM = new System.Windows.Forms.Label();
             this.l_bpm_curBPM = new System.Windows.Forms.Label();

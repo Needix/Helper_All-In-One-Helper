@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
+﻿using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace AllInOneHelper.src.Modules.MouseRecord {
+namespace AllInOneHelper.Modules.MouseRecord {
     static class Keyboard_Status {
         [DllImport("user32.dll")]
         static extern short GetAsyncKeyState(int vKey);
@@ -15,9 +11,9 @@ namespace AllInOneHelper.src.Modules.MouseRecord {
             for(int i = 0; i < array.Length; i++) {
                 char character = (char)i;
                 short status = GetAsyncKeyState(character);
-                byte LSB = (byte)(status & 0xFF);
-                byte MSB = (byte)((status & 0xFF00) >> 15);
-                array[i] = MSB;
+                byte leastSignificantBit = (byte)(status & 0xFF);
+                byte mostSignificantBit = (byte)((status & 0xFF00) >> 15);
+                array[i] = mostSignificantBit;
             }
 
             return array;

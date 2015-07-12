@@ -1,12 +1,7 @@
-﻿using AllInOneHelper.src.Modules.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using AllInOneHelper.Modules.Base;
 
-namespace AllInOneHelper.src.Modules.DeleteEmpty {
+namespace AllInOneHelper.Modules.DeleteEmpty {
     class DeleteEmptyPanel : BasePanel {
         private GroupBox groupBox_deleteEmpty_result;
         private ListBox listBox_deleteEmpty_result;
@@ -22,12 +17,12 @@ namespace AllInOneHelper.src.Modules.DeleteEmpty {
         private Button b_deleteEmpty_delete;
         private TextBox tb_deleteEmpty_info;
 
-        private DeleteEmptyController controller;
+        private DeleteEmptyController _controller;
 
         public DeleteEmptyPanel(TabPage tabPage) : base(tabPage) { }
 
         protected override void RegisterEvents() {
-            controller = new DeleteEmptyController(this);
+            _controller = new DeleteEmptyController(this);
             //EventHandler handler = new EventHandler(controller.);
         }
 

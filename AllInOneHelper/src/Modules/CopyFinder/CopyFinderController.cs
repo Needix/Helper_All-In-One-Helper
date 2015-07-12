@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace AllInOneHelper.src.Modules.CopyFinder {
+﻿namespace AllInOneHelper.Modules.CopyFinder {
     class CopyFinderController {
-        private CopyFinderPanel basePanel;
+        private CopyFinderPanel _basePanel;
         public CopyFinderController(CopyFinderPanel panel) {
-            this.basePanel = panel;
+            this._basePanel = panel;
         }
     }
 }

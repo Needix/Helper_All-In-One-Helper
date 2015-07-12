@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.Threading;
 using AllInOneHelper.Modules.Base;
-using AllInOneHelper.src.Modules.Base;
 
-namespace AllInOneHelper.src.Modules.ClipboardHistory {
+namespace AllInOneHelper.Modules.ClipboardHistory {
     class ClipboardPanel : BasePanel {
         private TextBox tb_clipboard_info;
         private CheckBox cbox_clipboard_autoscroll;
@@ -17,18 +12,18 @@ namespace AllInOneHelper.src.Modules.ClipboardHistory {
         public ListBox listBox_clipboard_list;
         private CheckBox cbox_clipboard_status;
 
-        private ClipboardController controller;
+        private ClipboardController _controller;
 
         public ClipboardPanel(TabPage tabPage) : base(tabPage){}
 
         protected override void RegisterEvents() {
-            controller = new ClipboardController(this);
+            _controller = new ClipboardController(this);
 
-            cbox_clipboard_status.Click += new EventHandler(controller.ChangeStatus);
-            b_clipboard_copySelectedIntoClipboard.Click += new EventHandler(controller.CopySelectedIntoClipboard);
-            b_clipboard_deleteAll.Click += new EventHandler(controller.DeleteAll);
-            b_clipboard_deleteSelected.Click += new EventHandler(controller.DeleteSelected);
-            cbox_clipboard_autoscroll.Click += new EventHandler(controller.AutoScrollChange);
+            cbox_clipboard_status.Click += new EventHandler(_controller.ChangeStatus);
+            b_clipboard_copySelectedIntoClipboard.Click += new EventHandler(_controller.CopySelectedIntoClipboard);
+            b_clipboard_deleteAll.Click += new EventHandler(_controller.DeleteAll);
+            b_clipboard_deleteSelected.Click += new EventHandler(_controller.DeleteSelected);
+            cbox_clipboard_autoscroll.Click += new EventHandler(_controller.AutoScrollChange);
         }
 
         protected override void InitializeComponent() {
@@ -132,7 +127,7 @@ namespace AllInOneHelper.src.Modules.ClipboardHistory {
         }
 
         public override void Close() {
-            controller.Close();
+            _controller.Close();
         }
     }
 }

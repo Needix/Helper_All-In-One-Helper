@@ -1,12 +1,8 @@
-﻿using AllInOneHelper.src.Modules.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 using System.Windows.Forms;
 using AllInOneHelper.Modules.Base;
 
-namespace AllInOneHelper.src.Settings {
+namespace AllInOneHelper.Settings {
     class SettingsPanel : BasePanel {
         private GroupBox groupBox_settings_window;
         private CheckBox checkBox2;
@@ -17,16 +13,16 @@ namespace AllInOneHelper.src.Settings {
         private Button b_settings_saveLoad_load;
         private Button b_settings_saveLoad_save;
 
-        private SettingsController controller;
+        private SettingsController _controller;
 
         public SettingsPanel(TabPage tabPage) : base(tabPage){}
 
         protected override void RegisterEvents() {
-            controller = new SettingsController(this);
+            _controller = new SettingsController(this);
 
-            b_settings_saveLoad_save.Click += new EventHandler(controller.SaveData);
-            b_settings_saveLoad_load.Click += new EventHandler(controller.LoadData);
-            b_settings_saveLoad_reset.Click += new EventHandler(controller.RevertToDefault);
+            b_settings_saveLoad_save.Click += new EventHandler(_controller.SaveData);
+            b_settings_saveLoad_load.Click += new EventHandler(_controller.LoadData);
+            b_settings_saveLoad_reset.Click += new EventHandler(_controller.RevertToDefault);
         }
 
         protected override void InitializeComponent() {

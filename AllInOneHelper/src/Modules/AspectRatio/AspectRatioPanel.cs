@@ -1,12 +1,8 @@
-﻿using AllInOneHelper.src.Modules.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 using System.Windows.Forms;
 using AllInOneHelper.Modules.Base;
 
-namespace AllInOneHelper.src.Modules.AspectRatio {
+namespace AllInOneHelper.Modules.AspectRatio {
     [Serializable]
     class AspectRatioPanel : BasePanel {
         private Button b_aspectRatio_calcRatio;
@@ -17,16 +13,16 @@ namespace AllInOneHelper.src.Modules.AspectRatio {
         public TextBox tb_aspectRatio_width;
         private TextBox tb_aspectRatio_info;
 
-        private AspectRatioController controller;
+        private AspectRatioController _controller;
 
         public AspectRatioPanel(TabPage tabPageMainAspectRatio) : base(tabPageMainAspectRatio) { }
 
         protected override void RegisterEvents() {
-            controller = new AspectRatioController(this);
+            _controller = new AspectRatioController(this);
 
-            b_aspectRatio_calcWidth.Click += new EventHandler(controller.CalcWidth);
-            b_aspectRatio_calcHeight.Click += new EventHandler(controller.CalcHeight);
-            b_aspectRatio_calcRatio.Click += new EventHandler(controller.CalcRatio);
+            b_aspectRatio_calcWidth.Click += new EventHandler(_controller.CalcWidth);
+            b_aspectRatio_calcHeight.Click += new EventHandler(_controller.CalcHeight);
+            b_aspectRatio_calcRatio.Click += new EventHandler(_controller.CalcRatio);
         }
 
         protected override void InitializeComponent() {

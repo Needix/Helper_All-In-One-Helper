@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 
-namespace AllInOneHelper.src.Modules.Base {
+namespace AllInOneHelper.Modules.Base {
     public class AbstractControlDescriptionProvider<TAbstract, TBase> : TypeDescriptionProvider {
         public AbstractControlDescriptionProvider()
             : base(TypeDescriptor.GetProvider(typeof(TAbstract))) {

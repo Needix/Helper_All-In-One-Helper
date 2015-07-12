@@ -1,38 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
-namespace AllInOneHelper.src.Modules.ClickSpeed {
+namespace AllInOneHelper.Modules.ClickSpeed {
     class ClickSpeedController : UserControl {
         //TODO Rewrite ClickSpeed from scratch
         private const int MAX_Y_DRAW = 50;
 
-        private int acc = 5;
+        private int _acc = 5;
         public int Acc { set { 
             Reset(null, null);
-            acc = value; 
+            _acc = value; 
         }}
 
-        private int lastClick = 0;
+        private int _lastClick = 0;
 
-        private int maxY = 0;
-        private int minX = int.MaxValue;
+        private int _maxY = 0;
+        private int _minX = int.MaxValue;
 
-        private int indexLastUp = -1;
+        private int _indexLastUp = -1;
 
-        private int bestSpeed = int.MaxValue;
-        private int worstSpeed = 0;
+        private int _bestSpeed = int.MaxValue;
+        private int _worstSpeed = 0;
 
-        private ClickSpeedPoint[] points = new ClickSpeedPoint[1000];
+        private ClickSpeedPoint[] _points = new ClickSpeedPoint[1000];
 
         public ClickSpeedController() {
             this.Click += new EventHandler(PanelClick);
 
-            for(int i = 0; i < points.Length; i++) {
-                points[i] = new ClickSpeedPoint(i, 0, acc*i);
+            for(int i = 0; i < _points.Length; i++) {
+                _points[i] = new ClickSpeedPoint(i, 0, _acc*i);
             }
         }
 
@@ -51,16 +48,16 @@ namespace AllInOneHelper.src.Modules.ClickSpeed {
             DrawAxis(g);
 
             //Linien
-            double proPixelEinheit = ((double)maxY) / (this.Height - 25);
+            double proPixelEinheit = ((double)_maxY) / (this.Height - 25);
             DrawLines(g, proPixelEinheit);
 
             //Text
             SolidBrush brush = new SolidBrush(Color.Black);
             Font font = new Font("Arial", 10);
-            g.DrawString("Maximum (" + (maxY) + ")", font, brush, 5, 13);
-            g.DrawString((maxY * 0.75) + "", font, brush, 5, (int)(this.Height * 0.25));
-            g.DrawString((maxY * 0.5) + "", font, brush, 5, (int)(this.Height * 0.5));
-            g.DrawString((maxY * 0.25) + "", font, brush, 5, (int)(this.Height * 0.75));
+            g.DrawString("Maximum (" + (_maxY) + ")", font, brush, 5, 13);
+            g.DrawString((_maxY * 0.75) + "", font, brush, 5, (int)(this.Height * 0.25));
+            g.DrawString((_maxY * 0.5) + "", font, brush, 5, (int)(this.Height * 0.5));
+            g.DrawString((_maxY * 0.25) + "", font, brush, 5, (int)(this.Height * 0.75));
         }
 
         private void DrawLines(Graphics g, double proPixelEinheit) {
@@ -69,38 +66,33 @@ namespace AllInOneHelper.src.Modules.ClickSpeed {
             Font font = new Font("Arial", 10);
 
             int lastX = 70;
-            int xDiff = 50;
-            for(int i = 0; i < points.Length; i++) {
-                if(i >= minX) {
-                    ClickSpeedPoint curAP = points[i];
-                    if(curAP != null && curAP.Y>0) {
-                        int y = (int)((maxY - curAP.Y) / proPixelEinheit);
+            const int xDiff = 50;
+            for(int i = 0; i < _points.Length; i++) {
+                if (i < _minX) continue; //Skip first unused values
 
-                        if(y > this.Height - MAX_Y_DRAW) y = this.Height - MAX_Y_DRAW;
-                        if(y < 0) y = 0;
+                ClickSpeedPoint curPoint = _points[i];
+                if (curPoint == null || curPoint.Y <= 0) continue; //Skips points that are outside range
 
-                        if(indexLastUp == i) {
-                            brush = new SolidBrush(Color.Red);
-                        } else {
-                            brush = new SolidBrush(Color.Green);
-                        }
-                        g.DrawLine(pen, lastX, y, lastX, this.Height - MAX_Y_DRAW); //DrawLine
+                int y = (int)((_maxY - curPoint.Y) / proPixelEinheit);
 
-                        //Draw "(x) to (x+acc)" string
-                        int height = i % 2 == 0 ? this.Height - 25 : this.Height - 40; //Höhenverschiebung (i%2==0 -> unten; i%2==1 -> oben)
-                        g.DrawString((i * acc) + "-" + ((i + 1) * acc), font, brush, lastX-(xDiff/2), height);
+                if(y > this.Height - MAX_Y_DRAW) y = this.Height - MAX_Y_DRAW;
+                if(y < 0) y = 0;
 
-                        lastX += xDiff;
-                        if(lastX > this.Width) return;
-                    }
-                }
+                brush = _indexLastUp == i ? new SolidBrush(Color.Red) : new SolidBrush(Color.Green);
+                g.DrawLine(pen, lastX, y, lastX, this.Height - MAX_Y_DRAW); //DrawLine
+
+                //Draw "(x) to (x+acc)" string
+                int height = i % 2 == 0 ? this.Height - 25 : this.Height - 40; //Heightdiff (i%2==0 -> down; i%2==1 -> up)
+                g.DrawString((i * _acc) + "-" + ((i + 1) * _acc), font, brush, lastX-(xDiff/2), height);
+
+                lastX += xDiff;
+                if(lastX > this.Width) return;
             }
         }
 
         private void DrawAxis(Graphics g) {
             Brush brush = new SolidBrush(Color.Black);
             Pen pen = new Pen(brush);
-            Font font = new Font("Arial", 10);
 
             g.DrawLine(pen, 45, 40, 45, this.Height - 2); //Y
             g.DrawLine(pen, 2, this.Height - MAX_Y_DRAW, this.Width - 2, this.Height - MAX_Y_DRAW); //X
@@ -109,50 +101,50 @@ namespace AllInOneHelper.src.Modules.ClickSpeed {
         private void CalculateMaximumAndMinimum() {
             int curMax = -1;
             int curMinIndex = -1;
-            for(int i = 0; i < points.Length; i++) {
-                ClickSpeedPoint curAP = points[i];
-                int cur = curAP.Y;
+            for(int i = 0; i < _points.Length; i++) {
+                ClickSpeedPoint curPoint = _points[i];
+                int cur = curPoint.Y;
                 curMax = cur > curMax ? cur : curMax;
                 if(cur > 0 && curMinIndex == -1) { curMinIndex = i; } //Set minX to index of first element!=0
             }
-            maxY = curMax;
-            minX = curMinIndex;
+            _maxY = curMax;
+            _minX = curMinIndex;
         }
         #endregion
 
         /////////////////////////////////////////////////Panel Events
-        private void PanelClick(object sender, System.EventArgs e) {
-            int curDiff = Environment.TickCount - lastClick;
+        private void PanelClick(object sender, EventArgs e) {
+            int curDiff = Environment.TickCount - _lastClick;
 
-            if(lastClick == 0) {
-                lastClick = Environment.TickCount;
+            if(_lastClick == 0) {
+                _lastClick = Environment.TickCount;
                 return;
             }
-            lastClick = Environment.TickCount;
+            _lastClick = Environment.TickCount;
 
-            bestSpeed = curDiff < bestSpeed ? curDiff : bestSpeed;
-            worstSpeed = curDiff > worstSpeed ? curDiff : worstSpeed;
+            _bestSpeed = curDiff < _bestSpeed ? curDiff : _bestSpeed;
+            _worstSpeed = curDiff > _worstSpeed ? curDiff : _worstSpeed;
 
-            int speedLow = (int)Math.Floor(curDiff / (double)acc);
-            indexLastUp = speedLow;
-            if(indexLastUp < points.Length) {
+            int speedLow = (int)Math.Floor(curDiff / (double)_acc);
+            _indexLastUp = speedLow;
+            if(_indexLastUp < _points.Length) {
                 //System.Diagnostics.Debug.WriteLine("Registered Click to "+speedLow+". Diff: "+curDiff+". CurrentValue: "+points[indexLastUp].Y);
                 System.Diagnostics.Debug.WriteLine("Registered Click to " + speedLow + ". Diff: " + curDiff + ".");
-                points[indexLastUp].Y++; 
+                _points[_indexLastUp].Y++; 
             }
 
-            this.Invalidate();
+            Invalidate();
         }
 
         /////////////////////////////////////////////////General
-        public void Reset(object sender, System.EventArgs e) {
-            acc = 5;
-            indexLastUp = 0;
-            lastClick = 0;
-            worstSpeed = 0;
-            maxY = 0;
-            bestSpeed = int.MaxValue;
-            points = new ClickSpeedPoint[100];
+        public void Reset(object sender, EventArgs e) {
+            _acc = 5;
+            _indexLastUp = 0;
+            _lastClick = 0;
+            _worstSpeed = 0;
+            _maxY = 0;
+            _bestSpeed = int.MaxValue;
+            _points = new ClickSpeedPoint[100];
         }
     }
 }

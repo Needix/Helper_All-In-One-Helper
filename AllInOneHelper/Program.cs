@@ -12,7 +12,7 @@ namespace AllInOneHelper {
         static void Main() {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(src.GUI.GUI.getInstance);
+            Application.Run(GUI.GUI.GetInstance);
         }
     }
 }

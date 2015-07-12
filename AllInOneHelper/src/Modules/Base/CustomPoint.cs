@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace AllInOneHelper.src.Modules {
+﻿namespace AllInOneHelper.Modules.Base {
     class CustomPoint {
-        private int x; public int X { set { x = value; } get { return x; } }
-        private int y; public int Y { set { y = value; } get { return y; } }
+        public int X { set; get; }
+        public int Y { set; get; }
 
         public CustomPoint(int x, int y) {
-            this.x = x;
-            this.y = y;
+            this.X = x;
+            this.Y = y;
         }
 
         public override string ToString() {
-            return base.ToString() + ": " + x + "/" + y;
+            return base.ToString() + ": " + X + "/" + Y;
         }
     }
 }

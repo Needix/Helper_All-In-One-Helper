@@ -1,46 +1,34 @@
-﻿using AllInOneHelper.src.Modules;
-using AllInOneHelper.src.Modules.AspectRatio;
-using AllInOneHelper.src.Modules.Base;
-using AllInOneHelper.src.Modules.BPM;
-using AllInOneHelper.src.Modules.ClickSpeed;
-using AllInOneHelper.src.Modules.ClipboardHistory;
-using AllInOneHelper.src.Modules.CopyFinder;
-using AllInOneHelper.src.Modules.DeleteEmpty;
-using AllInOneHelper.src.Modules.MassFileManipulation;
-using AllInOneHelper.src.Modules.MouseRecord;
-using AllInOneHelper.src.Modules.ReactiveTest;
-using AllInOneHelper.src.Modules.SteamThumbnailDeleter;
-using AllInOneHelper.src.Settings;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+using AllInOneHelper.Modules.AspectRatio;
 using AllInOneHelper.Modules.Base;
+using AllInOneHelper.Modules.BPM;
+using AllInOneHelper.Modules.ClickSpeed;
+using AllInOneHelper.Modules.ClipboardHistory;
+using AllInOneHelper.Modules.CopyFinder;
+using AllInOneHelper.Modules.DeleteEmpty;
+using AllInOneHelper.Modules.MassFileManipulation;
+using AllInOneHelper.Modules.MouseRecord;
+using AllInOneHelper.Modules.SteamThumbnailDeleter;
+using AllInOneHelper.Settings;
 
-namespace AllInOneHelper.src.GUI {
+namespace AllInOneHelper.GUI {
     public partial class GUI : Form {
         //Constants
 
         //Variables
-        private static GUI gui;
-        public static GUI getInstance { //Singleton
-            get {
-                if(GUI.gui == null)
-                    GUI.gui = new GUI();
-                return GUI.gui; 
-            }
+        private static GUI _gui;
+        public static GUI GetInstance { //Singleton
+            get { return GUI._gui ?? (GUI._gui = new GUI()); }
         }
 
         private readonly List<BasePanel> _modules = new List<BasePanel>();
 
         //Constructor
         private GUI() {
-            GUI.gui = this;
+            GUI._gui = this;
 
             InitializeComponent();
 
@@ -65,19 +53,20 @@ namespace AllInOneHelper.src.GUI {
         }
         */
 
-        private void InitializeModules() {
+        private void InitializeModules()
+        {
             if(File.Exists(SettingsController.SAVE_PATH))
                 LoadModulesFromFile();
             else
                 LoadDefaultModules();
 
-            for(int i = 0; i < _modules.Count; i++) {
-                BasePanel curElement = _modules[i];
-                initSingleModule(curElement, curElement.Page);
+            foreach (BasePanel curElement in _modules)
+            {
+                InitSingleModule(curElement, curElement.Page);
             }
         }
 
-        private void LoadModulesFromFile() {
+        private static void LoadModulesFromFile() {
             SettingsController controller = new SettingsController(null);
             List<BasePanel> panels = controller.LoadData();
         }
@@ -95,7 +84,7 @@ namespace AllInOneHelper.src.GUI {
             _modules.Add(new SettingsPanel(tabPage_main_settings));
         }
 
-        private void initSingleModule(UserControl control, TabPage page) {
+        private static void InitSingleModule(UserControl control, TabPage page) {
             control.Dock = DockStyle.Fill;
             page.Controls.Add(control);
         }

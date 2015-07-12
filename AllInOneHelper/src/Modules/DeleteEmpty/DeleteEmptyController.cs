@@ -1,14 +1,10 @@
-﻿using AllInOneHelper.src.Modules.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using AllInOneHelper.Modules.Base;
 
-namespace AllInOneHelper.src.Modules.DeleteEmpty {
+namespace AllInOneHelper.Modules.DeleteEmpty {
     class DeleteEmptyController : BaseController {
-        private DeleteEmptyPanel basePanel;
+        private DeleteEmptyPanel _basePanel;
         public DeleteEmptyController(DeleteEmptyPanel panel) {
-            this.basePanel = panel;
+            this._basePanel = panel;
         }
 
         public override void Close() { }

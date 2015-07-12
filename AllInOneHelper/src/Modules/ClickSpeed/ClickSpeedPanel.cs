@@ -1,12 +1,8 @@
-﻿using AllInOneHelper.src.Modules.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 using System.Windows.Forms;
 using AllInOneHelper.Modules.Base;
 
-namespace AllInOneHelper.src.Modules.ClickSpeed {
+namespace AllInOneHelper.Modules.ClickSpeed {
     class ClickSpeedPanel : BasePanel {
         private TextBox tb_clickSpeed_acc;
         private TextBox tb_clickSpeed_info;
@@ -31,7 +27,7 @@ namespace AllInOneHelper.src.Modules.ClickSpeed {
             this.tb_clickSpeed_acc = new System.Windows.Forms.TextBox();
             this.tb_clickSpeed_info = new System.Windows.Forms.TextBox();
             this.l_clickSpeed_acc = new System.Windows.Forms.Label();
-            this.controller = new AllInOneHelper.src.Modules.ClickSpeed.ClickSpeedController();
+            this.controller = new ClickSpeedController();
             this.b_clickSpeed_reset = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 

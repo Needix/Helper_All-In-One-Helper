@@ -1,19 +1,14 @@
-﻿using AllInOneHelper.src.Modules.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using AllInOneHelper.Modules.Base;
 
-namespace AllInOneHelper.src.Modules.ReactiveTest {
+namespace AllInOneHelper.Modules.ReactiveTest {
     class ReactiveTestPanel : BasePanel {
-        private ReactiveTestController controller;
+        private ReactiveTestController _controller;
 
         public ReactiveTestPanel(TabPage page) : base(page) {}
 
         protected override void RegisterEvents() {
-            controller = new ReactiveTestController(this);
+            _controller = new ReactiveTestController(this);
             //EventHandler handler = new EventHandler(controller.);
             
         }

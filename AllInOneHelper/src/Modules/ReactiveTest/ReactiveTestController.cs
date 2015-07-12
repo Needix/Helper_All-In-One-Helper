@@ -1,14 +1,10 @@
-﻿using AllInOneHelper.src.Modules.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using AllInOneHelper.Modules.Base;
 
-namespace AllInOneHelper.src.Modules.ReactiveTest {
+namespace AllInOneHelper.Modules.ReactiveTest {
     class ReactiveTestController : BaseController {
-        private ReactiveTestPanel basePanel;
+        private ReactiveTestPanel _basePanel;
         public ReactiveTestController(ReactiveTestPanel panel) {
-            this.basePanel = panel;
+            this._basePanel = panel;
         }
 
         public override void Close() {

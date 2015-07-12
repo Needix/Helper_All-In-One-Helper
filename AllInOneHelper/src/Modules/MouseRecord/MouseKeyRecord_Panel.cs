@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using AllInOneHelper.Modules.Base;
-using AllInOneHelper.src.Modules.Base;
 
-namespace AllInOneHelper.src.Modules.MouseRecord {
+namespace AllInOneHelper.Modules.MouseRecord {
     class MouseKeyRecord_Panel : BasePanel {
         private GroupBox groupBox_mouseRec_playback;
         public CheckBox cbox_mouseRec_playback_showAllFrames;
@@ -34,11 +30,11 @@ namespace AllInOneHelper.src.Modules.MouseRecord {
         }
 
         protected override void RegisterEvents() {
-            MouseKey_Recorder MK_R = panel_mouseRec_playbackPanel.MouseKeyRecorder;
-            b_mouseRec_rec_start.Click +=           new EventHandler(MK_R.StartRec);
-            cbox_mouseRec_pause.CheckedChanged +=   new EventHandler(MK_R.PauseRec);
-            b_mouseRec_rec_stop.Click +=            new EventHandler(MK_R.StopRec);
-            b_mouseRec_rec_reset.Click +=           new EventHandler(MK_R.ResetRec);
+            MouseKey_Recorder mouseKeyRecorder = panel_mouseRec_playbackPanel.MouseKeyRecorder;
+            b_mouseRec_rec_start.Click +=           new EventHandler(mouseKeyRecorder.StartRec);
+            cbox_mouseRec_pause.CheckedChanged +=   new EventHandler(mouseKeyRecorder.PauseRec);
+            b_mouseRec_rec_stop.Click +=            new EventHandler(mouseKeyRecorder.StopRec);
+            b_mouseRec_rec_reset.Click +=           new EventHandler(mouseKeyRecorder.ResetRec);
 
             b_mouseRec_playback_start.Click +=                      new EventHandler(panel_mouseRec_playbackPanel.StartPlayback);
             b_mouseRec_playback_stop.Click +=                       new EventHandler(panel_mouseRec_playbackPanel.StopPlayback);
@@ -59,7 +55,7 @@ namespace AllInOneHelper.src.Modules.MouseRecord {
             this.b_mouseRec_rec_stop = new System.Windows.Forms.Button();
             this.b_mouseRec_rec_start = new System.Windows.Forms.Button();
             this.listBox_mouseRecord_keyRecord = new System.Windows.Forms.ListBox();
-            this.panel_mouseRec_playbackPanel = new AllInOneHelper.src.Modules.MouseRecord.MouseKey_Playback_Panel();
+            this.panel_mouseRec_playbackPanel = new MouseKey_Playback_Panel();
             this.groupBox_mouseRec_playback.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.slider_mouseRec_playback_progress)).BeginInit();
             this.groupBox_mouseRec_record.SuspendLayout();

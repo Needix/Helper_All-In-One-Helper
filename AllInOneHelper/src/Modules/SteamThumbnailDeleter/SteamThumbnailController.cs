@@ -1,14 +1,10 @@
-﻿using AllInOneHelper.src.Modules.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using AllInOneHelper.Modules.Base;
 
-namespace AllInOneHelper.src.Modules.SteamThumbnailDeleter {
+namespace AllInOneHelper.Modules.SteamThumbnailDeleter {
     class SteamThumbnailController : BaseController {
-        private SteamThumbnailPanel basePanel;
+        private SteamThumbnailPanel _basePanel;
         public SteamThumbnailController(SteamThumbnailPanel panel) {
-            this.basePanel = panel;
+            this._basePanel = panel;
         }
 
         public override void Close() { }

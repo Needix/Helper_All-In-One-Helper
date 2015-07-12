@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Windows.Forms;
-using AllInOneHelper.src.Modules.Base;
 
 namespace AllInOneHelper.Modules.Base {
     [TypeDescriptionProvider(typeof(AbstractControlDescriptionProvider<BasePanel, UserControl>))]

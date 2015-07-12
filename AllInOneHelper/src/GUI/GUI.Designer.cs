@@ -1,4 +1,4 @@
-﻿namespace AllInOneHelper.src.GUI {
+﻿namespace AllInOneHelper.GUI {
     partial class GUI {
         /// <summary>
         /// Required designer variable.
