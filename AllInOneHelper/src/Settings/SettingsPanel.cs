@@ -1,14 +1,17 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.Settings {
-    [Serializable]
     class SettingsPanel : BasePanel {
         private GroupBox groupBox_settings_window;
-        private CheckBox checkBox2;
-        private CheckBox checkBox1;
-        private CheckBox cbox_settings_window_minimizeIntoTray;
+        private CheckBox cbox_alwayOnTop;
+        private CheckBox cbox_closeIntoTray;
+        private CheckBox cbox_minimizeIntoTray;
         private GroupBox groupBox_settings_saveLoad;
         private Button b_settings_saveLoad_reset;
         private Button b_settings_saveLoad_load;
@@ -25,13 +28,24 @@ namespace AllInOneHelper.Settings {
             b_settings_saveLoad_save.Click += new EventHandler(_controller.SaveData);
             b_settings_saveLoad_load.Click += new EventHandler(_controller.LoadData);
             b_settings_saveLoad_reset.Click += new EventHandler(_controller.RevertToDefault);
+
+            EventHandler dataChanged = new EventHandler(_controller.CBoxDataChanged);
+            cbox_minimizeIntoTray.Click += dataChanged;
+            cbox_closeIntoTray.Click += dataChanged;
+            cbox_alwayOnTop.Click += dataChanged;
+        }
+
+        public void Update(Boolean alwaysOnTop, Boolean closeIntoTray, Boolean minimizeIntoTray) {
+            cbox_closeIntoTray.Checked = closeIntoTray;
+            cbox_alwayOnTop.Checked = alwaysOnTop;
+            cbox_minimizeIntoTray.Checked = minimizeIntoTray;
         }
 
         protected override void InitializeComponent() {
             this.groupBox_settings_window = new System.Windows.Forms.GroupBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.cbox_settings_window_minimizeIntoTray = new System.Windows.Forms.CheckBox();
+            this.cbox_alwayOnTop = new System.Windows.Forms.CheckBox();
+            this.cbox_closeIntoTray = new System.Windows.Forms.CheckBox();
+            this.cbox_minimizeIntoTray = new System.Windows.Forms.CheckBox();
             this.groupBox_settings_saveLoad = new System.Windows.Forms.GroupBox();
             this.b_settings_saveLoad_reset = new System.Windows.Forms.Button();
             this.b_settings_saveLoad_load = new System.Windows.Forms.Button();
@@ -42,9 +56,9 @@ namespace AllInOneHelper.Settings {
             // 
             // groupBox_settings_window
             // 
-            this.groupBox_settings_window.Controls.Add(this.checkBox2);
-            this.groupBox_settings_window.Controls.Add(this.checkBox1);
-            this.groupBox_settings_window.Controls.Add(this.cbox_settings_window_minimizeIntoTray);
+            this.groupBox_settings_window.Controls.Add(this.cbox_alwayOnTop);
+            this.groupBox_settings_window.Controls.Add(this.cbox_closeIntoTray);
+            this.groupBox_settings_window.Controls.Add(this.cbox_minimizeIntoTray);
             this.groupBox_settings_window.Location = new System.Drawing.Point(209, 3);
             this.groupBox_settings_window.Name = "groupBox_settings_window";
             this.groupBox_settings_window.Size = new System.Drawing.Size(127, 100);
@@ -52,35 +66,35 @@ namespace AllInOneHelper.Settings {
             this.groupBox_settings_window.TabStop = false;
             this.groupBox_settings_window.Text = "Window Settings";
             // 
-            // checkBox2
+            // cbox_alwayOnTop
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(6, 65);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(92, 17);
-            this.checkBox2.TabIndex = 2;
-            this.checkBox2.Text = "Always on top";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.cbox_alwayOnTop.AutoSize = true;
+            this.cbox_alwayOnTop.Location = new System.Drawing.Point(6, 65);
+            this.cbox_alwayOnTop.Name = "cbox_alwayOnTop";
+            this.cbox_alwayOnTop.Size = new System.Drawing.Size(92, 17);
+            this.cbox_alwayOnTop.TabIndex = 2;
+            this.cbox_alwayOnTop.Text = "Always on top";
+            this.cbox_alwayOnTop.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // cbox_closeIntoTray
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(6, 42);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(92, 17);
-            this.checkBox1.TabIndex = 1;
-            this.checkBox1.Text = "Close into tray";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.cbox_closeIntoTray.AutoSize = true;
+            this.cbox_closeIntoTray.Location = new System.Drawing.Point(6, 42);
+            this.cbox_closeIntoTray.Name = "cbox_closeIntoTray";
+            this.cbox_closeIntoTray.Size = new System.Drawing.Size(92, 17);
+            this.cbox_closeIntoTray.TabIndex = 1;
+            this.cbox_closeIntoTray.Text = "Close into tray";
+            this.cbox_closeIntoTray.UseVisualStyleBackColor = true;
             // 
-            // cbox_settings_window_minimizeIntoTray
+            // cbox_minimizeIntoTray
             // 
-            this.cbox_settings_window_minimizeIntoTray.AutoSize = true;
-            this.cbox_settings_window_minimizeIntoTray.Location = new System.Drawing.Point(6, 19);
-            this.cbox_settings_window_minimizeIntoTray.Name = "cbox_settings_window_minimizeIntoTray";
-            this.cbox_settings_window_minimizeIntoTray.Size = new System.Drawing.Size(106, 17);
-            this.cbox_settings_window_minimizeIntoTray.TabIndex = 0;
-            this.cbox_settings_window_minimizeIntoTray.Text = "Minimize into tray";
-            this.cbox_settings_window_minimizeIntoTray.UseVisualStyleBackColor = true;
+            this.cbox_minimizeIntoTray.AutoSize = true;
+            this.cbox_minimizeIntoTray.Location = new System.Drawing.Point(6, 19);
+            this.cbox_minimizeIntoTray.Name = "cbox_minimizeIntoTray";
+            this.cbox_minimizeIntoTray.Size = new System.Drawing.Size(106, 17);
+            this.cbox_minimizeIntoTray.TabIndex = 0;
+            this.cbox_minimizeIntoTray.Text = "Minimize into tray";
+            this.cbox_minimizeIntoTray.UseVisualStyleBackColor = true;
             // 
             // groupBox_settings_saveLoad
             // 
@@ -121,11 +135,11 @@ namespace AllInOneHelper.Settings {
             this.b_settings_saveLoad_save.Text = "Save current settings as default";
             this.b_settings_saveLoad_save.UseVisualStyleBackColor = true;
             // 
-            // CustomPanel
+            // SettingsPanel
             // 
             this.Controls.Add(this.groupBox_settings_window);
             this.Controls.Add(this.groupBox_settings_saveLoad);
-            this.Name = "CustomPanel";
+            this.Name = "SettingsPanel";
             this.Size = new System.Drawing.Size(379, 169);
             this.groupBox_settings_window.ResumeLayout(false);
             this.groupBox_settings_window.PerformLayout();

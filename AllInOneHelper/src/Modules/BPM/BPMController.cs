@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.Modules.BPM {
@@ -40,5 +41,12 @@ namespace AllInOneHelper.Modules.BPM {
         }
 
         public override void Close() { }
+        public override void Serialize(FileStream fileStream) {
+            throw new NotImplementedException();
+        }
+
+        public override BasePanel Deserialize() {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using AllInOneHelper.Modules.Base;
@@ -157,6 +158,14 @@ namespace AllInOneHelper.Modules.MouseRecord {
         public override void Close() {
             AbortPositionThread = true;
             _mousePositionThread.Interrupt();
+        }
+
+        public override void Serialize(FileStream fileStream) {
+            throw new NotImplementedException();
+        }
+
+        public override BasePanel Deserialize() {
+            throw new NotImplementedException();
         }
     }
 }

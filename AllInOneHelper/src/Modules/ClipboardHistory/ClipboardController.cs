@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using AllInOneHelper.Modules.Base;
@@ -79,6 +80,14 @@ namespace AllInOneHelper.Modules.ClipboardHistory {
         public override void Close() {
             this._abort = true;
             _clipboardThread.Interrupt();
+        }
+
+        public override void Serialize(FileStream fileStream) {
+            throw new NotImplementedException();
+        }
+
+        public override BasePanel Deserialize() {
+            throw new NotImplementedException();
         }
     }
 }
