@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.Modules.BPM {
+    [Serializable]
     class BPMPanel : BasePanel {
         private RadioButton radio_bpm_visualBPM;
         public Label l_bpm_averageBPM;

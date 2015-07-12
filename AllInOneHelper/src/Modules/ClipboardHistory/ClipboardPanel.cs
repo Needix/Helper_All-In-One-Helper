@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.Modules.ClipboardHistory {
+    [Serializable]
     class ClipboardPanel : BasePanel {
         private TextBox tb_clipboard_info;
         private CheckBox cbox_clipboard_autoscroll;

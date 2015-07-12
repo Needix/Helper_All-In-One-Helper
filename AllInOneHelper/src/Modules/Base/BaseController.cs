@@ -1,4 +1,7 @@
-﻿namespace AllInOneHelper.Modules.Base {
+﻿using System;
+
+namespace AllInOneHelper.Modules.Base {
+    [Serializable]
     abstract class BaseController {
         protected BaseController() {
             

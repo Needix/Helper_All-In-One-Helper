@@ -4,11 +4,12 @@ using System.Windows.Forms;
 
 namespace AllInOneHelper.Modules.Base {
     [TypeDescriptionProvider(typeof(AbstractControlDescriptionProvider<BasePanel, UserControl>))]
-    abstract class BasePanel : UserControl, ISerializable {//, IBasePanel  {
-        private readonly TabPage _page; public TabPage Page {get { return _page; } }
+    public abstract class BasePanel : UserControl, ISerializable {//, IBasePanel  {
+        public TabPage Page { get; set; }
 
+        protected BasePanel() { }
         protected BasePanel(TabPage page) {
-            this._page = page;
+            this.Page = page;
 
             InitializeComponent();
             RegisterEvents();

@@ -1,7 +1,9 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.Modules.DeleteEmpty {
+    [Serializable]
     class DeleteEmptyPanel : BasePanel {
         private GroupBox groupBox_deleteEmpty_result;
         private ListBox listBox_deleteEmpty_result;

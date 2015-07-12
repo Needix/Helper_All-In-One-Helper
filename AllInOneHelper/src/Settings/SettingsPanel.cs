@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.Settings {
+    [Serializable]
     class SettingsPanel : BasePanel {
         private GroupBox groupBox_settings_window;
         private CheckBox checkBox2;
@@ -15,6 +16,7 @@ namespace AllInOneHelper.Settings {
 
         private SettingsController _controller;
 
+        public SettingsPanel() { }
         public SettingsPanel(TabPage tabPage) : base(tabPage){}
 
         protected override void RegisterEvents() {

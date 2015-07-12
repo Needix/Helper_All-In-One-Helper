@@ -11,30 +11,30 @@ namespace AllInOneHelper.Settings {
     class SettingsController : BaseController {
         private SettingsPanel _basePanel;
 
+        [NonSerialized]
         public const string SAVE_PATH = "data";
-        private readonly IFormatter _formatter = new BinaryFormatter();
 
         public SettingsController(SettingsPanel panel) {
             this._basePanel = panel;
         }
 
         public void SaveData(object sender, EventArgs e) {
+            IFormatter binaryFormatter = new BinaryFormatter();
             FileStream s = new FileStream(SAVE_PATH, FileMode.Create);
-            _formatter.Serialize(s, this);
+            binaryFormatter.Serialize(s, GUI.GUI.GetInstance.ModuleList);
             s.Close();
         }
 
         public void LoadData(object sender, EventArgs e) {
+            IFormatter binaryFormatter = new BinaryFormatter();
             FileStream s = new FileStream(SAVE_PATH, FileMode.Open);
-            SettingsController t = (SettingsController)_formatter.Deserialize(s);
+            SettingsController t = (SettingsController)binaryFormatter.Deserialize(s);
         }
         public List<BasePanel> LoadData() {
+            IFormatter formatter = new BinaryFormatter();
             List<BasePanel> result = new List<BasePanel>();
             FileStream s = new FileStream(SAVE_PATH, FileMode.Open);
-            AspectRatioPanel arp = (AspectRatioPanel)_formatter.Deserialize(s);
-            SettingsPanel sc = (SettingsPanel)_formatter.Deserialize(s);
-            result.Add(arp);
-            result.Add(sc);
+            List<BasePanel> sc = (List<BasePanel>)formatter.Deserialize(s);
             return result;
         }
 

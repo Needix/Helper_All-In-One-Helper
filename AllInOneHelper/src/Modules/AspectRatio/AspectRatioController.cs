@@ -2,6 +2,7 @@
 using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.Modules.AspectRatio {
+    [Serializable]
     class AspectRatioController : BaseController {
         private readonly AspectRatioPanel _basePanel;
         public AspectRatioController(AspectRatioPanel panel) {
@@ -9,38 +10,38 @@ namespace AllInOneHelper.Modules.AspectRatio {
         }
 
         public void CalcWidth(object sender, EventArgs e) {
-            String sHeight = _basePanel.tb_aspectRatio_height.Text;
+            String sHeight = _basePanel.TextBoxHeight.Text;
             try {
-                String aspectRatio = _basePanel.tb_aspectRatio_ratio.Text;
+                String aspectRatio = _basePanel.TextBoxRatio.Text;
                 int height = Convert.ToInt32(sHeight);
 
                 int[] values = GetValuesFromRatio(aspectRatio);
                 int width = height / values[1] * values[0];
 
-                _basePanel.tb_aspectRatio_width.Text = width + "";
+                _basePanel.TextBoxWidth.Text = width + "";
             } catch(FormatException) {
                 System.Diagnostics.Debug.WriteLine("\""+sHeight+"\" is not a number!");
             }
         }
 
         public void CalcHeight(object sender, EventArgs e) {
-            String sWidth = _basePanel.tb_aspectRatio_width.Text;
+            String sWidth = _basePanel.TextBoxWidth.Text;
             try {
-                String aspectRatio = _basePanel.tb_aspectRatio_ratio.Text;
+                String aspectRatio = _basePanel.TextBoxRatio.Text;
                 int width = Convert.ToInt32(sWidth);
 
                 int[] values = GetValuesFromRatio(aspectRatio);
                 int height = width / values[0] * values[1];
 
-                _basePanel.tb_aspectRatio_height.Text = height+"";
+                _basePanel.TextBoxHeight.Text = height+"";
             } catch(FormatException) {
                 System.Diagnostics.Debug.WriteLine("\"" + sWidth + "\" is not a number!");
             }
         }
 
         public void CalcRatio(object sender, EventArgs e) {
-            String sWidth = _basePanel.tb_aspectRatio_width.Text;
-            String sHeight = _basePanel.tb_aspectRatio_height.Text;
+            String sWidth = _basePanel.TextBoxWidth.Text;
+            String sHeight = _basePanel.TextBoxHeight.Text;
             try {
                 double height = Convert.ToDouble(sHeight);
                 double width = Convert.ToDouble(sWidth);
@@ -48,7 +49,7 @@ namespace AllInOneHelper.Modules.AspectRatio {
                 String aspectRatio = (width / gcd) + ":" + (height / gcd);
                 // (width / gcd) + ":" + (height / gcd) + " (1:" + (Math.Round((hD / wD) * 1000.00) / 1000.00) + ")";
 
-                _basePanel.tb_aspectRatio_ratio.Text = aspectRatio;
+                _basePanel.TextBoxRatio.Text = aspectRatio;
             } catch(FormatException) {
                 System.Diagnostics.Debug.WriteLine("\"" + sWidth + "\" or \""+sHeight+"\" is not a number!");
             }

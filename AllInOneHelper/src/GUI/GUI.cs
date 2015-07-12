@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
@@ -24,7 +25,8 @@ namespace AllInOneHelper.GUI {
             get { return GUI._gui ?? (GUI._gui = new GUI()); }
         }
 
-        private readonly List<BasePanel> _modules = new List<BasePanel>();
+        private List<BasePanel> _modules = new List<BasePanel>(); 
+        public List<BasePanel> ModuleList { get { return _modules; } } 
 
         //Constructor
         private GUI() {
@@ -66,9 +68,9 @@ namespace AllInOneHelper.GUI {
             }
         }
 
-        private static void LoadModulesFromFile() {
+        private void LoadModulesFromFile() {
             SettingsController controller = new SettingsController(null);
-            List<BasePanel> panels = controller.LoadData();
+            _modules = controller.LoadData();
         }
 
         private void LoadDefaultModules() {

@@ -2,6 +2,7 @@
 using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.Modules.BPM {
+    [Serializable]
     class BPMController : BaseController {
         private long _lastClick = 0;
         private double _average = 0;

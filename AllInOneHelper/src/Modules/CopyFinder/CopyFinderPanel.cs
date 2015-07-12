@@ -1,7 +1,9 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.Modules.CopyFinder {
+    [Serializable]
     class CopyFinderPanel : BasePanel {
         private Button b_copyFinder_deleteSelectedFolder;
         private Button b_copyFinder_deleteAllFolder;
