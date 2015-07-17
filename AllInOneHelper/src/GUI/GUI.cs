@@ -74,7 +74,7 @@ namespace AllInOneHelper.GUI {
         }
 
         private void LoadModelsFromFile() {
-            SettingsController controller = (SettingsController)((SettingsPanel)ModuleList[0]).Controller;
+            SettingsController controller = (SettingsController)((SettingsPanel)ModuleList[0]).GetController();
             List<BaseController> controllers = GetControllers();
             controller.LoadData(controllers);
         }
@@ -101,7 +101,8 @@ namespace AllInOneHelper.GUI {
         public List<BaseController> GetControllers() {
             List<BaseController> controllers = new List<BaseController>();
             for(int i = 0; i < ModuleList.Count; i++) {
-                controllers.Add(ModuleList[i].Controller);
+                BasePanel curPanel = ModuleList[i];
+                controllers.Add(curPanel.GetController());
             }
             return controllers;
         }  

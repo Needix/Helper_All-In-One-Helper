@@ -14,24 +14,22 @@ namespace AllInOneHelper.Modules.AspectRatio {
         public TextBox TextBoxWidth { get; set; }
         public TextBox TextBoxInfo { get; set; }
 
-        public AspectRatioController Controller { get; set; }
+        private AspectRatioController _controller;
 
         //public AspectRatioPanel() { }
-        public AspectRatioPanel(TabPage tabPageMainAspectRatio) : base(tabPageMainAspectRatio, new AspectRatioController()) {
-
-        }
+        public AspectRatioPanel(TabPage tabPageMainAspectRatio) : base(tabPageMainAspectRatio) {}
 
         protected override void RegisterEvents() {
-            Controller = new AspectRatioController(this);
+            _controller = new AspectRatioController(this);
 
-            EventHandler tbChangeHandler = new EventHandler(controller.DataChange);
+            EventHandler tbChangeHandler = new EventHandler(_controller.DataChange);
             TextBoxRatio.TextChanged += tbChangeHandler;
             TextBoxHeight.TextChanged += tbChangeHandler;
             TextBoxWidth.TextChanged += tbChangeHandler;
 
-            ButtonCalcWidth.Click += new EventHandler(controller.CalcWidth);
-            ButtonCalcHeight.Click += new EventHandler(controller.CalcHeight);
-            ButtonCalcRatio.Click += new EventHandler(controller.CalcRatio);
+            ButtonCalcWidth.Click += new EventHandler(_controller.CalcWidth);
+            ButtonCalcHeight.Click += new EventHandler(_controller.CalcHeight);
+            ButtonCalcRatio.Click += new EventHandler(_controller.CalcRatio);
         }
 
         protected override void InitializeComponent() {
@@ -124,6 +122,10 @@ namespace AllInOneHelper.Modules.AspectRatio {
             this.ResumeLayout(false);
             this.PerformLayout();
 
+        }
+
+        public override BaseController GetController() {
+            return _controller;
         }
 
         public override void Close() {

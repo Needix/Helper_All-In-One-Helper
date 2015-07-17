@@ -6,7 +6,7 @@ using AllInOneHelper.Modules.Base;
 namespace AllInOneHelper.Modules.AspectRatio {
     class AspectRatioController : BaseController {
         private readonly AspectRatioPanel _basePanel;
-        private readonly AspectRatioModel _model = new AspectRatioModel(); 
+        private AspectRatioModel _model = new AspectRatioModel(); 
 
         public AspectRatioController(AspectRatioPanel panel) {
             _basePanel = panel;
@@ -95,6 +95,16 @@ namespace AllInOneHelper.Modules.AspectRatio {
 
         public override void Update() {
             throw new NotImplementedException();
+        }
+
+        public override BaseModel Model(BaseModel model = null) {
+            if(model == null)
+                return _model;
+            else {
+                _model = (AspectRatioModel)model;
+                Update();
+                return null;
+            }
         }
 
         public override void Close() { }

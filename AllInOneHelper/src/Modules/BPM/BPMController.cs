@@ -9,10 +9,10 @@ namespace AllInOneHelper.Modules.BPM {
         private int _curBpm = 0;
 
         private readonly BPMPanel _basePanel;
-        private readonly BPMModel _model = new BPMModel();
+        private BPMModel _model = new BPMModel();
 
-        public BPMController() {
-            _basePanel = (BPMPanel)BPMPanel.GetInstance;
+        public BPMController(BPMPanel panel) {
+            _basePanel = panel;
         }
 
         public void Click(object sender, System.EventArgs e) {
@@ -42,6 +42,16 @@ namespace AllInOneHelper.Modules.BPM {
 
         public override void Update() {
             throw new NotImplementedException();
+        }
+
+        public override BaseModel Model(BaseModel model = null) {
+            if(model == null)
+                return _model;
+            else {
+                _model = (BPMModel)model;
+                Update();
+                return null;
+            }
         }
 
         public override void Close() { }

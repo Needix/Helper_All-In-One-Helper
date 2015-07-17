@@ -23,7 +23,7 @@ namespace AllInOneHelper.Modules.Base {
     public abstract class BaseModel { // : INotifyPropertyChanged {
         protected BaseModel() {
             if (this is SettingsModel) return;
-            SettingsController.Controller.Model.Models.Add(this);
+            ((SettingsModel)SettingsController.GetInstance.Model()).Models.Add(this);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

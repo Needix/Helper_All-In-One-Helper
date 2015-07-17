@@ -42,6 +42,10 @@ namespace AllInOneHelper.Modules.MouseRecord {
             cbox_mouseRec_playback_showAllFrames.CheckedChanged +=  new EventHandler(panel_mouseRec_playbackPanel.ChangeShowAllFrames);
         }
 
+        public override BaseController GetController() {
+            return panel_mouseRec_playbackPanel.MouseKeyRecorder;
+        }
+
         protected override void InitializeComponent() {
             this.groupBox_mouseRec_playback = new System.Windows.Forms.GroupBox();
             this.cbox_mouseRec_playback_showAllFrames = new System.Windows.Forms.CheckBox();

@@ -11,13 +11,13 @@ namespace AllInOneHelper.Modules.BPM {
         private Button b_bpm_tap;
         private TextBox tb_bpm_info;
 
-        //private BPMController _controller;
+        private BPMController _controller;
 
-        public BPMPanel(TabPage tabPage) : base(tabPage, new BPMController()) { }
+        public BPMPanel(TabPage tabPage) : base(tabPage) { }
 
         //TODO Implement visual BPM
         protected override void RegisterEvents() {
-            BPMController _controller = (BPMController)Controller;
+            _controller = new BPMController(this);
 
             b_bpm_tap.Click += new EventHandler(_controller.Click);
             b_bpm_reset.Click += new EventHandler(_controller.Reset);
@@ -105,6 +105,10 @@ namespace AllInOneHelper.Modules.BPM {
             this.ResumeLayout(false);
             this.PerformLayout();
 
+        }
+
+        public override BaseController GetController() {
+            return _controller;
         }
 
         public override void Close() {

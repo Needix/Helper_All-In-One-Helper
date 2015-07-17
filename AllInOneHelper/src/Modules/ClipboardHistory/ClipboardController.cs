@@ -16,7 +16,7 @@ namespace AllInOneHelper.Modules.ClipboardHistory {
         private readonly List<ClipboardElement> _elementList = new List<ClipboardElement>();
 
         private readonly ClipboardPanel _clipboardPanel;
-        private readonly ClipboardModel _model = new ClipboardModel();
+        private ClipboardModel _model = new ClipboardModel();
 
         public ClipboardController(ClipboardPanel panel) {
             _clipboardPanel = panel;
@@ -80,6 +80,16 @@ namespace AllInOneHelper.Modules.ClipboardHistory {
 
         public override void Update() {
             throw new NotImplementedException();
+        }
+
+        public override BaseModel Model(BaseModel model = null) {
+            if(model == null)
+                return _model;
+            else {
+                _model = (ClipboardModel)model;
+                Update();
+                return null;
+            }
         }
 
         public override void Close() {

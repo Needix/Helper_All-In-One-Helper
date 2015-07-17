@@ -12,18 +12,22 @@ namespace AllInOneHelper.Modules.ClipboardHistory {
         public ListBox listBox_clipboard_list;
         private CheckBox cbox_clipboard_status;
 
-        //private ClipboardController _controller;
+        private ClipboardController _controller;
 
         public ClipboardPanel(TabPage tabPage) : base(tabPage) { }
 
         protected override void RegisterEvents() {
-            ClipboardController _controller = (ClipboardController) Controller;
+            _controller = new ClipboardController(this);
 
             cbox_clipboard_status.Click += new EventHandler(_controller.ChangeStatus);
             b_clipboard_copySelectedIntoClipboard.Click += new EventHandler(_controller.CopySelectedIntoClipboard);
             b_clipboard_deleteAll.Click += new EventHandler(_controller.DeleteAll);
             b_clipboard_deleteSelected.Click += new EventHandler(_controller.DeleteSelected);
             cbox_clipboard_autoscroll.Click += new EventHandler(_controller.AutoScrollChange);
+        }
+
+        public override BaseController GetController() {
+            return _controller;
         }
 
         protected override void InitializeComponent() {
@@ -127,7 +131,6 @@ namespace AllInOneHelper.Modules.ClipboardHistory {
         }
 
         public override void Close() {
-            ClipboardController _controller = (ClipboardController)Controller;
             _controller.Close();
         }
     }

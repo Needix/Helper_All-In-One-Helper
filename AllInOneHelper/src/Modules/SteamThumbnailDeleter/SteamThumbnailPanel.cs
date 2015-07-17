@@ -15,6 +15,10 @@ namespace AllInOneHelper.Modules.SteamThumbnailDeleter {
             _controller = new SteamThumbnailController(this);
         }
 
+        public override BaseController GetController() {
+            return _controller;
+        }
+
         protected override void InitializeComponent() {
             this.l_steamTD_deletedFolder = new System.Windows.Forms.Label();
             this.b_steamTD_deleteAll = new System.Windows.Forms.Button();

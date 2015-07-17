@@ -175,6 +175,16 @@ namespace AllInOneHelper.Modules.MouseRecord {
             throw new NotImplementedException();
         }
 
+        public override BaseModel Model(BaseModel model = null) {
+            if(model == null)
+                return _model;
+            else {
+                _model = (MouseKey_Model)model;
+                Update();
+                return null;
+            }
+        }
+
         public override void Close() {
             AbortPositionThread = true;
             _mousePositionThread.Interrupt();

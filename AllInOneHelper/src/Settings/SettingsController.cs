@@ -13,21 +13,20 @@ using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.Settings {
     class SettingsController : BaseController {
-        public static SettingsController Controller { get; private set; }
-
-        private readonly SettingsPanel _basePanel;
-        public const string SAVE_PATH = "data.xml";
-
-        public SettingsModel Model { get; set; }
-
-        private SettingsController(SettingsPanel panel) {
-            this._basePanel = panel;
+        private static SettingsController _controller;
+        public static SettingsController GetInstance {
+            get { return _controller ?? (_controller = new SettingsController()); } //if(_controller == null) _controller = new SettingsController();
+            private set { _controller = value; }
         }
 
-        public static SettingsController CreateController(SettingsPanel panel, bool loadFromFile) {
-            Controller = new SettingsController(panel);
-            if (!loadFromFile) Controller.Model = new SettingsModel();
-            return Controller;
+        private SettingsPanel _basePanel; public SettingsPanel BasePanel { set { _basePanel = value; } }
+        public const string SAVE_PATH = "data.xml";
+
+        private SettingsModel _model = new SettingsModel();
+
+        private SettingsController() { }
+        private SettingsController(SettingsPanel panel) {
+            this._basePanel = panel;
         }
 
         public void SaveData(object sender, EventArgs e) {
@@ -43,9 +42,9 @@ namespace AllInOneHelper.Settings {
                 BaseController curController = controllers[i];
                 for (int j = 0; j < models.Count; j++) {
                     BaseModel curModel = models[j];
-                    if (curController.Model.GetType() != curModel.GetType()) continue;
+                    if(curController.Model().GetType() != curModel.GetType()) continue;
 
-                    curController.Model = curModel;
+                    curController.Model(curModel);
                     curController.Update();
                     break;
                 }
@@ -62,15 +61,15 @@ namespace AllInOneHelper.Settings {
             if(File.Exists(SAVE_PATH)) File.Delete(SAVE_PATH);
             FileStream stream = new FileStream(SAVE_PATH, FileMode.Create);
 
-            serializer.Serialize(stream, Model);
+            serializer.Serialize(stream, _model);
             stream.Close();
         }
 
         public List<BaseModel> Deserialize() {
             XmlSerializer serializer = new XmlSerializer(typeof(SettingsModel));
             FileStream fs = new FileStream(SAVE_PATH, FileMode.Open);
-            Model = (SettingsModel)serializer.Deserialize(fs);
-            List<BaseModel> models = Model.Models;
+            _model = (SettingsModel)serializer.Deserialize(fs);
+            List<BaseModel> models = _model.Models;
             fs.Close();
             return models;
         }
@@ -79,23 +78,33 @@ namespace AllInOneHelper.Settings {
             Debug.WriteLine("CBoxDataChanged: "+sender.ToString());
             CheckBox cbox = (CheckBox) sender;
             if ("cbox_AlwayOnTop".Equals(cbox.Name))
-                Model.AlwaysOnTop = cbox.Checked;
+                _model.AlwaysOnTop = cbox.Checked;
             else if("cbox_closeIntoTray".Equals(cbox.Name))
-                Model.CloseIntoTray = cbox.Checked;
+                _model.CloseIntoTray = cbox.Checked;
             else
-                Model.MinimizeIntoTray = cbox.Checked;
+                _model.MinimizeIntoTray = cbox.Checked;
         }
 
         private void UpdateView() {
-            _basePanel.Update(Model.AlwaysOnTop, Model.CloseIntoTray, Model.MinimizeIntoTray);
+            _basePanel.Update(_model.AlwaysOnTop, _model.CloseIntoTray, _model.MinimizeIntoTray);
         }
 
         public void AddModel(BaseModel pModel) {
-            Model.Models.Add(pModel);
+            _model.Models.Add(pModel);
         }
 
         public override void Update() {
             throw new NotImplementedException();
+        }
+
+        public override BaseModel Model(BaseModel model = null) {
+            if(model == null)
+                return _model;
+            else {
+                _model = (SettingsModel)model;
+                Update();
+                return null;
+            }
         }
 
         public override void Close() { }

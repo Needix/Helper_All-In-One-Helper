@@ -17,6 +17,10 @@ namespace AllInOneHelper.Modules.ClickSpeed {
             tb_clickSpeed_acc.TextChanged += new EventHandler(ResetClickSpeed);
         }
 
+        public override BaseController GetController() {
+            throw new NotImplementedException();
+        }
+
         private void ResetClickSpeed(object sender, System.EventArgs e) {
             try {
                 controller.Acc = Convert.ToInt32(tb_clickSpeed_acc.Text);

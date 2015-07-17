@@ -14,6 +14,10 @@ namespace AllInOneHelper.Modules.ReactiveTest {
             
         }
 
+        public override BaseController GetController() {
+            return _controller;
+        }
+
         protected override void InitializeComponent() {
             this.SuspendLayout();
             // 

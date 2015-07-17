@@ -13,6 +13,10 @@ namespace AllInOneHelper.Modules.MassFileManipulation {
             //EventHandler handler = new EventHandler(controller.);
         }
 
+        public override BaseController GetController() {
+            return _controller;
+        }
+
         protected override void InitializeComponent() {
             this.SuspendLayout();
             // 

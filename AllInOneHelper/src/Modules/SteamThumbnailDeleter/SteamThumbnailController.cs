@@ -4,7 +4,7 @@ using AllInOneHelper.Modules.Base;
 namespace AllInOneHelper.Modules.SteamThumbnailDeleter {
     class SteamThumbnailController : BaseController {
         private readonly SteamThumbnailPanel _basePanel;
-        private readonly SteamThumbnailModel _model = new SteamThumbnailModel();
+        private SteamThumbnailModel _model = new SteamThumbnailModel();
 
         public SteamThumbnailController(SteamThumbnailPanel panel) {
             this._basePanel = panel;
@@ -12,6 +12,16 @@ namespace AllInOneHelper.Modules.SteamThumbnailDeleter {
 
         public override void Update() {
             throw new System.NotImplementedException();
+        }
+
+        public override BaseModel Model(BaseModel model = null) {
+            if(model == null)
+                return _model;
+            else {
+                _model = (SteamThumbnailModel)model;
+                Update();
+                return null;
+            }
         }
 
         public override void Close() { }

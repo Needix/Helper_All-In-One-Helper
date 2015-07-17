@@ -198,6 +198,10 @@ namespace AllInOneHelper.Modules.DeleteEmpty {
 
         }
 
+        public override BaseController GetController() {
+            return _controller;
+        }
+
         public override void Close() {
 
         }
