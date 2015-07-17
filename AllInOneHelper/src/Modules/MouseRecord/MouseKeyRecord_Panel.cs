@@ -3,7 +3,6 @@ using System.Windows.Forms;
 using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.Modules.MouseRecord {
-    [Serializable]
     class MouseKeyRecord_Panel : BasePanel {
         private GroupBox groupBox_mouseRec_playback;
         public CheckBox cbox_mouseRec_playback_showAllFrames;

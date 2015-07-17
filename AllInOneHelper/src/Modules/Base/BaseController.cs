@@ -2,7 +2,6 @@
 using System.IO;
 
 namespace AllInOneHelper.Modules.Base {
-    [Serializable]
     public abstract class BaseController {
         public BaseModel Model { get; set; }
 
@@ -10,9 +9,10 @@ namespace AllInOneHelper.Modules.Base {
             
         }
 
+        public abstract void Update();
         public abstract void Close();
 
-        public abstract void Serialize(FileStream fileStream);
-        public abstract BasePanel Deserialize();
+        //public abstract void Serialize(FileStream fileStream);
+        //public abstract BasePanel Deserialize();
     }
 }

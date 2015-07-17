@@ -1,13 +1,25 @@
 ﻿using System;
 using System.IO;
+using System.Windows.Forms;
 using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.Modules.AspectRatio {
-    [Serializable]
     class AspectRatioController : BaseController {
         private readonly AspectRatioPanel _basePanel;
+        private readonly AspectRatioModel _model = new AspectRatioModel(); 
+
         public AspectRatioController(AspectRatioPanel panel) {
             _basePanel = panel;
+        }
+
+        public void DataChange(object sender, EventArgs e) {
+            TextBox tb = (TextBox) sender;
+            if (sender == _basePanel.TextBoxHeight)
+                _model.LastHeight = tb.Text;
+            if(sender == _basePanel.TextBoxRatio)
+                _model.LastRatio = tb.Text;
+            if(sender == _basePanel.TextBoxWidth)
+                _model.LastWidth = tb.Text;
         }
 
         public void CalcWidth(object sender, EventArgs e) {
@@ -81,13 +93,10 @@ namespace AllInOneHelper.Modules.AspectRatio {
             return b == 0 ? a : CalcGCD(b, a % b);
         }
 
-        public override void Close() { }
-        public override void Serialize(FileStream fileStream) {
+        public override void Update() {
             throw new NotImplementedException();
         }
 
-        public override BasePanel Deserialize() {
-            throw new NotImplementedException();
-        }
+        public override void Close() { }
     }
 }

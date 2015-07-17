@@ -54,26 +54,31 @@
     </Compile>
     <Compile Include="src\GUI\ModuleElement.cs" />
     <Compile Include="src\Modules\AspectRatio\AspectRatioController.cs" />
+    <Compile Include="src\Modules\AspectRatio\AspectRatioModel.cs" />
     <Compile Include="src\Modules\Base\AbstractControlDescriptionProvider.cs" />
     <Compile Include="src\Modules\Base\BaseController.cs" />
     <Compile Include="src\Modules\Base\BaseModel.cs" />
     <Compile Include="src\Modules\Base\BasePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="src\Modules\BPM\BPMModel.cs" />
     <Compile Include="src\Modules\ClickSpeed\ClickSpeedController.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="src\Modules\BPM\BPMController.cs" />
+    <Compile Include="src\Modules\ClickSpeed\ClickSpeedModel.cs" />
     <Compile Include="src\Modules\ClickSpeed\ClickSpeedPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="src\Modules\ClickSpeed\ClickSpeedPoint.cs" />
     <Compile Include="src\Modules\ClipboardHistory\ClipboardController.cs" />
     <Compile Include="src\Modules\ClipboardHistory\ClipboardElement.cs" />
+    <Compile Include="src\Modules\ClipboardHistory\ClipboardModel.cs" />
     <Compile Include="src\Modules\ClipboardHistory\ClipboardPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="src\Modules\CopyFinder\CopyFinderController.cs" />
+    <Compile Include="src\Modules\CopyFinder\CopyFinderModel.cs" />
     <Compile Include="src\Modules\CopyFinder\CopyFinderPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -85,14 +90,17 @@
     </Compile>
     <Compile Include="src\Modules\Base\CustomPoint.cs" />
     <Compile Include="src\Modules\DeleteEmpty\DeleteEmptyController.cs" />
+    <Compile Include="src\Modules\DeleteEmpty\DeleteEmptyModel.cs" />
     <Compile Include="src\Modules\DeleteEmpty\DeleteEmptyPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="src\Modules\MassFileManipulation\MassFileManipulationController.cs" />
+    <Compile Include="src\Modules\MassFileManipulation\MassFileManipulationModel.cs" />
     <Compile Include="src\Modules\MassFileManipulation\MassFileManipulationPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="src\Modules\MouseRecord\Keyboard_Status.cs" />
+    <Compile Include="src\Modules\MouseRecord\MouseKey_Model.cs" />
     <Compile Include="src\Modules\MouseRecord\MouseKey_Playback_Panel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -101,11 +109,13 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="src\Modules\ReactiveTest\ReactiveTestController.cs" />
+    <Compile Include="src\Modules\ReactiveTest\ReactiveTestModel.cs" />
     <Compile Include="src\Modules\ReactiveTest\ReactiveTestPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="src\Modules\Base\RedrawThread.cs" />
     <Compile Include="src\Modules\SteamThumbnailDeleter\SteamThumbnailController.cs" />
+    <Compile Include="src\Modules\SteamThumbnailDeleter\SteamThumbnailModel.cs" />
     <Compile Include="src\Modules\SteamThumbnailDeleter\SteamThumbnailPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>

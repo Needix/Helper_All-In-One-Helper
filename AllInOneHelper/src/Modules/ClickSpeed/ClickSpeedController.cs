@@ -4,6 +4,8 @@ using System.Windows.Forms;
 
 namespace AllInOneHelper.Modules.ClickSpeed {
     class ClickSpeedController : UserControl {
+        private readonly ClickSpeedModel _model = new ClickSpeedModel();
+
         //TODO Rewrite ClickSpeed from scratch
         private const int MAX_Y_DRAW = 50;
 

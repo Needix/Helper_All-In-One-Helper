@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
@@ -12,69 +13,89 @@ using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.Settings {
     class SettingsController : BaseController {
-        private SettingsPanel _basePanel;
-        public const string SAVE_PATH = "data";
+        public static SettingsController Controller { get; private set; }
 
-        public SettingsModel model = new SettingsModel();
+        private readonly SettingsPanel _basePanel;
+        public const string SAVE_PATH = "data.xml";
 
-        public SettingsController(SettingsPanel panel) {
+        public SettingsModel Model { get; set; }
+
+        private SettingsController(SettingsPanel panel) {
             this._basePanel = panel;
         }
 
-        public void SaveData(object sender, EventArgs e) {
-            IFormatter binaryFormatter = new BinaryFormatter();
-            FileStream s = new FileStream(SAVE_PATH, FileMode.Create);
-            List<BasePanel> panelList = GUI.GUI.GetInstance.ModuleList;
-            foreach (BasePanel panel in panelList) {
-                panel.Controller.Serialize(s);
-            }
-            binaryFormatter.Serialize(s, GUI.GUI.GetInstance.ModuleList);
-            s.Close();
+        public static SettingsController CreateController(SettingsPanel panel, bool loadFromFile) {
+            Controller = new SettingsController(panel);
+            if (!loadFromFile) Controller.Model = new SettingsModel();
+            return Controller;
         }
 
-        
-        public void LoadData(object sender, EventArgs e) {
-            LoadData();
+        public void SaveData(object sender, EventArgs e) {
+            Serialize();
         }
-        public List<BasePanel> LoadData() {
-            IFormatter formatter = new BinaryFormatter();
-            List<BasePanel> result = new List<BasePanel>();
-            FileStream s = new FileStream(SAVE_PATH, FileMode.Open);
-            List<BasePanel> sc = (List<BasePanel>)formatter.Deserialize(s);
-            return result;
+
+        public void LoadData(object sender, EventArgs e) {
+            LoadData(GUI.GUI.GetInstance.GetControllers());
+        }
+        public void LoadData(List<BaseController> controllers) {
+            List<BaseModel> models = Deserialize();
+            for (int i = 0; i < controllers.Count; i++) {
+                BaseController curController = controllers[i];
+                for (int j = 0; j < models.Count; j++) {
+                    BaseModel curModel = models[j];
+                    if (curController.Model.GetType() != curModel.GetType()) continue;
+
+                    curController.Model = curModel;
+                    curController.Update();
+                    break;
+                }
+            }
         }
 
         public void RevertToDefault(object sender, EventArgs e) {
             
         }
 
-        public override void Serialize(FileStream fileStream) {
-            XmlSerializer s = new XmlSerializer(typeof(SettingsModel));
-            TextWriter writer = new StreamWriter(SAVE_PATH);
-            s.Serialize(writer, model);
+        public void Serialize() {
+            XmlSerializer serializer = new XmlSerializer(typeof(SettingsModel));
+
+            if(File.Exists(SAVE_PATH)) File.Delete(SAVE_PATH);
+            FileStream stream = new FileStream(SAVE_PATH, FileMode.Create);
+
+            serializer.Serialize(stream, Model);
+            stream.Close();
         }
 
-        public override BasePanel Deserialize() {
+        public List<BaseModel> Deserialize() {
             XmlSerializer serializer = new XmlSerializer(typeof(SettingsModel));
             FileStream fs = new FileStream(SAVE_PATH, FileMode.Open);
-            model = (SettingsModel) serializer.Deserialize(fs);
-            UpdateView();
-            return null;
+            Model = (SettingsModel)serializer.Deserialize(fs);
+            List<BaseModel> models = Model.Models;
+            fs.Close();
+            return models;
         }
 
         public void CBoxDataChanged(object sender, EventArgs e) {
             Debug.WriteLine("CBoxDataChanged: "+sender.ToString());
             CheckBox cbox = (CheckBox) sender;
             if ("cbox_AlwayOnTop".Equals(cbox.Name))
-                model.AlwaysOnTop = cbox.Checked;
+                Model.AlwaysOnTop = cbox.Checked;
             else if("cbox_closeIntoTray".Equals(cbox.Name))
-                model.CloseIntoTray = cbox.Checked;
+                Model.CloseIntoTray = cbox.Checked;
             else
-                model.MinimizeIntoTray = cbox.Checked;
+                Model.MinimizeIntoTray = cbox.Checked;
         }
 
         private void UpdateView() {
-            _basePanel.Update(model.AlwaysOnTop, model.CloseIntoTray, model.MinimizeIntoTray);
+            _basePanel.Update(Model.AlwaysOnTop, Model.CloseIntoTray, Model.MinimizeIntoTray);
+        }
+
+        public void AddModel(BaseModel pModel) {
+            Model.Models.Add(pModel);
+        }
+
+        public override void Update() {
+            throw new NotImplementedException();
         }
 
         public override void Close() { }

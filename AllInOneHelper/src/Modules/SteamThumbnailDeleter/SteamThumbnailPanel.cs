@@ -3,7 +3,6 @@ using System.Windows.Forms;
 using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.Modules.SteamThumbnailDeleter {
-    [Serializable]
     class SteamThumbnailPanel : BasePanel {
         private Label l_steamTD_deletedFolder;
         private Button b_steamTD_deleteAll;

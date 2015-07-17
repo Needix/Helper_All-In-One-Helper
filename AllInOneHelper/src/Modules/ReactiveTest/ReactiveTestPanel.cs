@@ -3,7 +3,6 @@ using System.Windows.Forms;
 using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.Modules.ReactiveTest {
-    [Serializable]
     class ReactiveTestPanel : BasePanel {
         private ReactiveTestController _controller;
 

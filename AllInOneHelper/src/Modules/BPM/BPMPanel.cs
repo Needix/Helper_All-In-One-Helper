@@ -3,7 +3,6 @@ using System.Windows.Forms;
 using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.Modules.BPM {
-    [Serializable]
     class BPMPanel : BasePanel {
         private RadioButton radio_bpm_visualBPM;
         public Label l_bpm_averageBPM;
@@ -12,13 +11,13 @@ namespace AllInOneHelper.Modules.BPM {
         private Button b_bpm_tap;
         private TextBox tb_bpm_info;
 
-        private BPMController _controller;
+        //private BPMController _controller;
 
-        public BPMPanel(TabPage tabPage) : base(tabPage){}
+        public BPMPanel(TabPage tabPage) : base(tabPage, new BPMController()) { }
 
         //TODO Implement visual BPM
         protected override void RegisterEvents() {
-            _controller = new BPMController(this);
+            BPMController _controller = (BPMController)Controller;
 
             b_bpm_tap.Click += new EventHandler(_controller.Click);
             b_bpm_reset.Click += new EventHandler(_controller.Reset);

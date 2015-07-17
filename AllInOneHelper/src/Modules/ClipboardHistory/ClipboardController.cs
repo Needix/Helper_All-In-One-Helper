@@ -16,6 +16,7 @@ namespace AllInOneHelper.Modules.ClipboardHistory {
         private readonly List<ClipboardElement> _elementList = new List<ClipboardElement>();
 
         private readonly ClipboardPanel _clipboardPanel;
+        private readonly ClipboardModel _model = new ClipboardModel();
 
         public ClipboardController(ClipboardPanel panel) {
             _clipboardPanel = panel;
@@ -77,17 +78,13 @@ namespace AllInOneHelper.Modules.ClipboardHistory {
         }
         #endregion
 
+        public override void Update() {
+            throw new NotImplementedException();
+        }
+
         public override void Close() {
             this._abort = true;
             _clipboardThread.Interrupt();
-        }
-
-        public override void Serialize(FileStream fileStream) {
-            throw new NotImplementedException();
-        }
-
-        public override BasePanel Deserialize() {
-            throw new NotImplementedException();
         }
     }
 }

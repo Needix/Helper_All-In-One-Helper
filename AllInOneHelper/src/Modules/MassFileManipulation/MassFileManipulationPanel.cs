@@ -3,7 +3,6 @@ using System.Windows.Forms;
 using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.Modules.MassFileManipulation {
-    [Serializable]
     class MassFileManipulationPanel : BasePanel {
         private MassFileManipulationController _controller;
 

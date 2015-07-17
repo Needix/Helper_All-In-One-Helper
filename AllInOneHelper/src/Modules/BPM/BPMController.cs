@@ -3,16 +3,16 @@ using System.IO;
 using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.Modules.BPM {
-    [Serializable]
     class BPMController : BaseController {
         private long _lastClick = 0;
         private double _average = 0;
         private int _curBpm = 0;
 
         private readonly BPMPanel _basePanel;
+        private readonly BPMModel _model = new BPMModel();
 
-        public BPMController(BPMPanel panel) {
-            this._basePanel = panel;
+        public BPMController() {
+            _basePanel = (BPMPanel)BPMPanel.GetInstance;
         }
 
         public void Click(object sender, System.EventArgs e) {
@@ -40,13 +40,10 @@ namespace AllInOneHelper.Modules.BPM {
             _basePanel.l_bpm_curBPM.Text = "Current BPM: " + _curBpm;
         }
 
-        public override void Close() { }
-        public override void Serialize(FileStream fileStream) {
+        public override void Update() {
             throw new NotImplementedException();
         }
 
-        public override BasePanel Deserialize() {
-            throw new NotImplementedException();
-        }
+        public override void Close() { }
     }
 }

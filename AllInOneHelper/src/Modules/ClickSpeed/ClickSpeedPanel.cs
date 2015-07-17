@@ -3,7 +3,6 @@ using System.Windows.Forms;
 using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.Modules.ClickSpeed {
-    [Serializable]
     class ClickSpeedPanel : BasePanel {
         private TextBox tb_clickSpeed_acc;
         private TextBox tb_clickSpeed_info;

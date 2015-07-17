@@ -3,7 +3,6 @@ using System.Windows.Forms;
 using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.Modules.ClipboardHistory {
-    [Serializable]
     class ClipboardPanel : BasePanel {
         private TextBox tb_clipboard_info;
         private CheckBox cbox_clipboard_autoscroll;
@@ -13,12 +12,12 @@ namespace AllInOneHelper.Modules.ClipboardHistory {
         public ListBox listBox_clipboard_list;
         private CheckBox cbox_clipboard_status;
 
-        private ClipboardController _controller;
+        //private ClipboardController _controller;
 
-        public ClipboardPanel(TabPage tabPage) : base(tabPage){}
+        public ClipboardPanel(TabPage tabPage) : base(tabPage) { }
 
         protected override void RegisterEvents() {
-            _controller = new ClipboardController(this);
+            ClipboardController _controller = (ClipboardController) Controller;
 
             cbox_clipboard_status.Click += new EventHandler(_controller.ChangeStatus);
             b_clipboard_copySelectedIntoClipboard.Click += new EventHandler(_controller.CopySelectedIntoClipboard);
@@ -128,6 +127,7 @@ namespace AllInOneHelper.Modules.ClipboardHistory {
         }
 
         public override void Close() {
+            ClipboardController _controller = (ClipboardController)Controller;
             _controller.Close();
         }
     }

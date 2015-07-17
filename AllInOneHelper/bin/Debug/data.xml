@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<SettingsModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <CloseIntoTray>false</CloseIntoTray>
+  <MinimizeIntoTray>true</MinimizeIntoTray>
+  <AlwaysOnTop>false</AlwaysOnTop>
+  <Models>
+    <BaseModel xsi:type="AspectRatioModel">
+      <LastHeight>Height45</LastHeight>
+      <LastWidth>Width77</LastWidth>
+      <LastRatio>Ratio10</LastRatio>
+    </BaseModel>
+    <BaseModel xsi:type="BPMModel" />
+    <BaseModel xsi:type="ClickSpeedModel" />
+    <BaseModel xsi:type="ClipboardModel" />
+    <BaseModel xsi:type="CopyFinderModel" />
+    <BaseModel xsi:type="DeleteEmptyModel" />
+    <BaseModel xsi:type="MassFileManipulationModel" />
+    <BaseModel xsi:type="MouseKey_Model" />
+    <BaseModel xsi:type="ReactiveTestModel" />
+    <BaseModel xsi:type="SteamThumbnailModel" />
+  </Models>
+</SettingsModel>

@@ -3,7 +3,6 @@ using System.Windows.Forms;
 using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.Modules.CopyFinder {
-    [Serializable]
     class CopyFinderPanel : BasePanel {
         private Button b_copyFinder_deleteSelectedFolder;
         private Button b_copyFinder_deleteAllFolder;
@@ -14,12 +13,12 @@ namespace AllInOneHelper.Modules.CopyFinder {
         private Label l_copyFinder_searchedFolder;
         private ListBox listBox_copyFinder_list;
 
-        private CopyFinderController _controller;
+        //private CopyFinderController _controller;
 
-        public CopyFinderPanel(TabPage tabPage) : base(tabPage){}
+        public CopyFinderPanel(TabPage tabPage) : base(tabPage) { }
 
         protected override void RegisterEvents() {
-            _controller = new CopyFinderController(this);
+            //_controller = new CopyFinderController(this);
             //EventHandler handler = new EventHandler(controller.);
         }
 

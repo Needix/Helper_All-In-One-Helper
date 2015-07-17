@@ -17,13 +17,13 @@ namespace AllInOneHelper.Settings {
         private Button b_settings_saveLoad_load;
         private Button b_settings_saveLoad_save;
 
-        private SettingsController _controller;
+        //public SettingsController Controller { get; set; }
 
-        public SettingsPanel() { }
-        public SettingsPanel(TabPage tabPage) : base(tabPage){}
+        //public SettingsPanel() { }
+        public SettingsPanel(TabPage tabPage) : base(tabPage, SettingsController.CreateController()) { }
 
         protected override void RegisterEvents() {
-            _controller = new SettingsController(this);
+            SettingsController _controller = (SettingsController)Controller;
 
             b_settings_saveLoad_save.Click += new EventHandler(_controller.SaveData);
             b_settings_saveLoad_load.Click += new EventHandler(_controller.LoadData);

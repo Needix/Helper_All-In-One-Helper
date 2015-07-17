@@ -2,13 +2,13 @@
 using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.GUI {
-    class ModuleElement {
-        public TabPage Page { set; get; }
-        public BasePanel BasePanel { get; set; }
+    public class ModuleElement {
+        public BasePanel BasePanel { get; private set; }
+        public BaseController BaseController { get; private set; }
 
-        public ModuleElement(TabPage page, BasePanel panel) {
-            this.Page = page;
+        public ModuleElement(BasePanel panel, BaseController controller) {
             this.BasePanel = panel;
+            this.BaseController = controller;
         }
     }
 }

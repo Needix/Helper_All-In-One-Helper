@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using AllInOneHelper.Modules.Base;
 
 namespace AllInOneHelper.Modules.AspectRatio {
-    [Serializable]
     class AspectRatioPanel : BasePanel {
         public Button ButtonCalcRatio { get; set; }
         public Button ButtonCalcHeight { get; set; }
@@ -16,24 +15,23 @@ namespace AllInOneHelper.Modules.AspectRatio {
         public TextBox TextBoxInfo { get; set; }
 
         public AspectRatioController Controller { get; set; }
-        /*
-        public AspectRatioPanel(SerializationInfo info, StreamingContext context) {
-            //Debug.WriteLine(info.GetValue("b_aspectRatio_calcRatio", (typeof)b_aspectRatio_calcRatio));
-            Debug.WriteLine(context.ToString());
-        }
-        */
 
-        public AspectRatioPanel() { }
-        public AspectRatioPanel(TabPage tabPageMainAspectRatio) : base(tabPageMainAspectRatio) {
+        //public AspectRatioPanel() { }
+        public AspectRatioPanel(TabPage tabPageMainAspectRatio) : base(tabPageMainAspectRatio, new AspectRatioController()) {
 
         }
 
         protected override void RegisterEvents() {
             Controller = new AspectRatioController(this);
 
-            ButtonCalcWidth.Click += new EventHandler(Controller.CalcWidth);
-            ButtonCalcHeight.Click += new EventHandler(Controller.CalcHeight);
-            ButtonCalcRatio.Click += new EventHandler(Controller.CalcRatio);
+            EventHandler tbChangeHandler = new EventHandler(controller.DataChange);
+            TextBoxRatio.TextChanged += tbChangeHandler;
+            TextBoxHeight.TextChanged += tbChangeHandler;
+            TextBoxWidth.TextChanged += tbChangeHandler;
+
+            ButtonCalcWidth.Click += new EventHandler(controller.CalcWidth);
+            ButtonCalcHeight.Click += new EventHandler(controller.CalcHeight);
+            ButtonCalcRatio.Click += new EventHandler(controller.CalcRatio);
         }
 
         protected override void InitializeComponent() {

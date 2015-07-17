@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using AllInOneHelper.Modules.AspectRatio;
@@ -12,6 +13,7 @@ using AllInOneHelper.Modules.CopyFinder;
 using AllInOneHelper.Modules.DeleteEmpty;
 using AllInOneHelper.Modules.MassFileManipulation;
 using AllInOneHelper.Modules.MouseRecord;
+using AllInOneHelper.Modules.ReactiveTest;
 using AllInOneHelper.Modules.SteamThumbnailDeleter;
 using AllInOneHelper.Settings;
 
@@ -25,12 +27,15 @@ namespace AllInOneHelper.GUI {
             get { return GUI._gui ?? (GUI._gui = new GUI()); }
         }
 
-        private List<BasePanel> _modules = new List<BasePanel>(); 
-        public List<BasePanel> ModuleList { get { return _modules; } } 
+        //public List<ModuleElement> ModuleElements { get; private set; }
+        public List<BasePanel> ModuleList { get; private set; } 
 
         //Constructor
         private GUI() {
             GUI._gui = this;
+
+            //ModuleElements = new List<ModuleElement>();
+            ModuleList = new List<BasePanel>();
 
             InitializeComponent();
 
@@ -55,35 +60,37 @@ namespace AllInOneHelper.GUI {
         }
         */
 
-        private void InitializeModules()
-        {
-            if(File.Exists(SettingsController.SAVE_PATH))
-                LoadModulesFromFile();
-            else
-                LoadDefaultModules();
+        private void InitializeModules() {
+            LoadDefaultModules();
 
-            foreach (BasePanel curElement in _modules)
+            if(File.Exists(SettingsController.SAVE_PATH)) {
+                LoadModelsFromFile();
+            } else
+
+                foreach(BasePanel curElement in ModuleList)
             {
                 InitSingleModule(curElement, curElement.Page);
             }
         }
 
-        private void LoadModulesFromFile() {
-            SettingsController controller = new SettingsController(null);
-            _modules = controller.LoadData();
+        private void LoadModelsFromFile() {
+            SettingsController controller = (SettingsController)((SettingsPanel)ModuleList[0]).Controller;
+            List<BaseController> controllers = GetControllers();
+            controller.LoadData(controllers);
         }
 
         private void LoadDefaultModules() {
-            _modules.Add(new AspectRatioPanel(tabPage_main_aspectRatio));
-            _modules.Add(new BPMPanel(tabPage_main_bpm));
-            _modules.Add(new ClickSpeedPanel(tabPage_main_clickSpeed));
-            _modules.Add(new ClipboardPanel(tabPage_main_clipboard));
-            _modules.Add(new CopyFinderPanel(tabPage_main_copyFinder));
-            _modules.Add(new DeleteEmptyPanel(tabPage_main_deleteEmpty));
-            _modules.Add(new MassFileManipulationPanel(tabPage_main_fileManipulation));
-            _modules.Add(new MouseKeyRecord_Panel(tabPage_main_mouseRecord));
-            _modules.Add(new SteamThumbnailPanel(tabPage_main_steamThumbnailDeleter));
-            _modules.Add(new SettingsPanel(tabPage_main_settings));
+            ModuleList.Add(new SettingsPanel(tabPage_main_settings));
+            ModuleList.Add(new AspectRatioPanel(tabPage_main_aspectRatio));
+            ModuleList.Add(new BPMPanel(tabPage_main_bpm));
+            ModuleList.Add(new ClickSpeedPanel(tabPage_main_clickSpeed));
+            ModuleList.Add(new ClipboardPanel(tabPage_main_clipboard));
+            ModuleList.Add(new CopyFinderPanel(tabPage_main_copyFinder));
+            ModuleList.Add(new DeleteEmptyPanel(tabPage_main_deleteEmpty));
+            ModuleList.Add(new MassFileManipulationPanel(tabPage_main_fileManipulation));
+            ModuleList.Add(new MouseKeyRecord_Panel(tabPage_main_mouseRecord));
+            ModuleList.Add(new ReactiveTestPanel(tabPage_main_reactiveTest));
+            ModuleList.Add(new SteamThumbnailPanel(tabPage_main_steamThumbnailDeleter));
         }
 
         private static void InitSingleModule(UserControl control, TabPage page) {
@@ -91,11 +98,21 @@ namespace AllInOneHelper.GUI {
             page.Controls.Add(control);
         }
 
+        public List<BaseController> GetControllers() {
+            List<BaseController> controllers = new List<BaseController>();
+            for(int i = 0; i < ModuleList.Count; i++) {
+                controllers.Add(ModuleList[i].Controller);
+            }
+            return controllers;
+        }  
+
         #region Non-Module-Events
         protected override void OnClosing(CancelEventArgs e) {
             base.OnClosing(e);
 
-            foreach (BasePanel panel in _modules)
+            //TODO Call save/serialization function
+
+            foreach(BasePanel panel in ModuleList)
             {
                 panel.Close();
             }
