@@ -15,9 +15,15 @@ namespace AllInOneHelper.Modules.SteamThumbnailDeleter {
             _controller = new SteamThumbnailController(this);
         }
 
+        public override void UpdateView() {
+            SteamThumbnailModel model = (SteamThumbnailModel)_controller.Model();
+        }
+
         public override BaseController GetController() {
             return _controller;
         }
+
+        public override void Close() { }
 
         protected override void InitializeComponent() {
             this.l_steamTD_deletedFolder = new System.Windows.Forms.Label();
@@ -50,10 +56,6 @@ namespace AllInOneHelper.Modules.SteamThumbnailDeleter {
             this.Size = new System.Drawing.Size(1072, 90);
             this.ResumeLayout(false);
             this.PerformLayout();
-
-        }
-
-        public override void Close() {
 
         }
     }

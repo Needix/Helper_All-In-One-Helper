@@ -19,6 +19,8 @@ namespace AllInOneHelper.Modules.Base {
         protected abstract void InitializeComponent();
         protected abstract void RegisterEvents();
 
+        public abstract void UpdateView();
+
         public abstract BaseController GetController();
         public abstract void Close();
     }

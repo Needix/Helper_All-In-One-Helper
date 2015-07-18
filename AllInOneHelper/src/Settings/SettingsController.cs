@@ -25,9 +25,6 @@ namespace AllInOneHelper.Settings {
         private SettingsModel _model = new SettingsModel();
 
         private SettingsController() { }
-        private SettingsController(SettingsPanel panel) {
-            this._basePanel = panel;
-        }
 
         public void SaveData(object sender, EventArgs e) {
             Serialize();
@@ -37,15 +34,18 @@ namespace AllInOneHelper.Settings {
             LoadData(GUI.GUI.GetInstance.GetControllers());
         }
         public void LoadData(List<BaseController> controllers) {
-            List<BaseModel> models = Deserialize();
+            _model = Deserialize();
+            _basePanel.UpdateView();
+
+            List<BaseModel> models = _model.Models;
             for (int i = 0; i < controllers.Count; i++) {
                 BaseController curController = controllers[i];
                 for (int j = 0; j < models.Count; j++) {
                     BaseModel curModel = models[j];
                     if(curController.Model().GetType() != curModel.GetType()) continue;
 
+                    //Debug.WriteLine("Changing "+curController+" model("+curController.Model()+") to "+curModel);
                     curController.Model(curModel);
-                    curController.Update();
                     break;
                 }
             }
@@ -65,17 +65,16 @@ namespace AllInOneHelper.Settings {
             stream.Close();
         }
 
-        public List<BaseModel> Deserialize() {
+        public SettingsModel Deserialize() {
             XmlSerializer serializer = new XmlSerializer(typeof(SettingsModel));
             FileStream fs = new FileStream(SAVE_PATH, FileMode.Open);
             _model = (SettingsModel)serializer.Deserialize(fs);
-            List<BaseModel> models = _model.Models;
             fs.Close();
-            return models;
+            return _model;
         }
 
         public void CBoxDataChanged(object sender, EventArgs e) {
-            Debug.WriteLine("CBoxDataChanged: "+sender.ToString());
+            Debug.WriteLine("CBoxDataChanged: "+sender);
             CheckBox cbox = (CheckBox) sender;
             if ("cbox_AlwayOnTop".Equals(cbox.Name))
                 _model.AlwaysOnTop = cbox.Checked;
@@ -85,16 +84,8 @@ namespace AllInOneHelper.Settings {
                 _model.MinimizeIntoTray = cbox.Checked;
         }
 
-        private void UpdateView() {
-            _basePanel.Update(_model.AlwaysOnTop, _model.CloseIntoTray, _model.MinimizeIntoTray);
-        }
-
         public void AddModel(BaseModel pModel) {
             _model.Models.Add(pModel);
-        }
-
-        public override void Update() {
-            throw new NotImplementedException();
         }
 
         public override BaseModel Model(BaseModel model = null) {
@@ -102,7 +93,7 @@ namespace AllInOneHelper.Settings {
                 return _model;
             else {
                 _model = (SettingsModel)model;
-                Update();
+                _basePanel.UpdateView();
                 return null;
             }
         }

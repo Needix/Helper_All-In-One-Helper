@@ -17,7 +17,6 @@ namespace AllInOneHelper.Settings {
         private bool _alwaysOnTop;
         public bool AlwaysOnTop { get { return _alwaysOnTop; } set { _alwaysOnTop = value; OnPropertyChanged("AlwaysOnTop"); } }
 
-        
         private List<BaseModel> _models = new List<BaseModel>(); 
         public List<BaseModel> Models { 
             get { return _models; }

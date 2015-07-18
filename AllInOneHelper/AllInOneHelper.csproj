@@ -66,6 +66,7 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="src\Modules\BPM\BPMController.cs" />
+    <Compile Include="src\Modules\ClickSpeed\ClickSpeedDummyController.cs" />
     <Compile Include="src\Modules\ClickSpeed\ClickSpeedModel.cs" />
     <Compile Include="src\Modules\ClickSpeed\ClickSpeedPanel.cs">
       <SubType>UserControl</SubType>

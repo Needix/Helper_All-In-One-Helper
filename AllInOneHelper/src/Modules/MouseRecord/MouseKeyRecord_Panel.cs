@@ -31,19 +31,28 @@ namespace AllInOneHelper.Modules.MouseRecord {
 
         protected override void RegisterEvents() {
             MouseKey_Recorder mouseKeyRecorder = panel_mouseRec_playbackPanel.MouseKeyRecorder;
-            b_mouseRec_rec_start.Click +=           new EventHandler(mouseKeyRecorder.StartRec);
-            cbox_mouseRec_pause.CheckedChanged +=   new EventHandler(mouseKeyRecorder.PauseRec);
-            b_mouseRec_rec_stop.Click +=            new EventHandler(mouseKeyRecorder.StopRec);
-            b_mouseRec_rec_reset.Click +=           new EventHandler(mouseKeyRecorder.ResetRec);
+            b_mouseRec_rec_start.Click +=           mouseKeyRecorder.StartRec;
+            cbox_mouseRec_pause.CheckedChanged +=   mouseKeyRecorder.PauseRec;
+            b_mouseRec_rec_stop.Click +=            mouseKeyRecorder.StopRec;
+            b_mouseRec_rec_reset.Click +=           mouseKeyRecorder.ResetRec;
 
-            b_mouseRec_playback_start.Click +=                      new EventHandler(panel_mouseRec_playbackPanel.StartPlayback);
-            b_mouseRec_playback_stop.Click +=                       new EventHandler(panel_mouseRec_playbackPanel.StopPlayback);
-            slider_mouseRec_playback_progress.ValueChanged +=       new EventHandler(panel_mouseRec_playbackPanel.ChangePlaybackTime);
-            cbox_mouseRec_playback_showAllFrames.CheckedChanged +=  new EventHandler(panel_mouseRec_playbackPanel.ChangeShowAllFrames);
+            b_mouseRec_playback_start.Click +=                      panel_mouseRec_playbackPanel.StartPlayback;
+            b_mouseRec_playback_stop.Click +=                       panel_mouseRec_playbackPanel.StopPlayback;
+            slider_mouseRec_playback_progress.ValueChanged +=       panel_mouseRec_playbackPanel.ChangePlaybackTime;
+            cbox_mouseRec_playback_showAllFrames.CheckedChanged +=  panel_mouseRec_playbackPanel.ChangeShowAllFrames;
+        }
+
+        public override void UpdateView() {
+            MouseKey_Model model = (MouseKey_Model)panel_mouseRec_playbackPanel.MouseKeyRecorder.Model();
         }
 
         public override BaseController GetController() {
             return panel_mouseRec_playbackPanel.MouseKeyRecorder;
+        }
+
+        public override void Close() {
+            panel_mouseRec_playbackPanel.Close();
+            panel_mouseRec_playbackPanel.MouseKeyRecorder.Close();
         }
 
         protected override void InitializeComponent() {
@@ -206,11 +215,6 @@ namespace AllInOneHelper.Modules.MouseRecord {
             this.groupBox_mouseRec_record.PerformLayout();
             this.ResumeLayout(false);
 
-        }
-
-        public override void Close() {
-            panel_mouseRec_playbackPanel.Close();
-            panel_mouseRec_playbackPanel.MouseKeyRecorder.Close();
         }
     }
 }

@@ -40,16 +40,12 @@ namespace AllInOneHelper.Modules.BPM {
             _basePanel.l_bpm_curBPM.Text = "Current BPM: " + _curBpm;
         }
 
-        public override void Update() {
-            throw new NotImplementedException();
-        }
-
         public override BaseModel Model(BaseModel model = null) {
             if(model == null)
                 return _model;
             else {
                 _model = (BPMModel)model;
-                Update();
+                _basePanel.UpdateView();
                 return null;
             }
         }

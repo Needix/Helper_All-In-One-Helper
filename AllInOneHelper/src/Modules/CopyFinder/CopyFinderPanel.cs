@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Forms;
 using AllInOneHelper.Modules.Base;
 
@@ -19,11 +21,53 @@ namespace AllInOneHelper.Modules.CopyFinder {
 
         protected override void RegisterEvents() {
             _controller = new CopyFinderController(this);
-            //EventHandler handler = new EventHandler(controller.);
+
+            b_copyFinder_deleteAllFolder.Click += _controller.DeleteAllFolder;
+            b_copyFinder_deleteSelectedFolder.Click += _controller.DeleteSelectedFolder;
+            b_copyFinder_findCopiesEverywhere.Click += _controller.FindCopiesEverywhere;
+            b_copyFinder_findCopiesInFolder.Click += _controller.FindCopiesInFolder;
+            cbox_copyFinder_deleteCopiesIfFound.Click += _controller.AutomaticallyDeleteIfFoundChanged;
+        }
+
+        public override void UpdateView() {
+            CopyFinderModel model = (CopyFinderModel)_controller.Model();
         }
 
         public override BaseController GetController() {
             return _controller;
+        }
+
+        public void SetSearchedFolder(int value) {
+            l_copyFinder_searchedFolder.Invoke((MethodInvoker) delegate {
+                l_copyFinder_searchedFolder.Text = "Searched folder: " + value;
+            });
+        }
+        public void AddPathToList(String path) {
+            listBox_copyFinder_list.Invoke((MethodInvoker) delegate {
+                listBox_copyFinder_list.Items.Add(path);
+            });
+        }
+        public void ClearList() { listBox_copyFinder_list.Items.Clear(); }
+
+        public List<String> GetAllPaths() {
+            List<String> result = new List<string>();
+            ListBox.ObjectCollection collection = listBox_copyFinder_list.Items;
+            foreach(Object obj in collection) {
+                result.Add(obj.ToString());
+            }
+            return result;
+        } 
+        public List<String> GetSelectedPaths() {
+            List<String> result = new List<string>();
+            ListBox.SelectedObjectCollection collection = listBox_copyFinder_list.SelectedItems;
+            foreach (Object obj in collection) {
+                result.Add(obj.ToString());
+            }
+            return result;
+        }
+
+        public override void Close() {
+
         }
 
         protected override void InitializeComponent() {
@@ -107,10 +151,11 @@ namespace AllInOneHelper.Modules.CopyFinder {
             this.listBox_copyFinder_list.FormattingEnabled = true;
             this.listBox_copyFinder_list.Location = new System.Drawing.Point(3, 45);
             this.listBox_copyFinder_list.Name = "listBox_copyFinder_list";
+            this.listBox_copyFinder_list.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.listBox_copyFinder_list.Size = new System.Drawing.Size(1060, 420);
             this.listBox_copyFinder_list.TabIndex = 8;
             // 
-            // CustomPanel
+            // CopyFinderPanel
             // 
             this.Controls.Add(this.b_copyFinder_deleteSelectedFolder);
             this.Controls.Add(this.b_copyFinder_deleteAllFolder);
@@ -120,14 +165,10 @@ namespace AllInOneHelper.Modules.CopyFinder {
             this.Controls.Add(this.b_copyFinder_findCopiesEverywhere);
             this.Controls.Add(this.l_copyFinder_searchedFolder);
             this.Controls.Add(this.listBox_copyFinder_list);
-            this.Name = "CustomPanel";
+            this.Name = "CopyFinderPanel";
             this.Size = new System.Drawing.Size(1072, 549);
             this.ResumeLayout(false);
             this.PerformLayout();
-
-        }
-
-        public override void Close() {
 
         }
     }

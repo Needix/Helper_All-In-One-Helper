@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 
 namespace AllInOneHelper.Modules.Base {
@@ -9,8 +10,8 @@ namespace AllInOneHelper.Modules.Base {
             
         }
 
-        public abstract void Update();
         public abstract void Close();
+
         public abstract BaseModel Model(BaseModel model = null);
 
         //public abstract void Serialize(FileStream fileStream);

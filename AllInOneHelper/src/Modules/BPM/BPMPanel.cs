@@ -5,7 +5,7 @@ using AllInOneHelper.Modules.Base;
 namespace AllInOneHelper.Modules.BPM {
     class BPMPanel : BasePanel {
         private RadioButton radio_bpm_visualBPM;
-        public Label l_bpm_averageBPM;
+        public Label l_bpm_averageBPM; //TODO Change public Label to private
         public Label l_bpm_curBPM;
         private Button b_bpm_reset;
         private Button b_bpm_tap;
@@ -19,8 +19,21 @@ namespace AllInOneHelper.Modules.BPM {
         protected override void RegisterEvents() {
             _controller = new BPMController(this);
 
-            b_bpm_tap.Click += new EventHandler(_controller.Click);
-            b_bpm_reset.Click += new EventHandler(_controller.Reset);
+            b_bpm_tap.Click += _controller.Click;
+            b_bpm_reset.Click += _controller.Reset;
+        }
+
+        public override void UpdateView() {
+            BPMModel model = (BPMModel)_controller.Model();
+        }
+
+
+        public override BaseController GetController() {
+            return _controller;
+        }
+
+        public override void Close() {
+
         }
 
         protected override void InitializeComponent() {
@@ -81,15 +94,14 @@ namespace AllInOneHelper.Modules.BPM {
             // 
             // tb_bpm_info
             // 
-            this.tb_bpm_info.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tb_bpm_info.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tb_bpm_info.Location = new System.Drawing.Point(3, 3);
             this.tb_bpm_info.Multiline = true;
             this.tb_bpm_info.Name = "tb_bpm_info";
             this.tb_bpm_info.Size = new System.Drawing.Size(538, 36);
             this.tb_bpm_info.TabIndex = 7;
-            this.tb_bpm_info.Text = "Information: \r\nMeasures the BPM of your tapping. Tap with same speed gives best r" +
-    "esult. Click the reset button to reset it.";
+            this.tb_bpm_info.Text = "Information: \r\nMeasures the BPM of your tapping. Tap with same speed gives best result. Click the reset button to reset it.";
             this.tb_bpm_info.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // BPMPanel
@@ -104,14 +116,6 @@ namespace AllInOneHelper.Modules.BPM {
             this.Size = new System.Drawing.Size(544, 207);
             this.ResumeLayout(false);
             this.PerformLayout();
-
-        }
-
-        public override BaseController GetController() {
-            return _controller;
-        }
-
-        public override void Close() {
 
         }
     }

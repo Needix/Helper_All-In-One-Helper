@@ -27,6 +27,16 @@ namespace AllInOneHelper.Modules.DeleteEmpty {
             //EventHandler handler = new EventHandler(controller.);
         }
 
+        public override void UpdateView() {
+            DeleteEmptyModel model = (DeleteEmptyModel)_controller.Model();
+        }
+
+        public override BaseController GetController() {
+            return _controller;
+        }
+
+        public override void Close() { }
+
         protected override void InitializeComponent() {
             this.groupBox_deleteEmpty_result = new System.Windows.Forms.GroupBox();
             this.listBox_deleteEmpty_result = new System.Windows.Forms.ListBox();
@@ -195,14 +205,6 @@ namespace AllInOneHelper.Modules.DeleteEmpty {
             this.groupBox_deleteEmpty_options.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-
-        }
-
-        public override BaseController GetController() {
-            return _controller;
-        }
-
-        public override void Close() {
 
         }
     }

@@ -26,21 +26,28 @@ namespace AllInOneHelper.Settings {
             _controller = SettingsController.GetInstance;
             _controller.BasePanel = this;
 
-            b_settings_saveLoad_save.Click += new EventHandler(_controller.SaveData);
-            b_settings_saveLoad_load.Click += new EventHandler(_controller.LoadData);
-            b_settings_saveLoad_reset.Click += new EventHandler(_controller.RevertToDefault);
+            b_settings_saveLoad_save.Click += _controller.SaveData;
+            b_settings_saveLoad_load.Click += _controller.LoadData;
+            b_settings_saveLoad_reset.Click += _controller.RevertToDefault;
 
-            EventHandler dataChanged = new EventHandler(_controller.CBoxDataChanged);
+            EventHandler dataChanged = _controller.CBoxDataChanged;
             cbox_minimizeIntoTray.Click += dataChanged;
             cbox_closeIntoTray.Click += dataChanged;
             cbox_alwayOnTop.Click += dataChanged;
         }
 
-        public void Update(Boolean alwaysOnTop, Boolean closeIntoTray, Boolean minimizeIntoTray) {
-            cbox_closeIntoTray.Checked = closeIntoTray;
-            cbox_alwayOnTop.Checked = alwaysOnTop;
-            cbox_minimizeIntoTray.Checked = minimizeIntoTray;
+        public override void UpdateView() {
+            SettingsModel model = (SettingsModel)_controller.Model();
+            cbox_closeIntoTray.Checked = model.CloseIntoTray;
+            cbox_alwayOnTop.Checked = model.AlwaysOnTop;
+            cbox_minimizeIntoTray.Checked = model.MinimizeIntoTray;
         }
+
+        public override BaseController GetController() {
+            return _controller;
+        }
+
+        public override void Close() { }
 
         protected override void InitializeComponent() {
             this.groupBox_settings_window = new System.Windows.Forms.GroupBox();
@@ -146,14 +153,6 @@ namespace AllInOneHelper.Settings {
             this.groupBox_settings_window.PerformLayout();
             this.groupBox_settings_saveLoad.ResumeLayout(false);
             this.ResumeLayout(false);
-
-        }
-
-        public override BaseController GetController() {
-            return _controller;
-        }
-
-        public override void Close() {
 
         }
     }

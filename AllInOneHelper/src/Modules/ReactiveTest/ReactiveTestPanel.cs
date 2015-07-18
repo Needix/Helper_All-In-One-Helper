@@ -14,9 +14,15 @@ namespace AllInOneHelper.Modules.ReactiveTest {
             
         }
 
+        public override void UpdateView() {
+            ReactiveTestModel model = (ReactiveTestModel)_controller.Model();
+        }
+
         public override BaseController GetController() {
             return _controller;
         }
+
+        public override void Close() { }
 
         protected override void InitializeComponent() {
             this.SuspendLayout();
@@ -26,10 +32,6 @@ namespace AllInOneHelper.Modules.ReactiveTest {
             this.Name = "CustomPanel";
             this.Size = new System.Drawing.Size(221, 199);
             this.ResumeLayout(false);
-
-        }
-
-        public override void Close() {
 
         }
     }

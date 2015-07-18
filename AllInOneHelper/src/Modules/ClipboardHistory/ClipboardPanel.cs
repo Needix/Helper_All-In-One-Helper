@@ -19,15 +19,23 @@ namespace AllInOneHelper.Modules.ClipboardHistory {
         protected override void RegisterEvents() {
             _controller = new ClipboardController(this);
 
-            cbox_clipboard_status.Click += new EventHandler(_controller.ChangeStatus);
-            b_clipboard_copySelectedIntoClipboard.Click += new EventHandler(_controller.CopySelectedIntoClipboard);
-            b_clipboard_deleteAll.Click += new EventHandler(_controller.DeleteAll);
-            b_clipboard_deleteSelected.Click += new EventHandler(_controller.DeleteSelected);
-            cbox_clipboard_autoscroll.Click += new EventHandler(_controller.AutoScrollChange);
+            cbox_clipboard_status.Click += _controller.ChangeStatus;
+            b_clipboard_copySelectedIntoClipboard.Click += _controller.CopySelectedIntoClipboard;
+            b_clipboard_deleteAll.Click += _controller.DeleteAll;
+            b_clipboard_deleteSelected.Click += _controller.DeleteSelected;
+            cbox_clipboard_autoscroll.Click += _controller.AutoScrollChange;
+        }
+
+        public override void UpdateView() {
+            ClipboardModel model = (ClipboardModel)_controller.Model();
         }
 
         public override BaseController GetController() {
             return _controller;
+        }
+
+        public override void Close() {
+            _controller.Close();
         }
 
         protected override void InitializeComponent() {
@@ -42,7 +50,7 @@ namespace AllInOneHelper.Modules.ClipboardHistory {
             // 
             // tb_clipboard_info
             // 
-            this.tb_clipboard_info.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tb_clipboard_info.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tb_clipboard_info.Location = new System.Drawing.Point(3, 3);
             this.tb_clipboard_info.Multiline = true;
@@ -93,7 +101,7 @@ namespace AllInOneHelper.Modules.ClipboardHistory {
             // 
             // listBox_clipboard_list
             // 
-            this.listBox_clipboard_list.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.listBox_clipboard_list.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox_clipboard_list.FormattingEnabled = true;
             this.listBox_clipboard_list.Location = new System.Drawing.Point(3, 45);
@@ -128,10 +136,6 @@ namespace AllInOneHelper.Modules.ClipboardHistory {
             this.ResumeLayout(false);
             this.PerformLayout();
 
-        }
-
-        public override void Close() {
-            _controller.Close();
         }
     }
 }

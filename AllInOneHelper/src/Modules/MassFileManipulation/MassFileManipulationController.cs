@@ -10,16 +10,12 @@ namespace AllInOneHelper.Modules.MassFileManipulation {
             this._basePanel = panel;
         }
 
-        public override void Update() {
-            throw new System.NotImplementedException();
-        }
-
         public override BaseModel Model(BaseModel model = null) {
             if(model == null)
                 return _model;
             else {
                 _model = (MassFileManipulationModel)model;
-                Update();
+                _basePanel.UpdateView();
                 return null;
             }
         }

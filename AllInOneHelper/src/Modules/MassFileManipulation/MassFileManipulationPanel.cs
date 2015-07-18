@@ -13,9 +13,15 @@ namespace AllInOneHelper.Modules.MassFileManipulation {
             //EventHandler handler = new EventHandler(controller.);
         }
 
+        public override void UpdateView() {
+            MassFileManipulationModel model = (MassFileManipulationModel)_controller.Model();
+        }
+
         public override BaseController GetController() {
             return _controller;
         }
+
+        public override void Close() { }
 
         protected override void InitializeComponent() {
             this.SuspendLayout();
@@ -25,11 +31,6 @@ namespace AllInOneHelper.Modules.MassFileManipulation {
             this.Name = "CustomPanel";
             this.Size = new System.Drawing.Size(221, 199);
             this.ResumeLayout(false);
-
-        }
-
-        public override void Close() {
-
         }
     }
 }

@@ -63,11 +63,9 @@ namespace AllInOneHelper.GUI {
         private void InitializeModules() {
             LoadDefaultModules();
 
-            if(File.Exists(SettingsController.SAVE_PATH)) {
-                LoadModelsFromFile();
-            } else
+            if(File.Exists(SettingsController.SAVE_PATH)) LoadModelsFromFile();
 
-                foreach(BasePanel curElement in ModuleList)
+            foreach(BasePanel curElement in ModuleList)
             {
                 InitSingleModule(curElement, curElement.Page);
             }
@@ -100,8 +98,7 @@ namespace AllInOneHelper.GUI {
 
         public List<BaseController> GetControllers() {
             List<BaseController> controllers = new List<BaseController>();
-            for(int i = 0; i < ModuleList.Count; i++) {
-                BasePanel curPanel = ModuleList[i];
+            foreach (BasePanel curPanel in ModuleList) {
                 controllers.Add(curPanel.GetController());
             }
             return controllers;

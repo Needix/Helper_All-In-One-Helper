@@ -8,7 +8,7 @@ using AllInOneHelper.Modules.Base;
 namespace AllInOneHelper.Modules.MouseRecord {
     class MouseKey_Playback_Panel : UserControl {
         //HACK Panel changes others classes RecordPanel via set ?! /// MouseKey_Playback_Panel serves as "Uber controller" over MouseKey_Recorder (create "real" controller for both small-controller?)
-        private MouseKeyRecord_Panel _mouseRecordPanel; public MouseKeyRecord_Panel MouseRecordPanel { set { MouseKeyRecorder.SetRecordPanel = value;  _mouseRecordPanel = value; } }
+        private MouseKeyRecord_Panel _mouseRecordPanel; public MouseKeyRecord_Panel MouseRecordPanel { set { MouseKeyRecorder.RecordPanel = value;  _mouseRecordPanel = value; } }
 
         public MouseKey_Recorder MouseKeyRecorder { get; private set; }
 

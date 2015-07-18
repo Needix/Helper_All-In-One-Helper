@@ -10,15 +10,15 @@ namespace AllInOneHelper.Modules.ClickSpeed {
         private Button b_clickSpeed_reset;
         private Label l_clickSpeed_acc;
 
+        private ClickSpeedDummyController _controller;
+
         public ClickSpeedPanel(TabPage tabPage) : base(tabPage){}
 
         protected override void RegisterEvents() {
-            b_clickSpeed_reset.Click += new EventHandler(controller.Reset);
-            tb_clickSpeed_acc.TextChanged += new EventHandler(ResetClickSpeed);
-        }
+            _controller = new ClickSpeedDummyController(this);
 
-        public override BaseController GetController() {
-            throw new NotImplementedException();
+            b_clickSpeed_reset.Click += controller.Reset;
+            tb_clickSpeed_acc.TextChanged += ResetClickSpeed;
         }
 
         private void ResetClickSpeed(object sender, System.EventArgs e) {
@@ -26,6 +26,16 @@ namespace AllInOneHelper.Modules.ClickSpeed {
                 controller.Acc = Convert.ToInt32(tb_clickSpeed_acc.Text);
             } catch(FormatException) { }
         }
+
+        public override void UpdateView() {
+            ClickSpeedModel model = (ClickSpeedModel)_controller.Model();
+        }
+
+        public override BaseController GetController() {
+            return _controller;
+        }
+
+        public override void Close() { }
 
         protected override void InitializeComponent() {
             this.tb_clickSpeed_acc = new System.Windows.Forms.TextBox();
@@ -45,7 +55,7 @@ namespace AllInOneHelper.Modules.ClickSpeed {
             // 
             // tb_clickSpeed_info
             // 
-            this.tb_clickSpeed_info.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tb_clickSpeed_info.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tb_clickSpeed_info.Location = new System.Drawing.Point(3, 3);
             this.tb_clickSpeed_info.Multiline = true;
@@ -66,8 +76,8 @@ namespace AllInOneHelper.Modules.ClickSpeed {
             // 
             // panel_clickSpeed_clickSpeed
             // 
-            this.controller.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.controller.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.controller.Location = new System.Drawing.Point(11, 70);
             this.controller.Name = "controller";
@@ -94,10 +104,6 @@ namespace AllInOneHelper.Modules.ClickSpeed {
             this.Size = new System.Drawing.Size(936, 550);
             this.ResumeLayout(false);
             this.PerformLayout();
-
-        }
-
-        public override void Close() {
 
         }
     }

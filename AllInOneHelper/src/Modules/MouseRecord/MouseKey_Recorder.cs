@@ -13,7 +13,7 @@ namespace AllInOneHelper.Modules.MouseRecord {
 
         //Vars
         //Panels
-        public MouseKeyRecord_Panel SetRecordPanel { get; set; }
+        public MouseKeyRecord_Panel RecordPanel { get; set; }
         private MouseKey_Model _model = new MouseKey_Model();
 
         //MousePoints
@@ -73,8 +73,8 @@ namespace AllInOneHelper.Modules.MouseRecord {
 
             // HACK Find out why ObjectDispoed/ThreadInterrupted is thrown
             try {
-                SetRecordPanel.l_mouseRec_rec_recFrames.Invoke((MethodInvoker) delegate {
-                    SetRecordPanel.l_mouseRec_rec_recFrames.Text = "Recorded Frames: " + PointList.Count;
+                RecordPanel.l_mouseRec_rec_recFrames.Invoke((MethodInvoker) delegate {
+                    RecordPanel.l_mouseRec_rec_recFrames.Text = "Recorded Frames: " + PointList.Count;
                 });
             } catch (ThreadInterruptedException) {}
 
@@ -124,32 +124,32 @@ namespace AllInOneHelper.Modules.MouseRecord {
         public void StartRec(object sender, EventArgs e) {
             ActivePositionThread = true;
 
-            SetRecordPanel.b_mouseRec_rec_start.Enabled = false;
-            SetRecordPanel.cbox_mouseRec_pause.Enabled = true;
-            SetRecordPanel.b_mouseRec_rec_stop.Enabled = true;
-            SetRecordPanel.b_mouseRec_rec_reset.Enabled = false;
+            RecordPanel.b_mouseRec_rec_start.Enabled = false;
+            RecordPanel.cbox_mouseRec_pause.Enabled = true;
+            RecordPanel.b_mouseRec_rec_stop.Enabled = true;
+            RecordPanel.b_mouseRec_rec_reset.Enabled = false;
         }
 
         public void PauseRec(object sender, EventArgs e) {
             CheckBox cbox = (CheckBox) sender;
-            if (!SetRecordPanel.b_mouseRec_rec_stop.Enabled)
+            if (!RecordPanel.b_mouseRec_rec_stop.Enabled)
                 return; // Check if stop is enabled to ensure that stopRec didnt trigger this function
             ActivePositionThread = !cbox.Checked;
 
-            SetRecordPanel.b_mouseRec_rec_start.Enabled = false;
-            SetRecordPanel.cbox_mouseRec_pause.Enabled = true;
-            SetRecordPanel.b_mouseRec_rec_stop.Enabled = true;
-            SetRecordPanel.b_mouseRec_rec_reset.Enabled = false;
+            RecordPanel.b_mouseRec_rec_start.Enabled = false;
+            RecordPanel.cbox_mouseRec_pause.Enabled = true;
+            RecordPanel.b_mouseRec_rec_stop.Enabled = true;
+            RecordPanel.b_mouseRec_rec_reset.Enabled = false;
         }
 
         public void StopRec(object sender, EventArgs e) {
             ActivePositionThread = false;
 
-            SetRecordPanel.b_mouseRec_rec_start.Enabled = false;
-            SetRecordPanel.b_mouseRec_rec_stop.Enabled = false;
-            SetRecordPanel.cbox_mouseRec_pause.Enabled = false;
-            SetRecordPanel.cbox_mouseRec_pause.Checked = false;
-            SetRecordPanel.b_mouseRec_rec_reset.Enabled = true;
+            RecordPanel.b_mouseRec_rec_start.Enabled = false;
+            RecordPanel.b_mouseRec_rec_stop.Enabled = false;
+            RecordPanel.cbox_mouseRec_pause.Enabled = false;
+            RecordPanel.cbox_mouseRec_pause.Checked = false;
+            RecordPanel.b_mouseRec_rec_reset.Enabled = true;
         }
 
         public void ResetRec(object sender, EventArgs e) {
@@ -161,26 +161,22 @@ namespace AllInOneHelper.Modules.MouseRecord {
             MinPoint = null;
             MaxPoint = null;
 
-            SetRecordPanel.l_mouseRec_rec_recFrames.Text = "Recorded Frames: 0";
-            SetRecordPanel.b_mouseRec_rec_start.Enabled = true;
-            SetRecordPanel.cbox_mouseRec_pause.Enabled = false;
-            SetRecordPanel.cbox_mouseRec_pause.Checked = false;
-            SetRecordPanel.b_mouseRec_rec_stop.Enabled = false;
-            SetRecordPanel.b_mouseRec_rec_reset.Enabled = false;
+            RecordPanel.l_mouseRec_rec_recFrames.Text = "Recorded Frames: 0";
+            RecordPanel.b_mouseRec_rec_start.Enabled = true;
+            RecordPanel.cbox_mouseRec_pause.Enabled = false;
+            RecordPanel.cbox_mouseRec_pause.Checked = false;
+            RecordPanel.b_mouseRec_rec_stop.Enabled = false;
+            RecordPanel.b_mouseRec_rec_reset.Enabled = false;
         }
 
         #endregion
-
-        public override void Update() {
-            throw new NotImplementedException();
-        }
 
         public override BaseModel Model(BaseModel model = null) {
             if(model == null)
                 return _model;
             else {
                 _model = (MouseKey_Model)model;
-                Update();
+                RecordPanel.UpdateView();
                 return null;
             }
         }

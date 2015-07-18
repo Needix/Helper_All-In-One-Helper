@@ -29,7 +29,7 @@ namespace AllInOneHelper.Modules.ClickSpeed {
         private ClickSpeedPoint[] _points = new ClickSpeedPoint[1000];
 
         public ClickSpeedController() {
-            this.Click += new EventHandler(PanelClick);
+            this.Click += PanelClick;
 
             for(int i = 0; i < _points.Length; i++) {
                 _points[i] = new ClickSpeedPoint(i, 0, _acc*i);
