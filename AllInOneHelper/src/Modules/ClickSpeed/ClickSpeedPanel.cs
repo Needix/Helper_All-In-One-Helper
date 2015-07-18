@@ -7,24 +7,24 @@ namespace AllInOneHelper.Modules.ClickSpeed {
     class ClickSpeedPanel : BasePanel {
         private TextBox tb_clickSpeed_acc;
         private TextBox tb_clickSpeed_info;
-        private ClickSpeedController controller;
+        private ClickSpeedView _view;
         private Button b_clickSpeed_reset;
         private Label l_clickSpeed_acc;
 
-        private ClickSpeedDummyController _controller;
+        private ClickSpeedController _controller;
 
         public ClickSpeedPanel(TabPage tabPage) : base(tabPage){}
 
         protected override void RegisterEvents() {
-            _controller = new ClickSpeedDummyController(this);
+            _controller = new ClickSpeedController(this);
 
-            b_clickSpeed_reset.Click += controller.Reset;
+            b_clickSpeed_reset.Click += _view.Reset;
             tb_clickSpeed_acc.TextChanged += ResetClickSpeed;
         }
 
         private void ResetClickSpeed(object sender, EventArgs e) {
             try {
-                controller.Acc = Convert.ToInt32(tb_clickSpeed_acc.Text);
+                _view.Acc = Convert.ToInt32(tb_clickSpeed_acc.Text);
             } catch(FormatException) { }
         }
 
@@ -42,7 +42,7 @@ namespace AllInOneHelper.Modules.ClickSpeed {
             this.tb_clickSpeed_acc = new TextBox();
             this.tb_clickSpeed_info = new TextBox();
             this.l_clickSpeed_acc = new Label();
-            this.controller = new ClickSpeedController();
+            this._view = new ClickSpeedView();
             this.b_clickSpeed_reset = new Button();
             this.SuspendLayout();
             // 
@@ -77,13 +77,13 @@ namespace AllInOneHelper.Modules.ClickSpeed {
             // 
             // panel_clickSpeed_clickSpeed
             // 
-            this.controller.Anchor = ((AnchorStyles)((((AnchorStyles.Top | AnchorStyles.Bottom)
+            this._view.Anchor = ((AnchorStyles)((((AnchorStyles.Top | AnchorStyles.Bottom)
             | AnchorStyles.Left)
             | AnchorStyles.Right)));
-            this.controller.Location = new Point(11, 70);
-            this.controller.Name = "controller";
-            this.controller.Size = new Size(922, 477);
-            this.controller.TabIndex = 8;
+            this._view.Location = new Point(11, 70);
+            this._view.Name = "_view";
+            this._view.Size = new Size(922, 477);
+            this._view.TabIndex = 8;
             // 
             // b_clickSpeed_reset
             // 
@@ -97,7 +97,7 @@ namespace AllInOneHelper.Modules.ClickSpeed {
             // ClickSpeedPanel
             // 
             this.Controls.Add(this.b_clickSpeed_reset);
-            this.Controls.Add(this.controller);
+            this.Controls.Add(this._view);
             this.Controls.Add(this.tb_clickSpeed_acc);
             this.Controls.Add(this.tb_clickSpeed_info);
             this.Controls.Add(this.l_clickSpeed_acc);

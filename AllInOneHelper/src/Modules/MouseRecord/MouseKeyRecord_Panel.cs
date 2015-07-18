@@ -1,25 +1,28 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Modules.MouseRecord {
     class MouseKeyRecord_Panel : BasePanel {
         private GroupBox groupBox_mouseRec_playback;
-        public CheckBox cbox_mouseRec_playback_showAllFrames;
-        public TrackBar slider_mouseRec_playback_progress;
-        public Button b_mouseRec_playback_stop;
-        public Button b_mouseRec_playback_start;
+        private CheckBox cbox_mouseRec_playback_showAllFrames;
+        private TrackBar slider_mouseRec_playback_progress;
+        private Button b_mouseRec_playback_stop;
+        private Button b_mouseRec_playback_start;
 
         private GroupBox groupBox_mouseRec_record;
-        public Label l_mouseRec_rec_recFrames;
-        public Button b_mouseRec_rec_start;
-        public CheckBox cbox_mouseRec_pause;
-        public Button b_mouseRec_rec_stop;
-        public Button b_mouseRec_rec_reset;
+        private Label l_mouseRec_rec_recFrames;
+        private Button b_mouseRec_rec_start;
+        private CheckBox cbox_mouseRec_pause;
+        private Button b_mouseRec_rec_stop;
+        private Button b_mouseRec_rec_reset;
 
-        public ListBox listBox_mouseRecord_keyRecord;
-        private MouseKey_Playback_Panel panel_mouseRec_playbackPanel;
+        private ListBox listBox_mouseRecord_keyRecord;
+        private MouseKey_Playback_Panel panel_mouseRec_playbackPanel; 
+        public MouseKey_Playback_Panel PlaybackPanel { get { return panel_mouseRec_playbackPanel;} }
 
         public MouseKeyRecord_Panel(TabPage tabPage) : base(tabPage) {
             this.panel_mouseRec_playbackPanel.MouseRecordPanel = this;
@@ -44,7 +47,36 @@ namespace AllInOneHelper.Modules.MouseRecord {
         }
 
         public override void UpdateView() {
-            MouseKey_Model model = (MouseKey_Model)panel_mouseRec_playbackPanel.MouseKeyRecorder.Model();
+            if (!this.Created) return;
+            try {
+                this.Invoke((MethodInvoker) delegate {
+                    MouseKey_Model model = panel_mouseRec_playbackPanel.Model;
+
+                    Debug.WriteLine(model.GetHashCode() +" / "+ panel_mouseRec_playbackPanel.MouseKeyRecorder.Model().GetHashCode());
+                    
+                    l_mouseRec_rec_recFrames.Text = "Recorded Frames: " + model.RecordedFrames;
+
+                    b_mouseRec_rec_start.Enabled = model.RecStartEnabled;
+                    cbox_mouseRec_pause.Enabled = model.RecPauseEnabled;
+                    cbox_mouseRec_pause.Checked = model.RecPauseChecked;
+                    b_mouseRec_rec_stop.Enabled = model.RecStopEnabled;
+                    b_mouseRec_rec_reset.Enabled = model.RecResetEnabled;
+
+                    b_mouseRec_playback_start.Enabled = model.PlaybackStartEnabled;
+                    b_mouseRec_playback_stop.Enabled = model.PlaybackStopEnabled;
+
+                    slider_mouseRec_playback_progress.Maximum = model.MaxPlaybackTime;
+                    slider_mouseRec_playback_progress.Value = model.CurPlaybackTime;
+
+                    listBox_mouseRecord_keyRecord.Items.Clear();
+                    if (model.PressedKeys != null)
+                        listBox_mouseRecord_keyRecord.Items.AddRange(model.PressedKeys);
+                });
+            } catch (ThreadInterruptedException) {} //HACK Find out why ThreadInterruptedException/ObjectDisposedException is thrown
+        }
+
+        public void StopPlayback() {
+            b_mouseRec_playback_stop.PerformClick(); 
         }
 
         public override BaseController GetController() {

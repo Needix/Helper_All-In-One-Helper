@@ -2,12 +2,12 @@
 <SettingsModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <CloseIntoTray>false</CloseIntoTray>
   <MinimizeIntoTray>true</MinimizeIntoTray>
-  <AlwaysOnTop>true</AlwaysOnTop>
+  <AlwaysOnTop>false</AlwaysOnTop>
   <Models>
     <BaseModel xsi:type="AspectRatioModel">
-      <LastHeight>Height55</LastHeight>
-      <LastWidth>Width77</LastWidth>
-      <LastRatio>Ratio11</LastRatio>
+      <LastHeight>11</LastHeight>
+      <LastWidth>55</LastWidth>
+      <LastRatio>5:1</LastRatio>
     </BaseModel>
     <BaseModel xsi:type="BPMModel" />
     <BaseModel xsi:type="ClickSpeedModel" />

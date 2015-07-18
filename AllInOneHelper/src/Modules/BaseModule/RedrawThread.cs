@@ -8,14 +8,15 @@ namespace AllInOneHelper.Modules.BaseModule {
     class RedrawThread {
         private static readonly List<RedrawThread> redrawThreadList = new List<RedrawThread>();
 
-        private const int THREAD_SLEEP = 100;
+        private readonly int THREAD_SLEEP = 100;
 
         private Thread _thread;
         private volatile Boolean _abort = false;
         private readonly UserControl _panel;
 
-        public RedrawThread(UserControl panel) {
+        public RedrawThread(UserControl panel, int threadSleep) {
             this._panel = panel;
+            THREAD_SLEEP = threadSleep;
 
             redrawThreadList.Add(this);
         }

@@ -8,24 +8,24 @@ using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Modules.MouseRecord {
     class MouseKey_Playback_Panel : UserControl {
-        //HACK Panel changes others classes RecordPanel via set ?! /// MouseKey_Playback_Panel serves as "Uber controller" over MouseKey_Recorder (create "real" controller for both small-controller?)
-        private MouseKeyRecord_Panel _mouseRecordPanel; public MouseKeyRecord_Panel MouseRecordPanel { set { MouseKeyRecorder.RecordPanel = value;  _mouseRecordPanel = value; } }
+        //HACK Panel changes others classes _basePanel via set ?! /// MouseKey_Playback_Panel serves as "Uber controller" over MouseKey_Recorder (create "real" controller for both small-controller?)
+        private MouseKeyRecord_Panel _mouseRecordPanel; public MouseKeyRecord_Panel MouseRecordPanel { set { MouseKeyRecorder._basePanel = value;  _mouseRecordPanel = value; } }
 
         public MouseKey_Recorder MouseKeyRecorder { get; private set; }
+        public MouseKey_Model Model { get; set; }
 
         private readonly Thread _playbackThread;
         private Boolean _playbackThreadAbort = false;
         private Boolean _playbackThreadActive = false;
-        private Boolean _showAllFrames = true;
-        public int CurPlaybackIndex { get; private set; }
 
         public MouseKey_Playback_Panel() {
-            CurPlaybackIndex = 0;
             SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer, true);
 
-            MouseKeyRecorder = new MouseKey_Recorder();
+            Model = new MouseKey_Model();
 
-            RedrawThread redrawThread = new RedrawThread(this);
+            MouseKeyRecorder = new MouseKey_Recorder(Model, this);
+
+            RedrawThread redrawThread = new RedrawThread(this, 100);
             redrawThread.Start();
 
             _playbackThread = new Thread(Run);
@@ -36,28 +36,26 @@ namespace AllInOneHelper.Modules.MouseRecord {
         private void Run() {
             while(!_playbackThreadAbort) {
                 try { Thread.Sleep(MouseKey_Recorder.SMOOTHNESS); } catch(ThreadInterruptedException) { return; }
-                if (!_playbackThreadActive) continue; 
+                if (!_playbackThreadActive) continue;
 
-                //Update Key display
-                object[] objects = MouseKeyRecorder.GetPressedKeys(CurPlaybackIndex);
-                _mouseRecordPanel.Invoke((MethodInvoker)delegate {
-                    _mouseRecordPanel.listBox_mouseRecord_keyRecord.Items.Clear();
-                    _mouseRecordPanel.listBox_mouseRecord_keyRecord.Items.AddRange(objects);
-                });
+                //Update Key data
+                object[] objects = MouseKeyRecorder.GetPressedKeys(Model.CurPlaybackTime);
+                Model.PressedKeys = objects;
 
-                //Update Mouse display
+                //Update Mouse data
                 List<CustomPoint> pointList = MouseKeyRecorder.PointList;
-                _mouseRecordPanel.Invoke((MethodInvoker)delegate {
-                    _mouseRecordPanel.slider_mouseRec_playback_progress.Maximum = pointList.Count;
-                    _mouseRecordPanel.slider_mouseRec_playback_progress.Value = CurPlaybackIndex;
-                });
+                Model.MaxPlaybackTime = pointList.Count;
+                Model.CurPlaybackTime = Model.CurPlaybackTime;
+
+                //Updat view
+                _mouseRecordPanel.UpdateView();
 
                 //Increase playbacktime / stop if playback reaches end
-                CurPlaybackIndex++;
-                if(CurPlaybackIndex >= pointList.Count) { //Stop if playback reaches the end
+                Model.CurPlaybackTime++;
+                if(Model.CurPlaybackTime >= pointList.Count) { //Stop if playback reaches the end
                     _mouseRecordPanel.Invoke((MethodInvoker)delegate { 
-                        _mouseRecordPanel.b_mouseRec_playback_stop.PerformClick(); 
-                    }); 
+                        _mouseRecordPanel.StopPlayback();
+                    });
                 }
             }
         }
@@ -92,7 +90,7 @@ namespace AllInOneHelper.Modules.MouseRecord {
             if(ratioX == 0) ratioX = 1;
             if(ratioY == 0) ratioY = 1;
 
-            if(_showAllFrames) {
+            if(Model.ShowAllFrames) {
                 for(int i = 0; i < pointList.Count; i++) {
                     Brush defaultBrush = new SolidBrush(CalculateNextColor(i));
                     Pen defaultPen = new Pen(defaultBrush);
@@ -113,11 +111,11 @@ namespace AllInOneHelper.Modules.MouseRecord {
                 Brush defaultBrush = new SolidBrush(Color.Black);
                 Pen defaultPen = new Pen(defaultBrush);
 
-                if(CurPlaybackIndex >= pointList.Count) return;
+                if(Model.CurPlaybackTime >= pointList.Count) return;
 
-                CustomPoint curPoint = pointList[CurPlaybackIndex];
+                CustomPoint curPoint = pointList[Model.CurPlaybackTime];
                 CustomPoint lastPoint = curPoint;
-                if(CurPlaybackIndex != 0) lastPoint = pointList[CurPlaybackIndex - 1];
+                if(Model.CurPlaybackTime != 0) lastPoint = pointList[Model.CurPlaybackTime - 1];
 
                 CustomPoint newCurPoint = TranslateCoordinates(curPoint, minX, minY, ratioX, ratioY);
                 CustomPoint newLastPoint = TranslateCoordinates(lastPoint, minX, minY, ratioX, ratioY);
@@ -151,25 +149,40 @@ namespace AllInOneHelper.Modules.MouseRecord {
 
         #region GUI-Playback
         public void StartPlayback(object sender, EventArgs e) {
-            if(MouseKeyRecorder.RecordSize <= CurPlaybackIndex) { Debug.WriteLine("Disallowed"); return; }
-
+            if(MouseKeyRecorder.RecordSize <= Model.CurPlaybackTime) { Debug.WriteLine("Disallowed"); return; }
+            
             _playbackThreadActive = true;
-            _mouseRecordPanel.b_mouseRec_playback_start.Enabled = false;
-            _mouseRecordPanel.b_mouseRec_playback_stop.Enabled = true;
+
+            Model.PlaybackStartEnabled = false;
+            Model.PlaybackStopEnabled = true;
+            Model.ShowAllFrames = false;
+
+            _mouseRecordPanel.UpdateView();
         }
 
         public void StopPlayback(object sender, EventArgs e) {
             _playbackThreadActive = false;
-            _mouseRecordPanel.b_mouseRec_playback_start.Enabled = true;
-            _mouseRecordPanel.b_mouseRec_playback_stop.Enabled = false;
+            
+            Model.PlaybackStartEnabled = true;
+            Model.PlaybackStopEnabled = false;
+            Model.ShowAllFrames = true;
+
+            _mouseRecordPanel.UpdateView();
         }
 
         public void ChangePlaybackTime(object sender, EventArgs e) {
-            CurPlaybackIndex = ((TrackBar)sender).Value;
+            int value = ((TrackBar) sender).Value;
+            Model.CurPlaybackTime = value;
+            Model.CurPlaybackTime = value;
+
+            _mouseRecordPanel.UpdateView();
         }
 
         public void ChangeShowAllFrames(object sender, EventArgs e) {
-            _showAllFrames = ((CheckBox)sender).Checked;
+            Boolean isChecked = ((CheckBox) sender).Checked;
+            Model.ShowAllFrames = isChecked;
+
+            _mouseRecordPanel.UpdateView();
         }
         #endregion
 

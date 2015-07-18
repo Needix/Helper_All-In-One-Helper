@@ -4,8 +4,8 @@ using AllInOneHelper.Modules.BaseModule;
 namespace AllInOneHelper.Modules.BPM {
     class BPMController : BaseController {
         private long _lastClick = 0;
-        private double _average = 0;
-        private int _curBpm = 0;
+        private double _averageBPM = 0;
+        private int _curBPM = 0;
 
         private readonly BPMPanel _basePanel;
         private BPMModel _model = new BPMModel();
@@ -18,25 +18,24 @@ namespace AllInOneHelper.Modules.BPM {
             if(_lastClick!=0) {
                 double diff = Environment.TickCount-_lastClick;
 
-                _curBpm = (int)Math.Round(60000d / diff);
-                _average = (_average + _curBpm) / 2;
+                _curBPM = (int)Math.Round(60000d / diff);
+                _averageBPM = (_averageBPM + _curBPM) / 2;
             }
             _lastClick = Environment.TickCount;
 
-            UpdatePanelLabels();
+            _model.AverageBPM = (int)Math.Round(_averageBPM);
+            _model.CurrentBPM = _curBPM;
+            _basePanel.UpdateView();
         }
 
         public void Reset(object sender, EventArgs e) {
             _lastClick = 0;
-            _average = 0;
-            _curBpm = 0;
+            _averageBPM = 0;
+            _curBPM = 0;
 
-            UpdatePanelLabels();
-        }
-
-        private void UpdatePanelLabels() {
-            _basePanel.l_bpm_averageBPM.Text = "Average BPM: " + (int)Math.Round(_average);
-            _basePanel.l_bpm_curBPM.Text = "Current BPM: " + _curBpm;
+            _model.AverageBPM = (int)Math.Round(_averageBPM);
+            _model.CurrentBPM = _curBPM;
+            _basePanel.UpdateView();
         }
 
         public override BaseModel Model(BaseModel model = null) {

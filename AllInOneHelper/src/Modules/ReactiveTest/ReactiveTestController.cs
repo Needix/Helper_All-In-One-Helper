@@ -1,4 +1,5 @@
-﻿using AllInOneHelper.Modules.BaseModule;
+﻿using System;
+using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Modules.ReactiveTest {
     class ReactiveTestController : BaseController {
@@ -7,6 +8,10 @@ namespace AllInOneHelper.Modules.ReactiveTest {
 
         public ReactiveTestController(ReactiveTestPanel panel) {
             this._basePanel = panel;
+        }
+
+        public void Reset(object sender, EventArgs e) {
+            
         }
 
         public override BaseModel Model(BaseModel model = null) {

@@ -5,8 +5,8 @@ using AllInOneHelper.Modules.BaseModule;
 namespace AllInOneHelper.Modules.BPM {
     class BPMPanel : BasePanel {
         private RadioButton radio_bpm_visualBPM;
-        public Label l_bpm_averageBPM; //TODO Change public Label to private
-        public Label l_bpm_curBPM;
+        private Label l_bpm_averageBPM;
+        private Label l_bpm_curBPM;
         private Button b_bpm_reset;
         private Button b_bpm_tap;
         private TextBox tb_bpm_info;
@@ -25,6 +25,8 @@ namespace AllInOneHelper.Modules.BPM {
 
         public override void UpdateView() {
             BPMModel model = (BPMModel)_controller.Model();
+            l_bpm_averageBPM.Text = "Average BPM: " + model.AverageBPM;
+            l_bpm_curBPM.Text = "Current BPM: " + model.CurrentBPM;
         }
 
 

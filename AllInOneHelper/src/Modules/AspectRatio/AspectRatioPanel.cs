@@ -5,17 +5,16 @@ using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Modules.AspectRatio {
     class AspectRatioPanel : BasePanel {
-        public Button b_aspectRatio_calcRatio; //Change public GUI Controls to private
-        public Button b_aspectRatio_calcHeight;
-        public Button b_aspectRatio_calcWidth;
-        public TextBox tb_aspectRatio_ratio;
-        public TextBox tb_aspectRatio_height;
-        public TextBox tb_aspectRatio_width;
-        public TextBox tb_aspectRatio_info;
+        private Button b_aspectRatio_calcRatio;
+        private Button b_aspectRatio_calcHeight;
+        private Button b_aspectRatio_calcWidth;
+        private TextBox tb_aspectRatio_ratio;
+        private TextBox tb_aspectRatio_height;
+        private TextBox tb_aspectRatio_width;
+        private TextBox tb_aspectRatio_info;
 
         private AspectRatioController _controller;
 
-        //public AspectRatioPanel() { }
         public AspectRatioPanel(TabPage tabPageMainAspectRatio) : base(tabPageMainAspectRatio) {}
 
         protected override void RegisterEvents() {

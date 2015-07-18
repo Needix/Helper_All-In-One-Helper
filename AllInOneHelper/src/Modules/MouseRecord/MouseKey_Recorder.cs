@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
@@ -10,10 +11,11 @@ namespace AllInOneHelper.Modules.MouseRecord {
         //Const
         public const int SMOOTHNESS = 50; //Less = smoother, more RAM; More = rough, less RAM
 
-        //Vars
+        ////Vars
         //Panels
-        public MouseKeyRecord_Panel RecordPanel { get; set; }
-        private MouseKey_Model _model = new MouseKey_Model();
+        public MouseKeyRecord_Panel _basePanel { get; set; }
+        private MouseKey_Playback_Panel _playbackPanel;
+        private MouseKey_Model _model;
 
         //MousePoints
         public CustomPoint MinPoint { get; private set; }
@@ -26,6 +28,8 @@ namespace AllInOneHelper.Modules.MouseRecord {
 
         private volatile Boolean _abortPositionThread;
 
+        private int _lastPause = Environment.TickCount;
+
         public Boolean AbortPositionThread {
             set { _abortPositionThread = value; }
         }
@@ -35,7 +39,9 @@ namespace AllInOneHelper.Modules.MouseRecord {
         //KeyboardStatus
         private readonly List<byte[]> _keyboardKeyStatus = new List<byte[]>();
 
-        public MouseKey_Recorder() {
+        public MouseKey_Recorder(MouseKey_Model model, MouseKey_Playback_Panel playbackpanel) {
+            _playbackPanel = playbackpanel;
+            _model = model;
             RecordSize = 0;
             ActivePositionThread = false;
             PointList = new List<CustomPoint>();
@@ -70,19 +76,13 @@ namespace AllInOneHelper.Modules.MouseRecord {
             PointList.Add(point);
             RecordSize = PointList.Count;
 
-            // HACK Find out why ObjectDispoed/ThreadInterrupted is thrown
-            try {
-                RecordPanel.l_mouseRec_rec_recFrames.Invoke((MethodInvoker) delegate {
-                    RecordPanel.l_mouseRec_rec_recFrames.Text = "Recorded Frames: " + PointList.Count;
-                });
-            } catch (ThreadInterruptedException) {}
-
+            _model.RecordedFrames = PointList.Count;
+            _basePanel.UpdateView();
         }
 
         #endregion
 
         #region KeyLogic
-
         private void AddKeys(byte[] pressedKeys) {
             _keyboardKeyStatus.Add(pressedKeys);
         }
@@ -96,7 +96,6 @@ namespace AllInOneHelper.Modules.MouseRecord {
             }
             return result.ToArray();
         }
-
         #endregion
 
         private void Run() {
@@ -123,32 +122,38 @@ namespace AllInOneHelper.Modules.MouseRecord {
         public void StartRec(object sender, EventArgs e) {
             ActivePositionThread = true;
 
-            RecordPanel.b_mouseRec_rec_start.Enabled = false;
-            RecordPanel.cbox_mouseRec_pause.Enabled = true;
-            RecordPanel.b_mouseRec_rec_stop.Enabled = true;
-            RecordPanel.b_mouseRec_rec_reset.Enabled = false;
+            _model.RecStartEnabled = false;
+            _model.RecPauseEnabled = true;
+            _model.RecStopEnabled = true;
+            _model.RecResetEnabled = false;
+            _basePanel.UpdateView();
         }
 
         public void PauseRec(object sender, EventArgs e) {
-            CheckBox cbox = (CheckBox) sender;
-            if (!RecordPanel.b_mouseRec_rec_stop.Enabled)
-                return; // Check if stop is enabled to ensure that stopRec didnt trigger this function
+            CheckBox cbox = (CheckBox)sender;
+            int curTime = Environment.TickCount;
+            if(!_model.RecStopEnabled || curTime - _lastPause < 100) return; // Check if stop is enabled to ensure that stopRec didnt trigger this function
             ActivePositionThread = !cbox.Checked;
+            _lastPause = curTime;
 
-            RecordPanel.b_mouseRec_rec_start.Enabled = false;
-            RecordPanel.cbox_mouseRec_pause.Enabled = true;
-            RecordPanel.b_mouseRec_rec_stop.Enabled = true;
-            RecordPanel.b_mouseRec_rec_reset.Enabled = false;
+            _model.RecStartEnabled = false;
+            _model.RecPauseEnabled = true;
+            _model.RecPauseChecked = cbox.Checked;
+            _model.RecStopEnabled = true;
+            _model.RecResetEnabled = false;
+
+            _basePanel.UpdateView();
         }
 
         public void StopRec(object sender, EventArgs e) {
             ActivePositionThread = false;
 
-            RecordPanel.b_mouseRec_rec_start.Enabled = false;
-            RecordPanel.b_mouseRec_rec_stop.Enabled = false;
-            RecordPanel.cbox_mouseRec_pause.Enabled = false;
-            RecordPanel.cbox_mouseRec_pause.Checked = false;
-            RecordPanel.b_mouseRec_rec_reset.Enabled = true;
+            _model.RecStartEnabled = false;
+            _model.RecPauseEnabled = false;
+            _model.RecPauseChecked = false;
+            _model.RecStopEnabled = false;
+            _model.RecResetEnabled = true;
+            _basePanel.UpdateView();
         }
 
         public void ResetRec(object sender, EventArgs e) {
@@ -160,12 +165,13 @@ namespace AllInOneHelper.Modules.MouseRecord {
             MinPoint = null;
             MaxPoint = null;
 
-            RecordPanel.l_mouseRec_rec_recFrames.Text = "Recorded Frames: 0";
-            RecordPanel.b_mouseRec_rec_start.Enabled = true;
-            RecordPanel.cbox_mouseRec_pause.Enabled = false;
-            RecordPanel.cbox_mouseRec_pause.Checked = false;
-            RecordPanel.b_mouseRec_rec_stop.Enabled = false;
-            RecordPanel.b_mouseRec_rec_reset.Enabled = false;
+            _model.RecordedFrames = 0;
+            _model.RecStartEnabled = true;
+            _model.RecPauseEnabled = false;
+            _model.RecPauseChecked = false;
+            _model.RecStopEnabled = false;
+            _model.RecResetEnabled = false;
+            _basePanel.UpdateView();
         }
 
         #endregion
@@ -175,7 +181,8 @@ namespace AllInOneHelper.Modules.MouseRecord {
                 return _model;
             else {
                 _model = (MouseKey_Model)model;
-                RecordPanel.UpdateView();
+                _playbackPanel.Model = _model;
+                _basePanel.UpdateView();
                 return null;
             }
         }

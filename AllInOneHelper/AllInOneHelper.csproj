@@ -62,11 +62,11 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="src\Modules\BPM\BPMModel.cs" />
-    <Compile Include="src\Modules\ClickSpeed\ClickSpeedController.cs">
+    <Compile Include="src\Modules\ClickSpeed\ClickSpeedView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="src\Modules\BPM\BPMController.cs" />
-    <Compile Include="src\Modules\ClickSpeed\ClickSpeedDummyController.cs" />
+    <Compile Include="src\Modules\ClickSpeed\ClickSpeedController.cs" />
     <Compile Include="src\Modules\ClickSpeed\ClickSpeedModel.cs" />
     <Compile Include="src\Modules\ClickSpeed\ClickSpeedPanel.cs">
       <SubType>UserControl</SubType>
@@ -115,6 +115,9 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="src\Modules\BaseModule\RedrawThread.cs" />
+    <Compile Include="src\Modules\ReactiveTest\ReactiveTestTest.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="src\Modules\SteamThumbnailDeleter\SteamThumbnailController.cs" />
     <Compile Include="src\Modules\SteamThumbnailDeleter\SteamThumbnailModel.cs" />
     <Compile Include="src\Modules\SteamThumbnailDeleter\SteamThumbnailPanel.cs">
@@ -170,6 +173,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="src\Modules\ReactiveTest\ReactiveTestPanel.resx">
       <DependentUpon>ReactiveTestPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Modules\ReactiveTest\ReactiveTestTest.resx">
+      <DependentUpon>ReactiveTestTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\Modules\SteamThumbnailDeleter\SteamThumbnailPanel.resx">
       <DependentUpon>SteamThumbnailPanel.cs</DependentUpon>
