@@ -3,6 +3,10 @@ using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Modules.ClickSpeed {
     public class ClickSpeedModel : BaseModel {
-        public String Accuracy { get; set; }
+        public ClickSpeedModel() {
+            Accuracy = 5;
+        }
+
+        public int Accuracy { get; set; }
     }
 }

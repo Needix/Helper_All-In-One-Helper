@@ -2,18 +2,17 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
+using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Modules.ClickSpeed {
-    class ClickSpeedView : UserControl {
-        //TODO Rewrite ClickSpeed from scratch
+    class ClickSpeedView : UserControl, IBaseController {
+        //TODO Rewrite ClickSpeed from scratch / Not working(STRANGE!) logic
         private const int MAX_Y_DRAW = 50;
 
-        private int _acc = 5;
-        public int Acc { set { 
-            Reset(null, null);
-            _acc = value; 
-        }}
-
+        private ClickSpeedPanel _basePanel;
+        public ClickSpeedPanel BasePanel { set { _basePanel = value; } }
+        private ClickSpeedModel _model = new ClickSpeedModel();
+        
         private int _lastClick = 0;
 
         private int _maxY = 0;
@@ -24,14 +23,12 @@ namespace AllInOneHelper.Modules.ClickSpeed {
         private int _bestSpeed = int.MaxValue;
         private int _worstSpeed = 0;
 
-        private ClickSpeedPoint[] _points = new ClickSpeedPoint[1000];
+        private ClickSpeedPoint[] _points;
 
         public ClickSpeedView() {
             this.Click += PanelClick;
 
-            for(int i = 0; i < _points.Length; i++) {
-                _points[i] = new ClickSpeedPoint(i, 0, _acc*i);
-            }
+            Reset();
         }
 
         #region Paint
@@ -84,7 +81,7 @@ namespace AllInOneHelper.Modules.ClickSpeed {
 
                 //Draw "(x) to (x+acc)" string
                 int height = i % 2 == 0 ? this.Height - 25 : this.Height - 40; //Heightdiff (i%2==0 -> down; i%2==1 -> up)
-                g.DrawString((i * _acc) + "-" + ((i + 1) * _acc), font, brush, lastX-(xDiff/2), height);
+                g.DrawString((i * _model.Accuracy) + "-" + ((i + 1) * _model.Accuracy), font, brush, lastX - (xDiff / 2), height);
 
                 lastX += xDiff;
                 if(lastX > this.Width) return;
@@ -125,8 +122,8 @@ namespace AllInOneHelper.Modules.ClickSpeed {
 
             _bestSpeed = curDiff < _bestSpeed ? curDiff : _bestSpeed;
             _worstSpeed = curDiff > _worstSpeed ? curDiff : _worstSpeed;
-
-            int speedLow = (int)Math.Floor(curDiff / (double)_acc);
+            Debug.WriteLine("Test: "+curDiff+" / "+_model.Accuracy);
+            int speedLow = (int)Math.Floor(curDiff / (double)_model.Accuracy);
             _indexLastUp = speedLow;
             if(_indexLastUp < _points.Length) {
                 //System.Diagnostics.Debug.WriteLine("Registered Click to "+speedLow+". Diff: "+curDiff+". CurrentValue: "+points[indexLastUp].Y);
@@ -137,15 +134,49 @@ namespace AllInOneHelper.Modules.ClickSpeed {
             Invalidate();
         }
 
+        public void AccuracyChanged(object sender, EventArgs e) {
+            TextBox tb = (TextBox) sender;
+            try {
+                int acc = Convert.ToInt32(tb.Text);
+                SetAcc(acc);
+                _basePanel.UpdateView();
+            } catch(FormatException) { }
+        }
+
+        private void SetAcc(int value) {
+            Reset();
+            _model.Accuracy = value;
+            PopulateClickSpeedPointArray();
+        } 
+
         /////////////////////////////////////////////////General
-        public void Reset(object sender, EventArgs e) {
-            _acc = 5;
+        public void Reset(object sender = null, EventArgs e = null) {
+            _model.Accuracy = 5;
             _indexLastUp = 0;
             _lastClick = 0;
             _worstSpeed = 0;
             _maxY = 0;
             _bestSpeed = int.MaxValue;
             _points = new ClickSpeedPoint[100];
+            PopulateClickSpeedPointArray();
+        }
+
+        private void PopulateClickSpeedPointArray() {
+            for(int i = 0; i < _points.Length; i++) {
+                _points[i] = new ClickSpeedPoint(i, 0, _model.Accuracy * i);
+            }
+        }
+
+        public void Close() { }
+
+        public virtual BaseModel Model(BaseModel model = null) {
+            if(model == null)
+                return _model;
+            else {
+                _model = (ClickSpeedModel)model;
+                _basePanel.UpdateView();
+                return null;
+            }
         }
     }
 }

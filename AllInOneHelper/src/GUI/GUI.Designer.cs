@@ -170,7 +170,6 @@ namespace AllInOneHelper.GUI {
             // 
             this.notifyIcon_trayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon_trayIcon.Icon")));
             this.notifyIcon_trayIcon.Text = "Tray";
-            this.notifyIcon_trayIcon.Visible = true;
             // 
             // GUI
             // 

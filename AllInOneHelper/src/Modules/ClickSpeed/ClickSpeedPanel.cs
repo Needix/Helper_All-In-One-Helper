@@ -11,29 +11,22 @@ namespace AllInOneHelper.Modules.ClickSpeed {
         private Button b_clickSpeed_reset;
         private Label l_clickSpeed_acc;
 
-        private ClickSpeedController _controller;
-
         public ClickSpeedPanel(TabPage tabPage) : base(tabPage){}
 
         protected override void RegisterEvents() {
-            _controller = new ClickSpeedController(this);
+            _view.BasePanel = this;
 
             b_clickSpeed_reset.Click += _view.Reset;
-            tb_clickSpeed_acc.TextChanged += ResetClickSpeed;
-        }
-
-        private void ResetClickSpeed(object sender, EventArgs e) {
-            try {
-                _view.Acc = Convert.ToInt32(tb_clickSpeed_acc.Text);
-            } catch(FormatException) { }
+            tb_clickSpeed_acc.TextChanged += _view.AccuracyChanged;
         }
 
         public override void UpdateView() {
-            ClickSpeedModel model = (ClickSpeedModel)_controller.Model();
+            ClickSpeedModel model = (ClickSpeedModel)_view.Model();
+            tb_clickSpeed_acc.Text = model.Accuracy + "";
         }
 
         public override IBaseController GetController() {
-            return _controller;
+            return _view;
         }
 
         public override void Close() { }

@@ -52,7 +52,10 @@ namespace AllInOneHelper.Modules.ReactiveTest {
                 int curTime = Environment.TickCount - _switchStateThreadStartTime;
                 if (_bestTime > curTime) _bestTime = curTime;
                 if(_worstTime < curTime) _worstTime = curTime;
-                _averageTime = (_averageTime + curTime)/2d;
+
+                if (_averageTime == 0) _averageTime = curTime;
+                else _averageTime = (_averageTime + curTime)/2d;
+
                 _amoutTimes++;
             }
 
@@ -67,13 +70,13 @@ namespace AllInOneHelper.Modules.ReactiveTest {
             switch (state) {
                 case STATES.START:
                     DrawState_START(g);
-                break;
+                    break;
                 case STATES.WAITING_FOR_TIMER:
                     DrawState_WaitingFor(g);
-                break;
+                    break;
                 case STATES.WAITING_FOR_USER:
                     DrawState_WaitingFor(g);
-                break;
+                    break;
             }
         }
 
