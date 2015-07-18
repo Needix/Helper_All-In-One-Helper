@@ -33,7 +33,7 @@ namespace AllInOneHelper.Modules.CopyFinder {
             CopyFinderModel model = (CopyFinderModel)_controller.Model();
         }
 
-        public override BaseController GetController() {
+        public override IBaseController GetController() {
             return _controller;
         }
 

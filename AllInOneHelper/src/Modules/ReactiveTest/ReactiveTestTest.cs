@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Modules.ReactiveTest {
-    class ReactiveTestTest : UserControl {
+    class ReactiveTestTest : UserControl, IBaseController {
         private enum STATES {
             START = 1,
             WAITING_FOR_TIMER = 2,
@@ -22,6 +22,8 @@ namespace AllInOneHelper.Modules.ReactiveTest {
         private int _worstTime = Int32.MinValue;
         private double _averageTime = 0;
         private int _amoutTimes = 0;
+
+        private ReactiveTestModel _model = new ReactiveTestModel();
 
         private readonly Random _random = new Random();
 
@@ -111,6 +113,21 @@ namespace AllInOneHelper.Modules.ReactiveTest {
             _amoutTimes = 0;
         }
 
+        public BaseModel Model(BaseModel model = null) {
+            if(model == null)
+                return _model;
+            else {
+                _model = (ReactiveTestModel)model;
+                //_basePanel.UpdateView();
+                return null;
+            }
+        }
+
+        public void Close() {
+            _switchStateThreadAbort = true;
+            _switchStateThread.Interrupt();
+        }
+
         private void InitializeComponent() {
             this.SuspendLayout();
             // 
@@ -120,11 +137,6 @@ namespace AllInOneHelper.Modules.ReactiveTest {
             this.Size = new System.Drawing.Size(804, 398);
             this.ResumeLayout(false);
 
-        }
-
-        public void Close() {
-            _switchStateThreadAbort = true;
-            _switchStateThread.Interrupt();
         }
     }
 }

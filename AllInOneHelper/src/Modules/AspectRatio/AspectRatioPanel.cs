@@ -37,7 +37,7 @@ namespace AllInOneHelper.Modules.AspectRatio {
             tb_aspectRatio_width.Text = model.LastWidth;
         }
 
-        public override BaseController GetController() {
+        public override IBaseController GetController() {
             return _controller;
         }
 

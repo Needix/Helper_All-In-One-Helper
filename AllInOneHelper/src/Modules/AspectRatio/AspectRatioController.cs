@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Modules.AspectRatio {
-    class AspectRatioController : BaseController {
+    class AspectRatioController : IBaseController {
         private readonly AspectRatioPanel _basePanel;
         private AspectRatioModel _model = new AspectRatioModel(); 
 
@@ -99,7 +99,7 @@ namespace AllInOneHelper.Modules.AspectRatio {
             return b == 0 ? a : CalcGCD(b, a % b);
         }
 
-        public override BaseModel Model(BaseModel model = null) {
+        public virtual BaseModel Model(BaseModel model = null) {
             if(model == null)
                 return _model;
             else {
@@ -109,6 +109,6 @@ namespace AllInOneHelper.Modules.AspectRatio {
             }
         }
 
-        public override void Close() { }
+        public virtual void Close() { }
     }
 }

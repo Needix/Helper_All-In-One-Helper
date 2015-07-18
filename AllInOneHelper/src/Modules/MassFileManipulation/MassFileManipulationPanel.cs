@@ -17,7 +17,7 @@ namespace AllInOneHelper.Modules.MassFileManipulation {
             MassFileManipulationModel model = (MassFileManipulationModel)_controller.Model();
         }
 
-        public override BaseController GetController() {
+        public override IBaseController GetController() {
             return _controller;
         }
 

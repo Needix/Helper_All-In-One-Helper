@@ -2,7 +2,7 @@
 using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Modules.ReactiveTest {
-    class ReactiveTestController : BaseController {
+    class ReactiveTestController : IBaseController {
         private readonly ReactiveTestPanel _basePanel;
         private ReactiveTestModel _model = new ReactiveTestModel();
 
@@ -14,7 +14,7 @@ namespace AllInOneHelper.Modules.ReactiveTest {
             
         }
 
-        public override BaseModel Model(BaseModel model = null) {
+        public virtual BaseModel Model(BaseModel model = null) {
             if(model == null)
                 return _model;
             else {
@@ -24,7 +24,7 @@ namespace AllInOneHelper.Modules.ReactiveTest {
             }
         }
 
-        public override void Close() {
+        public virtual void Close() {
 
         }
     }

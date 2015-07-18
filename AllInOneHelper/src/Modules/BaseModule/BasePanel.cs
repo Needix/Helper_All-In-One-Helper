@@ -3,10 +3,10 @@ using System.Windows.Forms;
 
 namespace AllInOneHelper.Modules.BaseModule {
     [TypeDescriptionProvider(typeof(AbstractControlDescriptionProvider<BasePanel, UserControl>))]
-    public abstract class BasePanel : UserControl {//, IBasePanel  {
+    public abstract class BasePanel : UserControl {
         public TabPage Page { get; set; }
 
-        protected BasePanel(TabPage page) { //, BaseController controller) {
+        protected BasePanel(TabPage page) {
             this.Page = page;
 
             InitializeComponent();
@@ -18,7 +18,7 @@ namespace AllInOneHelper.Modules.BaseModule {
 
         public abstract void UpdateView();
 
-        public abstract BaseController GetController();
+        public abstract IBaseController GetController();
         public abstract void Close();
     }
 }

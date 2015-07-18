@@ -19,7 +19,7 @@ namespace AllInOneHelper.Modules.SteamThumbnailDeleter {
             SteamThumbnailModel model = (SteamThumbnailModel)_controller.Model();
         }
 
-        public override BaseController GetController() {
+        public override IBaseController GetController() {
             return _controller;
         }
 

@@ -21,7 +21,7 @@ namespace AllInOneHelper.Modules.ReactiveTest {
             ReactiveTestModel model = (ReactiveTestModel)_controller.Model();
         }
 
-        public override BaseController GetController() {
+        public override IBaseController GetController() {
             return _controller;
         }
 

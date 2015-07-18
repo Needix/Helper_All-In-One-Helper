@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Modules.MouseRecord {
-    internal class MouseKey_Recorder : BaseController {
+    internal class MouseKey_Recorder : IBaseController {
         //Const
         public const int SMOOTHNESS = 50; //Less = smoother, more RAM; More = rough, less RAM
 
@@ -176,7 +176,7 @@ namespace AllInOneHelper.Modules.MouseRecord {
 
         #endregion
 
-        public override BaseModel Model(BaseModel model = null) {
+        public virtual BaseModel Model(BaseModel model = null) {
             if(model == null)
                 return _model;
             else {
@@ -187,7 +187,7 @@ namespace AllInOneHelper.Modules.MouseRecord {
             }
         }
 
-        public override void Close() {
+        public virtual void Close() {
             AbortPositionThread = true;
             _mousePositionThread.Interrupt();
         }

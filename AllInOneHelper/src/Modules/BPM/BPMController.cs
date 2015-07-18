@@ -2,7 +2,7 @@
 using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Modules.BPM {
-    class BPMController : BaseController {
+    class BPMController : IBaseController {
         private long _lastClick = 0;
         private double _averageBPM = 0;
         private int _curBPM = 0;
@@ -38,7 +38,7 @@ namespace AllInOneHelper.Modules.BPM {
             _basePanel.UpdateView();
         }
 
-        public override BaseModel Model(BaseModel model = null) {
+        public virtual BaseModel Model(BaseModel model = null) {
             if(model == null)
                 return _model;
             else {
@@ -48,6 +48,6 @@ namespace AllInOneHelper.Modules.BPM {
             }
         }
 
-        public override void Close() { }
+        public virtual void Close() { }
     }
 }

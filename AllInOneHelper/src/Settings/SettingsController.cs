@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Settings {
-    class SettingsController : BaseController {
+    class SettingsController : IBaseController {
         private static SettingsController _controller;
         public static SettingsController GetInstance {
             get { return _controller ?? (_controller = new SettingsController()); } //if(_controller == null) _controller = new SettingsController();
@@ -28,13 +28,13 @@ namespace AllInOneHelper.Settings {
         public void LoadData(object sender, EventArgs e) {
             LoadData(GUI.GUI.GetInstance.GetControllers());
         }
-        public void LoadData(List<BaseController> controllers) {
+        public void LoadData(List<IBaseController> controllers) {
             _model = Deserialize();
             _basePanel.UpdateView();
 
             List<BaseModel> models = _model.Models;
             for (int i = 0; i < controllers.Count; i++) {
-                BaseController curController = controllers[i];
+                IBaseController curController = controllers[i];
                 for (int j = 0; j < models.Count; j++) {
                     BaseModel curModel = models[j];
                     if(curController.Model().GetType() != curModel.GetType()) continue;
@@ -83,7 +83,7 @@ namespace AllInOneHelper.Settings {
             _model.Models.Add(pModel);
         }
 
-        public override BaseModel Model(BaseModel model = null) {
+        public virtual BaseModel Model(BaseModel model = null) {
             if(model == null)
                 return _model;
             else {
@@ -93,6 +93,6 @@ namespace AllInOneHelper.Settings {
             }
         }
 
-        public override void Close() { }
+        public virtual void Close() { }
     }
 }

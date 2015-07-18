@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Modules.ClipboardHistory {
-    class ClipboardController : BaseController {
+    class ClipboardController : IBaseController {
         //Thread
         private readonly Thread _clipboardThread;
         private volatile Boolean _abort = false;
@@ -77,7 +77,7 @@ namespace AllInOneHelper.Modules.ClipboardHistory {
         }
         #endregion
 
-        public override BaseModel Model(BaseModel model = null) {
+        public virtual BaseModel Model(BaseModel model = null) {
             if(model == null)
                 return _model;
             else {
@@ -87,7 +87,7 @@ namespace AllInOneHelper.Modules.ClipboardHistory {
             }
         }
 
-        public override void Close() {
+        public virtual void Close() {
             this._abort = true;
             _clipboardThread.Interrupt();
         }

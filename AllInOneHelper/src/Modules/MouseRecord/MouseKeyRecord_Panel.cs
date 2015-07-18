@@ -79,7 +79,7 @@ namespace AllInOneHelper.Modules.MouseRecord {
             b_mouseRec_playback_stop.PerformClick(); 
         }
 
-        public override BaseController GetController() {
+        public override IBaseController GetController() {
             return panel_mouseRec_playbackPanel.MouseKeyRecorder;
         }
 

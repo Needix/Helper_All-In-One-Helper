@@ -30,7 +30,7 @@ namespace AllInOneHelper.Modules.ClipboardHistory {
             ClipboardModel model = (ClipboardModel)_controller.Model();
         }
 
-        public override BaseController GetController() {
+        public override IBaseController GetController() {
             return _controller;
         }
 

@@ -1,7 +1,7 @@
 ﻿using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Modules.DeleteEmpty {
-    class DeleteEmptyController : BaseController {
+    class DeleteEmptyController : IBaseController {
         private readonly DeleteEmptyPanel _basePanel;
         private DeleteEmptyModel _model = new DeleteEmptyModel();
 
@@ -9,7 +9,7 @@ namespace AllInOneHelper.Modules.DeleteEmpty {
             this._basePanel = panel;
         }
 
-        public override BaseModel Model(BaseModel model = null) {
+        public virtual BaseModel Model(BaseModel model = null) {
             if(model == null)
                 return _model;
             else {
@@ -19,6 +19,6 @@ namespace AllInOneHelper.Modules.DeleteEmpty {
             }
         }
 
-        public override void Close() { }
+        public virtual void Close() { }
     }
 }

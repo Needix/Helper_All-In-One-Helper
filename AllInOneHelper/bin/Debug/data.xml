@@ -5,9 +5,9 @@
   <AlwaysOnTop>false</AlwaysOnTop>
   <Models>
     <BaseModel xsi:type="AspectRatioModel">
-      <LastHeight>11</LastHeight>
+      <LastHeight>4</LastHeight>
       <LastWidth>55</LastWidth>
-      <LastRatio>5:1</LastRatio>
+      <LastRatio>55:4</LastRatio>
     </BaseModel>
     <BaseModel xsi:type="BPMModel" />
     <BaseModel xsi:type="ClickSpeedModel" />

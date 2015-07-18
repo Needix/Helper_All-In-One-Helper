@@ -31,7 +31,7 @@ namespace AllInOneHelper.Modules.DeleteEmpty {
             DeleteEmptyModel model = (DeleteEmptyModel)_controller.Model();
         }
 
-        public override BaseController GetController() {
+        public override IBaseController GetController() {
             return _controller;
         }
 

@@ -1,7 +1,7 @@
 ﻿using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Modules.MassFileManipulation {
-    class MassFileManipulationController : BaseController {
+    class MassFileManipulationController : IBaseController {
         private readonly MassFileManipulationPanel _basePanel;
         private MassFileManipulationModel _model = new MassFileManipulationModel();
 
@@ -9,7 +9,7 @@ namespace AllInOneHelper.Modules.MassFileManipulation {
             this._basePanel = panel;
         }
 
-        public override BaseModel Model(BaseModel model = null) {
+        public virtual BaseModel Model(BaseModel model = null) {
             if(model == null)
                 return _model;
             else {
@@ -19,6 +19,6 @@ namespace AllInOneHelper.Modules.MassFileManipulation {
             }
         }
 
-        public override void Close() {}
+        public virtual void Close() {}
     }
 }

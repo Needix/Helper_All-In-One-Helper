@@ -40,7 +40,7 @@ namespace AllInOneHelper.Settings {
             cbox_minimizeIntoTray.Checked = model.MinimizeIntoTray;
         }
 
-        public override BaseController GetController() {
+        public override IBaseController GetController() {
             return _controller;
         }
 

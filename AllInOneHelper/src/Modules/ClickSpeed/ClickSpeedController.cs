@@ -1,7 +1,7 @@
 ﻿using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Modules.ClickSpeed {
-    class ClickSpeedController : BaseController {
+    class ClickSpeedController : IBaseController {
         private readonly ClickSpeedPanel _basePanel;
         private ClickSpeedModel _model = new ClickSpeedModel();
 
@@ -9,9 +9,9 @@ namespace AllInOneHelper.Modules.ClickSpeed {
             _basePanel = panel;
         }
 
-        public override void Close() { }
+        public virtual void Close() { }
 
-        public override BaseModel Model(BaseModel model = null) {
+        public virtual BaseModel Model(BaseModel model = null) {
             if (model == null)
                 return _model;
             else {

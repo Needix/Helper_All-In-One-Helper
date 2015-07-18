@@ -32,7 +32,7 @@ namespace AllInOneHelper.Modules.ClickSpeed {
             ClickSpeedModel model = (ClickSpeedModel)_controller.Model();
         }
 
-        public override BaseController GetController() {
+        public override IBaseController GetController() {
             return _controller;
         }
 

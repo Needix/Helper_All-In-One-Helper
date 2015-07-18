@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Modules.CopyFinder {
-    class CopyFinderController : BaseController {
+    class CopyFinderController : IBaseController {
         private readonly CopyFinderPanel _basePanel;
         private CopyFinderModel _model = new CopyFinderModel();
 
@@ -101,11 +101,11 @@ namespace AllInOneHelper.Modules.CopyFinder {
             return searchedFolder;
         }
 
-        public override void Close() {
+        public virtual void Close() {
             throw new NotImplementedException();
         }
 
-        public override BaseModel Model(BaseModel model = null) {
+        public virtual BaseModel Model(BaseModel model = null) {
             if(model==null)
                 return _model;
             else {

@@ -30,7 +30,7 @@ namespace AllInOneHelper.Modules.BPM {
         }
 
 
-        public override BaseController GetController() {
+        public override IBaseController GetController() {
             return _controller;
         }
 
