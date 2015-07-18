@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
-using AllInOneHelper.Modules.Base;
+using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Modules.MouseRecord {
     class MouseKey_Playback_Panel : UserControl {
@@ -150,7 +151,7 @@ namespace AllInOneHelper.Modules.MouseRecord {
 
         #region GUI-Playback
         public void StartPlayback(object sender, EventArgs e) {
-            if(MouseKeyRecorder.RecordSize <= CurPlaybackIndex) { System.Diagnostics.Debug.WriteLine("Disallowed"); return; }
+            if(MouseKeyRecorder.RecordSize <= CurPlaybackIndex) { Debug.WriteLine("Disallowed"); return; }
 
             _playbackThreadActive = true;
             _mouseRecordPanel.b_mouseRec_playback_start.Enabled = false;
@@ -178,7 +179,7 @@ namespace AllInOneHelper.Modules.MouseRecord {
             // MousePlayback
             // 
             this.Name = "MousePlayback";
-            this.Size = new System.Drawing.Size(353, 230);
+            this.Size = new Size(353, 230);
             this.ResumeLayout(false);
 
         }

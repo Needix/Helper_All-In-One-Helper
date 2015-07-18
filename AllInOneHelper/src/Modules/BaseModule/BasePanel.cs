@@ -1,10 +1,7 @@
-﻿using System;
-using System.ComponentModel;
-using System.IO;
-using System.Runtime.Serialization;
+﻿using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace AllInOneHelper.Modules.Base {
+namespace AllInOneHelper.Modules.BaseModule {
     [TypeDescriptionProvider(typeof(AbstractControlDescriptionProvider<BasePanel, UserControl>))]
     public abstract class BasePanel : UserControl {//, IBasePanel  {
         public TabPage Page { get; set; }

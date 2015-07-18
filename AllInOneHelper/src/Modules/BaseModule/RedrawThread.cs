@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace AllInOneHelper.Modules.Base {
+namespace AllInOneHelper.Modules.BaseModule {
     class RedrawThread {
         private static readonly List<RedrawThread> redrawThreadList = new List<RedrawThread>();
 
@@ -16,7 +17,7 @@ namespace AllInOneHelper.Modules.Base {
         public RedrawThread(UserControl panel) {
             this._panel = panel;
 
-            RedrawThread.redrawThreadList.Add(this);
+            redrawThreadList.Add(this);
         }
 
         private void Run() {
@@ -32,7 +33,7 @@ namespace AllInOneHelper.Modules.Base {
         }
 
         public void Start() {
-            System.Diagnostics.Debug.WriteLine("Starting \""+_panel+"\" Redraw Thread.");
+            Debug.WriteLine("Starting \""+_panel+"\" Redraw Thread.");
             _thread = new Thread(Run);
             _thread.Name = _panel+"_RedrawThread";
             _thread.Start();

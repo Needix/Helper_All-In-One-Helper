@@ -1,5 +1,5 @@
 ﻿using System;
-using AllInOneHelper.Modules.Base;
+using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Modules.MouseRecord {
     public class MouseKey_Model : BaseModel {

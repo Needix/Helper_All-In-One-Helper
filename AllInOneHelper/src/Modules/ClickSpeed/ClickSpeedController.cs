@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -132,7 +133,7 @@ namespace AllInOneHelper.Modules.ClickSpeed {
             _indexLastUp = speedLow;
             if(_indexLastUp < _points.Length) {
                 //System.Diagnostics.Debug.WriteLine("Registered Click to "+speedLow+". Diff: "+curDiff+". CurrentValue: "+points[indexLastUp].Y);
-                System.Diagnostics.Debug.WriteLine("Registered Click to " + speedLow + ". Diff: " + curDiff + ".");
+                Debug.WriteLine("Registered Click to " + speedLow + ". Diff: " + curDiff + ".");
                 _points[_indexLastUp].Y++; 
             }
 

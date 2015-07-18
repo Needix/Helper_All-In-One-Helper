@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
-using AllInOneHelper.Modules.Base;
+using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Modules.ClickSpeed {
     class ClickSpeedPanel : BasePanel {
@@ -21,7 +22,7 @@ namespace AllInOneHelper.Modules.ClickSpeed {
             tb_clickSpeed_acc.TextChanged += ResetClickSpeed;
         }
 
-        private void ResetClickSpeed(object sender, System.EventArgs e) {
+        private void ResetClickSpeed(object sender, EventArgs e) {
             try {
                 controller.Acc = Convert.ToInt32(tb_clickSpeed_acc.Text);
             } catch(FormatException) { }
@@ -38,57 +39,57 @@ namespace AllInOneHelper.Modules.ClickSpeed {
         public override void Close() { }
 
         protected override void InitializeComponent() {
-            this.tb_clickSpeed_acc = new System.Windows.Forms.TextBox();
-            this.tb_clickSpeed_info = new System.Windows.Forms.TextBox();
-            this.l_clickSpeed_acc = new System.Windows.Forms.Label();
+            this.tb_clickSpeed_acc = new TextBox();
+            this.tb_clickSpeed_info = new TextBox();
+            this.l_clickSpeed_acc = new Label();
             this.controller = new ClickSpeedController();
-            this.b_clickSpeed_reset = new System.Windows.Forms.Button();
+            this.b_clickSpeed_reset = new Button();
             this.SuspendLayout();
             // 
             // tb_clickSpeed_acc
             // 
-            this.tb_clickSpeed_acc.Location = new System.Drawing.Point(72, 39);
+            this.tb_clickSpeed_acc.Location = new Point(72, 39);
             this.tb_clickSpeed_acc.Name = "tb_clickSpeed_acc";
-            this.tb_clickSpeed_acc.Size = new System.Drawing.Size(68, 20);
+            this.tb_clickSpeed_acc.Size = new Size(68, 20);
             this.tb_clickSpeed_acc.TabIndex = 7;
             this.tb_clickSpeed_acc.Text = "5";
             // 
             // tb_clickSpeed_info
             // 
-            this.tb_clickSpeed_info.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tb_clickSpeed_info.Location = new System.Drawing.Point(3, 3);
+            this.tb_clickSpeed_info.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left)
+            | AnchorStyles.Right)));
+            this.tb_clickSpeed_info.Location = new Point(3, 3);
             this.tb_clickSpeed_info.Multiline = true;
             this.tb_clickSpeed_info.Name = "tb_clickSpeed_info";
-            this.tb_clickSpeed_info.Size = new System.Drawing.Size(930, 36);
+            this.tb_clickSpeed_info.Size = new Size(930, 36);
             this.tb_clickSpeed_info.TabIndex = 5;
             this.tb_clickSpeed_info.Text = "Information: \r\nClick as fast as you can on the chart below.";
-            this.tb_clickSpeed_info.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb_clickSpeed_info.TextAlign = HorizontalAlignment.Center;
             // 
             // l_clickSpeed_acc
             // 
             this.l_clickSpeed_acc.AutoSize = true;
-            this.l_clickSpeed_acc.Location = new System.Drawing.Point(8, 42);
+            this.l_clickSpeed_acc.Location = new Point(8, 42);
             this.l_clickSpeed_acc.Name = "l_clickSpeed_acc";
-            this.l_clickSpeed_acc.Size = new System.Drawing.Size(58, 13);
+            this.l_clickSpeed_acc.Size = new Size(58, 13);
             this.l_clickSpeed_acc.TabIndex = 6;
             this.l_clickSpeed_acc.Text = "Accuracy: ";
             // 
             // panel_clickSpeed_clickSpeed
             // 
-            this.controller.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.controller.Location = new System.Drawing.Point(11, 70);
+            this.controller.Anchor = ((AnchorStyles)((((AnchorStyles.Top | AnchorStyles.Bottom)
+            | AnchorStyles.Left)
+            | AnchorStyles.Right)));
+            this.controller.Location = new Point(11, 70);
             this.controller.Name = "controller";
-            this.controller.Size = new System.Drawing.Size(922, 477);
+            this.controller.Size = new Size(922, 477);
             this.controller.TabIndex = 8;
             // 
             // b_clickSpeed_reset
             // 
-            this.b_clickSpeed_reset.Location = new System.Drawing.Point(146, 41);
+            this.b_clickSpeed_reset.Location = new Point(146, 41);
             this.b_clickSpeed_reset.Name = "b_clickSpeed_reset";
-            this.b_clickSpeed_reset.Size = new System.Drawing.Size(75, 23);
+            this.b_clickSpeed_reset.Size = new Size(75, 23);
             this.b_clickSpeed_reset.TabIndex = 9;
             this.b_clickSpeed_reset.Text = "Reset";
             this.b_clickSpeed_reset.UseVisualStyleBackColor = true;
@@ -101,7 +102,7 @@ namespace AllInOneHelper.Modules.ClickSpeed {
             this.Controls.Add(this.tb_clickSpeed_info);
             this.Controls.Add(this.l_clickSpeed_acc);
             this.Name = "ClickSpeedPanel";
-            this.Size = new System.Drawing.Size(936, 550);
+            this.Size = new Size(936, 550);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Security.Permissions;
 using System.Windows.Forms;
 using AllInOneHelper.Modules.AspectRatio;
-using AllInOneHelper.Modules.Base;
+using AllInOneHelper.Modules.BaseModule;
 using AllInOneHelper.Modules.BPM;
 using AllInOneHelper.Modules.ClickSpeed;
 using AllInOneHelper.Modules.ClipboardHistory;
@@ -24,7 +25,7 @@ namespace AllInOneHelper.GUI {
         //Variables
         private static GUI _gui;
         public static GUI GetInstance { //Singleton
-            get { return GUI._gui ?? (GUI._gui = new GUI()); }
+            get { return _gui ?? (_gui = new GUI()); }
         }
 
         //public List<ModuleElement> ModuleElements { get; private set; }
@@ -32,12 +33,13 @@ namespace AllInOneHelper.GUI {
 
         //Constructor
         private GUI() {
-            GUI._gui = this;
+            _gui = this;
 
-            //ModuleElements = new List<ModuleElement>();
             ModuleList = new List<BasePanel>();
 
             InitializeComponent();
+
+            InitializeEvents();
 
             InitializeModules();
         }
@@ -102,13 +104,26 @@ namespace AllInOneHelper.GUI {
                 controllers.Add(curPanel.GetController());
             }
             return controllers;
-        }  
+        }
 
         #region Non-Module-Events
-        protected override void OnClosing(CancelEventArgs e) {
-            base.OnClosing(e);
+        private void InitializeEvents() {
+            this.Resize += OnResize;
+            this.FormClosing += OnClosing;
+            notifyIcon_trayIcon.DoubleClick += OnResize;
+        }
 
-            //TODO Call save/serialization function
+        protected void OnClosing(Object sender, FormClosingEventArgs e) {
+            SettingsController controller = SettingsController.GetInstance;
+            SettingsModel model = (SettingsModel) controller.Model();
+            if(model.CloseIntoTray) {
+                e.Cancel = true;
+                notifyIcon_trayIcon.Visible = true;
+                Hide();
+                return;
+            }
+
+            controller.Serialize();
 
             foreach(BasePanel panel in ModuleList)
             {
@@ -116,6 +131,19 @@ namespace AllInOneHelper.GUI {
             }
 
             RedrawThread.CloseAll();
+        }
+
+        private void OnResize(object sender, EventArgs e) {
+            SettingsModel model = (SettingsModel) SettingsController.GetInstance.Model();
+            if(sender is NotifyIcon) {
+                notifyIcon_trayIcon.Visible = false;
+                Show();
+                this.WindowState = FormWindowState.Normal;
+                BringToFront();
+            } else if(FormWindowState.Minimized == this.WindowState && model.MinimizeIntoTray) {
+                notifyIcon_trayIcon.Visible = true;
+                Hide();
+            }
         }
         #endregion
     }

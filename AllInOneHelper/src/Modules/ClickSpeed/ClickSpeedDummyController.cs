@@ -1,5 +1,4 @@
-﻿using System;
-using AllInOneHelper.Modules.Base;
+﻿using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Modules.ClickSpeed {
     class ClickSpeedDummyController : BaseController {

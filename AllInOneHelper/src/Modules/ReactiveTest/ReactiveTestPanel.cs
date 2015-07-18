@@ -1,6 +1,6 @@
-﻿using System;
+﻿using System.Drawing;
 using System.Windows.Forms;
-using AllInOneHelper.Modules.Base;
+using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Modules.ReactiveTest {
     class ReactiveTestPanel : BasePanel {
@@ -30,7 +30,7 @@ namespace AllInOneHelper.Modules.ReactiveTest {
             // CustomPanel
             // 
             this.Name = "CustomPanel";
-            this.Size = new System.Drawing.Size(221, 199);
+            this.Size = new Size(221, 199);
             this.ResumeLayout(false);
 
         }

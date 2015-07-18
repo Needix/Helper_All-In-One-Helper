@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Threading;
 using System.Windows.Forms;
-using System.Xml.Serialization.Configuration;
-using AllInOneHelper.Modules.Base;
+using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Modules.CopyFinder {
     class CopyFinderController : BaseController {
@@ -105,7 +102,7 @@ namespace AllInOneHelper.Modules.CopyFinder {
         }
 
         public override void Close() {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public override BaseModel Model(BaseModel model = null) {

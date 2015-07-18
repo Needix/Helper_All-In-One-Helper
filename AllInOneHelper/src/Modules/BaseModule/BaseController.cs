@@ -1,8 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-
-namespace AllInOneHelper.Modules.Base {
+﻿namespace AllInOneHelper.Modules.BaseModule {
     public abstract class BaseController {
         //public BaseModel Model { get; set; }
 

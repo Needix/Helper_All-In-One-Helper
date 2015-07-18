@@ -1,4 +1,4 @@
-﻿namespace AllInOneHelper.Modules.Base {
+﻿namespace AllInOneHelper.Modules.BaseModule {
     class CustomPoint {
         public int X { set; get; }
         public int Y { set; get; }

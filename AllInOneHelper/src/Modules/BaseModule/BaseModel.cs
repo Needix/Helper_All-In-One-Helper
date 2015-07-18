@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.Diagnostics;
+﻿using System.ComponentModel;
 using System.Xml.Serialization;
 using AllInOneHelper.Modules.AspectRatio;
 using AllInOneHelper.Modules.BPM;
@@ -14,7 +12,7 @@ using AllInOneHelper.Modules.ReactiveTest;
 using AllInOneHelper.Modules.SteamThumbnailDeleter;
 using AllInOneHelper.Settings;
 
-namespace AllInOneHelper.Modules.Base {
+namespace AllInOneHelper.Modules.BaseModule {
     //[Serializable]
     [XmlInclude(typeof(AspectRatioModel)), XmlInclude(typeof(BPMModel)), XmlInclude(typeof(ClickSpeedModel)), 
     XmlInclude(typeof(ClipboardModel)), XmlInclude(typeof(CopyFinderModel)), XmlInclude(typeof(DeleteEmptyModel)),
@@ -30,7 +28,7 @@ namespace AllInOneHelper.Modules.Base {
 
         // Create the OnPropertyChanged method to raise the event
         protected void OnPropertyChanged(string name) {
-            Debug.WriteLine("Calling: OnPropertyChanged");
+            //Debug.WriteLine("Calling: OnPropertyChanged");
             PropertyChangedEventHandler handler = PropertyChanged;
             if(handler != null) {
                 handler(this, new PropertyChangedEventArgs(name));

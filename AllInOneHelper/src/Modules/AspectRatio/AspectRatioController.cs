@@ -1,7 +1,7 @@
 ﻿using System;
-using System.IO;
+using System.Diagnostics;
 using System.Windows.Forms;
-using AllInOneHelper.Modules.Base;
+using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Modules.AspectRatio {
     class AspectRatioController : BaseController {
@@ -33,7 +33,7 @@ namespace AllInOneHelper.Modules.AspectRatio {
 
                 _basePanel.tb_aspectRatio_width.Text = width + "";
             } catch(FormatException) {
-                System.Diagnostics.Debug.WriteLine("\""+sHeight+"\" is not a number!");
+                Debug.WriteLine("\""+sHeight+"\" is not a number!");
             }
         }
 
@@ -48,7 +48,7 @@ namespace AllInOneHelper.Modules.AspectRatio {
 
                 _basePanel.tb_aspectRatio_height.Text = height+"";
             } catch(FormatException) {
-                System.Diagnostics.Debug.WriteLine("\"" + sWidth + "\" is not a number!");
+                Debug.WriteLine("\"" + sWidth + "\" is not a number!");
             }
         }
 
@@ -64,7 +64,7 @@ namespace AllInOneHelper.Modules.AspectRatio {
 
                 _basePanel.tb_aspectRatio_ratio.Text = aspectRatio;
             } catch(FormatException) {
-                System.Diagnostics.Debug.WriteLine("\"" + sWidth + "\" or \""+sHeight+"\" is not a number!");
+                Debug.WriteLine("\"" + sWidth + "\" or \""+sHeight+"\" is not a number!");
             }
 
         }

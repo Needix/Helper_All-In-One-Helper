@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using System.Xml.Serialization;
-using AllInOneHelper.Modules.AspectRatio;
-using AllInOneHelper.Modules.Base;
+using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Settings {
     class SettingsController : BaseController {
@@ -74,11 +69,11 @@ namespace AllInOneHelper.Settings {
         }
 
         public void CBoxDataChanged(object sender, EventArgs e) {
-            Debug.WriteLine("CBoxDataChanged: "+sender);
-            CheckBox cbox = (CheckBox) sender;
-            if ("cbox_AlwayOnTop".Equals(cbox.Name))
+            CheckBox cbox = (CheckBox)sender;
+            //Debug.WriteLine("CBoxDataChanged: " + cbox.Name);
+            if ("cbox_alwayOnTop".Equals(cbox.Name))
                 _model.AlwaysOnTop = cbox.Checked;
-            else if("cbox_closeIntoTray".Equals(cbox.Name))
+            else if ("cbox_closeIntoTray".Equals(cbox.Name))
                 _model.CloseIntoTray = cbox.Checked;
             else
                 _model.MinimizeIntoTray = cbox.Checked;

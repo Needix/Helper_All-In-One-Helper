@@ -1,5 +1,4 @@
-﻿using System.IO;
-using AllInOneHelper.Modules.Base;
+﻿using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Modules.ReactiveTest {
     class ReactiveTestController : BaseController {

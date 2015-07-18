@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace AllInOneHelper.Modules.Base {
+namespace AllInOneHelper.Modules.BaseModule {
     public class AbstractControlDescriptionProvider<TAbstract, TBase> : TypeDescriptionProvider {
         public AbstractControlDescriptionProvider()
             : base(TypeDescriptor.GetProvider(typeof(TAbstract))) {

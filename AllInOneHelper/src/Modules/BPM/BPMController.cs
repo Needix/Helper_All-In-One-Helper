@@ -1,6 +1,5 @@
 ﻿using System;
-using System.IO;
-using AllInOneHelper.Modules.Base;
+using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Modules.BPM {
     class BPMController : BaseController {
@@ -15,7 +14,7 @@ namespace AllInOneHelper.Modules.BPM {
             _basePanel = panel;
         }
 
-        public void Click(object sender, System.EventArgs e) {
+        public void Click(object sender, EventArgs e) {
             if(_lastClick!=0) {
                 double diff = Environment.TickCount-_lastClick;
 
@@ -27,7 +26,7 @@ namespace AllInOneHelper.Modules.BPM {
             UpdatePanelLabels();
         }
 
-        public void Reset(object sender, System.EventArgs e) {
+        public void Reset(object sender, EventArgs e) {
             _lastClick = 0;
             _average = 0;
             _curBpm = 0;

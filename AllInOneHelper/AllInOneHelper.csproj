@@ -55,10 +55,10 @@
     <Compile Include="src\GUI\ModuleElement.cs" />
     <Compile Include="src\Modules\AspectRatio\AspectRatioController.cs" />
     <Compile Include="src\Modules\AspectRatio\AspectRatioModel.cs" />
-    <Compile Include="src\Modules\Base\AbstractControlDescriptionProvider.cs" />
-    <Compile Include="src\Modules\Base\BaseController.cs" />
-    <Compile Include="src\Modules\Base\BaseModel.cs" />
-    <Compile Include="src\Modules\Base\BasePanel.cs">
+    <Compile Include="src\Modules\BaseModule\AbstractControlDescriptionProvider.cs" />
+    <Compile Include="src\Modules\BaseModule\BaseController.cs" />
+    <Compile Include="src\Modules\BaseModule\BaseModel.cs" />
+    <Compile Include="src\Modules\BaseModule\BasePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="src\Modules\BPM\BPMModel.cs" />
@@ -89,7 +89,7 @@
     <Compile Include="src\Modules\AspectRatio\AspectRatioPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="src\Modules\Base\CustomPoint.cs" />
+    <Compile Include="src\Modules\BaseModule\CustomPoint.cs" />
     <Compile Include="src\Modules\DeleteEmpty\DeleteEmptyController.cs" />
     <Compile Include="src\Modules\DeleteEmpty\DeleteEmptyModel.cs" />
     <Compile Include="src\Modules\DeleteEmpty\DeleteEmptyPanel.cs">
@@ -114,7 +114,7 @@
     <Compile Include="src\Modules\ReactiveTest\ReactiveTestPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="src\Modules\Base\RedrawThread.cs" />
+    <Compile Include="src\Modules\BaseModule\RedrawThread.cs" />
     <Compile Include="src\Modules\SteamThumbnailDeleter\SteamThumbnailController.cs" />
     <Compile Include="src\Modules\SteamThumbnailDeleter\SteamThumbnailModel.cs" />
     <Compile Include="src\Modules\SteamThumbnailDeleter\SteamThumbnailPanel.cs">

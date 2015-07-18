@@ -1,4 +1,4 @@
-﻿using AllInOneHelper.Modules.Base;
+﻿using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Modules.ClickSpeed {
     class ClickSpeedPoint : CustomPoint {

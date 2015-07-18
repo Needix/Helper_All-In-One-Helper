@@ -1,5 +1,4 @@
-﻿using System.Windows.Forms;
-using AllInOneHelper.Modules.Base;
+﻿using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.GUI {
     public class ModuleElement {

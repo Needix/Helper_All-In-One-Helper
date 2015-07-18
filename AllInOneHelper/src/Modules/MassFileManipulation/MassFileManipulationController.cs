@@ -1,5 +1,4 @@
-﻿using System.IO;
-using AllInOneHelper.Modules.Base;
+﻿using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Modules.MassFileManipulation {
     class MassFileManipulationController : BaseController {

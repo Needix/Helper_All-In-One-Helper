@@ -1,9 +1,12 @@
-﻿namespace AllInOneHelper.GUI {
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace AllInOneHelper.GUI {
     partial class GUI {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -23,6 +26,8 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GUI));
             this.tabPage_main_settings = new System.Windows.Forms.TabPage();
             this.tabPage_main_steamThumbnailDeleter = new System.Windows.Forms.TabPage();
             this.tabPage_main_reactiveTest = new System.Windows.Forms.TabPage();
@@ -35,6 +40,7 @@
             this.tabPage_main_bpm = new System.Windows.Forms.TabPage();
             this.tabPage_main_aspectRatio = new System.Windows.Forms.TabPage();
             this.tabControl_main = new System.Windows.Forms.TabControl();
+            this.notifyIcon_trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.tabControl_main.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -160,6 +166,12 @@
             this.tabControl_main.Size = new System.Drawing.Size(1084, 562);
             this.tabControl_main.TabIndex = 0;
             // 
+            // notifyIcon_trayIcon
+            // 
+            this.notifyIcon_trayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon_trayIcon.Icon")));
+            this.notifyIcon_trayIcon.Text = "Tray";
+            this.notifyIcon_trayIcon.Visible = true;
+            // 
             // GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -175,18 +187,19 @@
 
         #endregion
 
-        private System.Windows.Forms.TabPage tabPage_main_settings;
-        private System.Windows.Forms.TabPage tabPage_main_steamThumbnailDeleter;
-        private System.Windows.Forms.TabPage tabPage_main_reactiveTest;
-        private System.Windows.Forms.TabPage tabPage_main_mouseRecord;
-        private System.Windows.Forms.TabPage tabPage_main_fileManipulation;
-        private System.Windows.Forms.TabPage tabPage_main_deleteEmpty;
-        private System.Windows.Forms.TabPage tabPage_main_copyFinder;
-        private System.Windows.Forms.TabPage tabPage_main_clipboard;
-        private System.Windows.Forms.TabPage tabPage_main_clickSpeed;
-        private System.Windows.Forms.TabPage tabPage_main_bpm;
-        private System.Windows.Forms.TabPage tabPage_main_aspectRatio;
-        private System.Windows.Forms.TabControl tabControl_main;
+        private TabPage tabPage_main_settings;
+        private TabPage tabPage_main_steamThumbnailDeleter;
+        private TabPage tabPage_main_reactiveTest;
+        private TabPage tabPage_main_mouseRecord;
+        private TabPage tabPage_main_fileManipulation;
+        private TabPage tabPage_main_deleteEmpty;
+        private TabPage tabPage_main_copyFinder;
+        private TabPage tabPage_main_clipboard;
+        private TabPage tabPage_main_clickSpeed;
+        private TabPage tabPage_main_bpm;
+        private TabPage tabPage_main_aspectRatio;
+        private TabControl tabControl_main;
+        private NotifyIcon notifyIcon_trayIcon;
 
     }
 }

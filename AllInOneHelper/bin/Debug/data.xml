@@ -2,7 +2,7 @@
 <SettingsModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <CloseIntoTray>false</CloseIntoTray>
   <MinimizeIntoTray>true</MinimizeIntoTray>
-  <AlwaysOnTop>false</AlwaysOnTop>
+  <AlwaysOnTop>true</AlwaysOnTop>
   <Models>
     <BaseModel xsi:type="AspectRatioModel">
       <LastHeight>Height55</LastHeight>
