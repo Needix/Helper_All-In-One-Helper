@@ -64,6 +64,7 @@ namespace AllInOneHelper.Modules.MouseRecord {
 
                     b_mouseRec_playback_start.Enabled = model.PlaybackStartEnabled;
                     b_mouseRec_playback_stop.Enabled = model.PlaybackStopEnabled;
+                    cbox_mouseRec_playback_showAllFrames.Checked = model.ShowAllFrames;
 
                     slider_mouseRec_playback_progress.Maximum = model.MaxPlaybackTime;
                     slider_mouseRec_playback_progress.Value = model.CurPlaybackTime;

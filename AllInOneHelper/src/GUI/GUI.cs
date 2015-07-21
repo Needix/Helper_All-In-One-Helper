@@ -127,6 +127,7 @@ namespace AllInOneHelper.GUI {
 
             foreach(BasePanel panel in ModuleList)
             {
+                //Debug.WriteLine("Closing "+panel);
                 panel.Close();
             }
 

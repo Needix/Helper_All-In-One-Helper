@@ -118,10 +118,10 @@ namespace AllInOneHelper.Modules.MouseRecord {
         }
 
         #region GUI-Recording
-
         public void StartRec(object sender, EventArgs e) {
             ActivePositionThread = true;
 
+            _model.ShowAllFrames = true;
             _model.RecStartEnabled = false;
             _model.RecPauseEnabled = true;
             _model.RecStopEnabled = true;

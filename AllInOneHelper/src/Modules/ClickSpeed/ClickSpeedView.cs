@@ -6,7 +6,7 @@ using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Modules.ClickSpeed {
     class ClickSpeedView : UserControl, IBaseController {
-        //TODO Rewrite ClickSpeed from scratch / Not working(STRANGE!) logic
+        //TODO Rewrite ClickSpeed from scratch + Not working/STRANGE! logic
         private const int MAX_Y_DRAW = 50;
 
         private ClickSpeedPanel _basePanel;
@@ -122,12 +122,11 @@ namespace AllInOneHelper.Modules.ClickSpeed {
 
             _bestSpeed = curDiff < _bestSpeed ? curDiff : _bestSpeed;
             _worstSpeed = curDiff > _worstSpeed ? curDiff : _worstSpeed;
-            Debug.WriteLine("Test: "+curDiff+" / "+_model.Accuracy);
-            int speedLow = (int)Math.Floor(curDiff / (double)_model.Accuracy);
-            _indexLastUp = speedLow;
+            _indexLastUp = (int)Math.Floor(curDiff / (double)_model.Accuracy);
+            Debug.WriteLine("Test: " + curDiff + " / " + _model.Accuracy+" / "+_indexLastUp);
             if(_indexLastUp < _points.Length) {
                 //System.Diagnostics.Debug.WriteLine("Registered Click to "+speedLow+". Diff: "+curDiff+". CurrentValue: "+points[indexLastUp].Y);
-                Debug.WriteLine("Registered Click to " + speedLow + ". Diff: " + curDiff + ".");
+                Debug.WriteLine("Registered Click to " + _indexLastUp + ". Diff: " + curDiff + ".");
                 _points[_indexLastUp].Y++; 
             }
 
@@ -157,7 +156,7 @@ namespace AllInOneHelper.Modules.ClickSpeed {
             _worstSpeed = 0;
             _maxY = 0;
             _bestSpeed = int.MaxValue;
-            _points = new ClickSpeedPoint[100];
+            _points = new ClickSpeedPoint[2000];
             PopulateClickSpeedPointArray();
         }
 

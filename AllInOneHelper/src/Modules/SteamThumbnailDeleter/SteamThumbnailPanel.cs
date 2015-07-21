@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 using AllInOneHelper.Modules.BaseModule;
+using AllInOneHelper.Modules.MouseRecord;
 
 namespace AllInOneHelper.Modules.SteamThumbnailDeleter {
     class SteamThumbnailPanel : BasePanel {
@@ -13,10 +14,13 @@ namespace AllInOneHelper.Modules.SteamThumbnailDeleter {
 
         protected override void RegisterEvents() {
             _controller = new SteamThumbnailController(this);
+
+            b_steamTD_deleteAll.Click += _controller.DeleteThumbnails;
         }
 
         public override void UpdateView() {
             SteamThumbnailModel model = (SteamThumbnailModel)_controller.Model();
+            l_steamTD_deletedFolder.Text = "Deleted folder: " + model.DeletedFolder;
         }
 
         public override IBaseController GetController() {
