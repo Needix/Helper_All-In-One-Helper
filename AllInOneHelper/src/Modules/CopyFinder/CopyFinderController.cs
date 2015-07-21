@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
@@ -58,7 +59,7 @@ namespace AllInOneHelper.Modules.CopyFinder {
 
         public void AutomaticallyDeleteIfFoundChanged(Object sender, EventArgs e) {
             CheckBox cbox = (CheckBox) sender;
-            _model.AutomaticallyDeleteIfFound = cbox.Checked; //TODO Check whether clicked event is occured before or after value change
+            _model.AutomaticallyDeleteIfFound = cbox.Checked;
         }
 
         private Thread StartRekThread(DirectoryInfo info) {

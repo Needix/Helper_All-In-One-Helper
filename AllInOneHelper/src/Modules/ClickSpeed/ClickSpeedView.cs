@@ -6,7 +6,6 @@ using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Modules.ClickSpeed {
     class ClickSpeedView : UserControl, IBaseController {
-        //TODO Rewrite ClickSpeed from scratch + Not working/STRANGE! logic
         private const int MAX_Y_DRAW = 50;
 
         private ClickSpeedPanel _basePanel;

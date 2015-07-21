@@ -25,7 +25,7 @@ namespace AllInOneHelper.Modules.MouseRecord {
         public MouseKey_Playback_Panel PlaybackPanel { get { return panel_mouseRec_playbackPanel;} }
 
         public MouseKeyRecord_Panel(TabPage tabPage) : base(tabPage) {
-            this.panel_mouseRec_playbackPanel.MouseRecordPanel = this;
+            this.panel_mouseRec_playbackPanel.RegisterBasePanel(this);
 
             cbox_mouseRec_pause.Enabled = false;
             b_mouseRec_rec_stop.Enabled = false;
@@ -73,7 +73,7 @@ namespace AllInOneHelper.Modules.MouseRecord {
                     if (model.PressedKeys != null)
                         listBox_mouseRecord_keyRecord.Items.AddRange(model.PressedKeys);
                 });
-            } catch (ThreadInterruptedException) {} //HACK Find out why ThreadInterruptedException/ObjectDisposedException is thrown
+            } catch (ThreadInterruptedException) {}
         }
 
         public void StopPlayback() {

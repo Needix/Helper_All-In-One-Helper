@@ -8,15 +8,14 @@ using AllInOneHelper.Modules.BaseModule;
 
 namespace AllInOneHelper.Modules.MouseRecord {
     class MouseKey_Playback_Panel : UserControl {
-        //HACK Panel changes others classes _basePanel via set ?! /// MouseKey_Playback_Panel serves as "Uber controller" over MouseKey_Recorder (create "real" controller for both small-controller?)
-        private MouseKeyRecord_Panel _mouseRecordPanel; public MouseKeyRecord_Panel MouseRecordPanel { set { MouseKeyRecorder._basePanel = value;  _mouseRecordPanel = value; } }
+        private MouseKeyRecord_Panel _mouseRecordPanel;
 
         public MouseKey_Recorder MouseKeyRecorder { get; private set; }
         public MouseKey_Model Model { get; set; }
 
         private readonly Thread _playbackThread;
-        private Boolean _playbackThreadAbort = false;
-        private Boolean _playbackThreadActive = false;
+        private Boolean _playbackThreadAbort;
+        private volatile Boolean _playbackThreadActive;
 
         public MouseKey_Playback_Panel() {
             SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer, true);
@@ -185,6 +184,11 @@ namespace AllInOneHelper.Modules.MouseRecord {
             _mouseRecordPanel.UpdateView();
         }
         #endregion
+
+        public void RegisterBasePanel(MouseKeyRecord_Panel basePanel) {
+            this._mouseRecordPanel = basePanel;
+            MouseKeyRecorder._basePanel = basePanel;
+        }
 
         protected void InitializeComponent() {
             this.SuspendLayout();

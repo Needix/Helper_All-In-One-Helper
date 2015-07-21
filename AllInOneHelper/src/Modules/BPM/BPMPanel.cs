@@ -17,7 +17,6 @@ namespace AllInOneHelper.Modules.BPM {
 
         public BPMPanel(TabPage tabPage) : base(tabPage) { }
 
-        //TODO Implement visual BPM
         protected override void RegisterEvents() {
             _controller = new BPMController(this);
 
@@ -38,7 +37,7 @@ namespace AllInOneHelper.Modules.BPM {
                 radio.Invoke((MethodInvoker) delegate {
                     radio.Checked = !radio.Checked;
                 });
-            } catch (ObjectDisposedException) {} //HACK Object disposed
+            } catch (ObjectDisposedException) {}
         }
 
         public override IBaseController GetController() {

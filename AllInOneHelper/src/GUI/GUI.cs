@@ -45,7 +45,7 @@ namespace AllInOneHelper.GUI {
         }
 
         /*
-        //TODO Implement Registe/Deregister behaviour
+        //TODO Implement Register/Deregister behaviour
         public void RegisterModule(BasePanel module, TabPage page) {
             modules.Add(module);
 
